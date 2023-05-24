@@ -28,7 +28,7 @@ phases:
     commands:
       - npm install
       - ng build 
-      - aws s3 cp dist s3://your-bucket-name/ --recursive --exclude "*" --include "dist/*"
+      - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
 
 artifacts:
   files:
