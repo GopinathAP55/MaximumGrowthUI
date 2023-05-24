@@ -27,7 +27,7 @@ phases:
   build:
     commands:
       - npm install
-      - ng build --prod
+      - ng build 
       - aws s3 cp dist s3://your-bucket-name/ --recursive --exclude "*" --include "dist/*"
 
 artifacts:
