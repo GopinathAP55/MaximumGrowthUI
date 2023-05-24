@@ -24,21 +24,20 @@ phases:
     commands:
       # - npm install -g @angular/cli
 
-  build:
+   build:
     commands:
-      # - npm install
-      # - ng build 
-      # - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
+      - npm install
+      - ng build --prod
+      - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
 
-# artifacts:
-#   files:
-#     - '**/*'
-#   base-directory: 'dist'
 artifacts:
-  type: S3
-  name: MyArtifactName
-  location: maximumgrowth
-  path: dist/
+  files:
+    - 'dist/**/*'
+# artifacts:
+#   type: S3
+#   name: MyArtifactName
+#   location: maximumgrowth
+#   path: dist/
 
   name: AngularBuild
 
