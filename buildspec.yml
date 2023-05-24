@@ -32,7 +32,7 @@ phases:
 
 artifacts:
   files:
-    - 'dist/**/*' 
+    - 'dist/**/*'
 # artifacts:
 #   type: S3
 #   name: MyArtifactName
