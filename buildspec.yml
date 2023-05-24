@@ -28,15 +28,16 @@ phases:
     commands:
       - npm install
       - ng build 
-      - aws s3 cp dist/**/* s3://maximumgrowth/ --recursive --exclude "*" --include "dist/**/*"
+      - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
 
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
+  base-directory: 'dist'
 
   name: AngularBuild
 
-  discard-paths: yes
+
 
 
 
