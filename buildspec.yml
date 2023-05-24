@@ -32,7 +32,8 @@ phases:
 
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
+  base-directory: 'dist/mg-ui/'
 # artifacts:
 #   type: S3
 #   name: MyArtifactName
