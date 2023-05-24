@@ -30,10 +30,15 @@ phases:
       # - ng build 
       # - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
 
+# artifacts:
+#   files:
+#     - '**/*'
+#   base-directory: 'dist'
 artifacts:
-  files:
-    - '**/*'
-  base-directory: 'dist'
+  type: S3
+  name: MyArtifactName
+  location: maximumgrowth
+  path: dist/
 
   name: AngularBuild
 
