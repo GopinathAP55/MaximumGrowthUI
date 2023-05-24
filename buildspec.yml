@@ -32,7 +32,7 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
+    - 'dist/**/*'
   base-directory: 'dist'
 
   name: AngularBuild
