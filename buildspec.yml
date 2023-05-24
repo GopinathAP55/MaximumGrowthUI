@@ -22,13 +22,13 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - npm install -g @angular/cli
+      # - npm install -g @angular/cli
 
   build:
     commands:
-      - npm install
-      - ng build 
-      - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
+      # - npm install
+      # - ng build 
+      # - aws s3 cp dist s3://maximumgrowth/ --recursive --exclude "*" --include "dist/*"
 
 artifacts:
   files:
