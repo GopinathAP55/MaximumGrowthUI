@@ -28,7 +28,7 @@ constructor(private apiService : ApiServiceService){}
 ngOnInit(){
   this.apiService.getData().subscribe(
     (res:any)=>{
-      this.dataSource = res
+      this.dataSource = res.data
       console.log(res)
     },
     (error : any)=>{
