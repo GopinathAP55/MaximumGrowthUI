@@ -1,0 +1,34 @@
+<div class="input-container">
+
+    <div class="container ">
+        <h1 class="title">Phone Number Input</h1>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput [formControl]="phoneNumberFormControl" type="tel">
+          <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
+            Phone number is required
+          </mat-error>
+          <mat-error *ngIf="phoneNumberFormControl.hasError('pattern')">
+            Phone number should be 10 digits
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="otpSent" appearance="outline">
+            <mat-label>Enter OTP</mat-label>
+            <input matInput [formControl]="otpFormControl" type="tel">
+            <mat-error *ngIf="otpFormControl.hasError('required')">
+              OTP is required
+            </mat-error>
+            <mat-error *ngIf="otpFormControl.hasError('pattern')">
+              OTP should be 6 digits
+            </mat-error>
+          </mat-form-field>
+      
+        <button *ngIf="!otpSent" mat-raised-button color="primary" (click)="submit()">
+          Generate OTP
+        </button>
+        <button *ngIf="otpSent" mat-raised-button color="primary" (click)="submit()">
+            Verify OTP
+          </button>
+      </div>
+</div>
+  

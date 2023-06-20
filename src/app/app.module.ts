@@ -46,11 +46,15 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { TableComponent } from '../app/components/table/table.component'
+import { TableComponent } from '../app/components/table/table.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component'
 @NgModule({
   declarations: [
          AppComponent,
-         TableComponent
+         TableComponent,
+         LoginComponent,
+         DashboardComponent
          
        ],
   imports: [

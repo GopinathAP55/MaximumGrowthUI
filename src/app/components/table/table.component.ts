@@ -37,7 +37,7 @@ ngOnInit(){
     }
   )
 }
-displayedColumns: string[] = ['id', 'name', 'email', 'symbol'];
+displayedColumns: string[] = ['id', 'name'];
 dataSource =this.data;
 
 

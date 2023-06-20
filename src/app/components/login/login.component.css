@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .title {
+    margin-bottom: 1rem;
+  }
+  
+  .input-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    justify-content: center;
+  }
+  
