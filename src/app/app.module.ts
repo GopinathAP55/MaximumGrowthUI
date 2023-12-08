@@ -28,7 +28,7 @@
 // })
 // export class AppModule { }
  import { AppComponent } from './app.component';
-
+ import { AppRoutingModule } from './app-routing.module'
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,14 +41,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu'
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TableComponent } from '../app/components/table/table.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 @NgModule({
   declarations: [
          AppComponent,
@@ -58,6 +63,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
          
        ],
   imports: [
+    MatListModule,
+    MatSidenavModule,
+    MatMenuModule ,
+    MatToolbarModule,
+    AppRoutingModule,
+    MatIconModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

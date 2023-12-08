@@ -1,34 +1,34 @@
-<div class="input-container">
+<div class="login-container">
+  <form class="login-form" #loginForm="ngForm">
+    <h2 style="margin-left: 30%;">Maximum Growth</h2>
+    <mat-form-field>
+      <input matInput placeholder="Username" name="username" ngModel required>
+    </mat-form-field>
 
-    <div class="container ">
-        <h1 class="title">Phone Number Input</h1>
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput [formControl]="phoneNumberFormControl" type="tel">
-          <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
-            Phone number is required
-          </mat-error>
-          <mat-error *ngIf="phoneNumberFormControl.hasError('pattern')">
-            Phone number should be 10 digits
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field *ngIf="otpSent" appearance="outline">
-            <mat-label>Enter OTP</mat-label>
-            <input matInput [formControl]="otpFormControl" type="tel">
-            <mat-error *ngIf="otpFormControl.hasError('required')">
-              OTP is required
-            </mat-error>
-            <mat-error *ngIf="otpFormControl.hasError('pattern')">
-              OTP should be 6 digits
-            </mat-error>
-          </mat-form-field>
-      
-        <button *ngIf="!otpSent" mat-raised-button color="primary" (click)="submit()">
-          Generate OTP
-        </button>
-        <button *ngIf="otpSent" mat-raised-button color="primary" (click)="submit()">
-            Verify OTP
-          </button>
-      </div>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" name="password" ngModel required>
+    </mat-form-field>
+
+    <div *ngIf="loginForm.value.password">
+      <mat-form-field>
+        <input matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" ngModel required>
+        <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
+      <mat-form-field>
+        <input matInput placeholder="Enter OTP" name="otp" ngModel required>
+      </mat-form-field>
+    </div>
+
+    <div class="login-button">
+      <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.controls['otp']?.valid">Login</button>
+    </div>
+  </form>
 </div>
+
+
+
+<router-outlet></router-outlet>
   

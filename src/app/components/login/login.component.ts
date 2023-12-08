@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SignalService } from 'src/app/services/signal.service';
 import { ApiServiceService } from '../../services/api-service.service'
 
 
@@ -14,45 +15,17 @@ export class LoginComponent {
 
   otpSent  = false;
 
-  constructor(private apiService : ApiServiceService, private router : Router){}
+  constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService){}
 
-  phoneNumberFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('^[0-9]{10}$'), // Adjust the pattern as per your phone number format
-  ]);
+  otpGenerated: boolean = false;
 
-  otpFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('^[0-9]{6}$'), // Adjust the pattern as per your phone number format
-  ]);
-
-  submit(): void {
-    if (this.phoneNumberFormControl.valid && !this.otpSent) {
-
-      this.apiService.generateOTP(`+91${this.phoneNumberFormControl.value}`).subscribe(
-        (res:any)=>{
-          console.log((res))
-          this.otpSent = true
-        },
-        (error : any)=>{
-          console.log(error)
-
-        }
-      )
-      console.log('Phone number:', this.phoneNumberFormControl.value);
-    } else {
-      // Handle invalid form
-      this.apiService.verifyOtp(`${this.otpFormControl.value}`).subscribe(
-        (res:any)=>{
-          console.log((res))
-          this.router.navigateByUrl('dashboard')
-        },
-        (error : any)=>{
-          console.log(error)
-
-        }
-      )
-      console.log('otp:', this.otpFormControl.value);    }
+  generateOTP() {
+    // Logic to generate OTP and make the OTP input visible
+    this.otpGenerated = true;
   }
 
+  login() {
+    this.signalService.isLogin.set(true)
+    this.router.navigateByUrl('/dashboard')
+  }
 }
