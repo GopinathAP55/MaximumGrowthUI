@@ -53,13 +53,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { CreateAlgoComponent } from './components/create-algo/create-algo.component';
 
 @NgModule({
   declarations: [
          AppComponent,
          TableComponent,
          LoginComponent,
-         DashboardComponent
+         DashboardComponent,
+         CreateAlgoComponent
          
        ],
   imports: [

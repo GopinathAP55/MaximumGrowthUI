@@ -9,28 +9,26 @@ import { SignalService } from 'src/app/services/signal.service';
 })
 export class DashboardComponent {
   openBrokerPage =false
+  showFiller = false;
+  itemClicked=''
 
   constructor(public signalService : SignalService,private route : Router){
 
   }
 
   menuItemClicked(item: string) {
-    // Implement logic for the clicked item
+    this.itemClicked = item
     console.log('Clicked:', item);
     // Add your logic here, such as navigating to a route, performing an action, etc.
   }
 
   menuItemClickedSideNav(item: string) {
-    // Implement logic for the clicked item
     console.log('Clicked:', item);
-    // Add your logic here, such as navigating to a route, performing an action, etc.
   }
 
   // Function to toggle the side menu
   toggleMenu() {
-    // Logic to toggle the side menu
-    // Implement this based on your requirements
-    // Example: You can use ViewChild to toggle the sidenav
+  
   }
 
   logOut(){
