@@ -4,5 +4,20 @@
 }
 
 .example-full-width {
-    width: 70%;
+    width: 20%;
+    height: 20px;
   }
+ 
+
+.mat-button-toggle:hover {
+    background-color: transparent;
+    color:#673ab7 ;    
+}
+
+.mat-button-toggle-checked {
+    background-color:#673ab7;
+    color: white;
+}
+
+
+

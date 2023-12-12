@@ -15,7 +15,7 @@
     padding: 20px;
   }
 
-  .button-style {
+  .button-style:active {
     background-color: #673ab7;
     color: white;
   }

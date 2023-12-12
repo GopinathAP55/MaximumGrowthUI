@@ -1,32 +1,5 @@
-// import { NgModule } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-// import { AppRoutingModule } from './app-routing.module';
-// import { AppComponent } from './app.component';
-// import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-// import { MatSelectModule } from '@angular/material/select'
-// import { MatToolbarModule } from '@angular/material/toolbar'
-
-
-
-// @NgModule({
-//   declarations: [
-//     AppComponent,
-//   ],
-//   imports: [
-//     BrowserModule,
-//     BrowserAnimationsModule,
-//     AppRoutingModule,
-//     MatSelectModule,
-//     MatSlideToggleModule,
-//     MatToolbarModule
-//   ],
-//   providers: [],
-//   bootstrap: [AppComponent]
-// })
-// export class AppModule { }
+ import { MatSelectModule } from '@angular/material/select'
  import { AppComponent } from './app.component';
  import { AppRoutingModule } from './app-routing.module'
 
@@ -47,6 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
+
 import { TableComponent } from '../app/components/table/table.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
@@ -65,6 +42,8 @@ import { CreateAlgoComponent } from './components/create-algo/create-algo.compon
          
        ],
   imports: [
+    MatButtonToggleModule,
+    MatSelectModule,
     MatListModule,
     MatSidenavModule,
     MatMenuModule ,
