@@ -2,15 +2,19 @@
 
 <form  [formGroup]="createAlgo" (ngSubmit)="onSubmit()" class="example-form">
 
-    <div >
+  <div>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Algo Name</mat-label>
+      <input matInput  formControlName="algoName">
+    </mat-form-field>
+  </div>
 
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Algo Name</mat-label>
-          <input matInput  formControlName="algoName">
-        </mat-form-field>
+    <div style="margin-top: 20px;">
+
+       
 
 
-      <mat-form-field  appearance="outline" style="margin-left: 10px;margin-top: 10px;" >
+      <mat-form-field  appearance="outline" style="margin-top: 10px;" >
         <mat-label>Instrument</mat-label>
         <mat-select formControlName="selectedInstrument">
           <mat-option *ngFor="let option of instrumentArray" [value]="option">
@@ -61,14 +65,14 @@
 
   <mat-button-toggle-group style="margin-top: -10px;margin-left: 10px;"
    #group="matButtonToggleGroup" formControlName="buySell">
-    <mat-button-toggle class="mat-button-toggle1" value="buy">Buy</mat-button-toggle>
-    <mat-button-toggle class="mat-button-toggle1" value="sell">Sell</mat-button-toggle>
+    <mat-button-toggle class="mat-button-toggle1" value="Buy">Buy</mat-button-toggle>
+    <mat-button-toggle class="mat-button-toggle1" value="Sell">Sell</mat-button-toggle>
   </mat-button-toggle-group>
   
 
 <div>
 
-  <button style="margin-top: 10px;" mat-raised-button color="primary" type="submit" [disabled]="!createAlgo.valid">Add Leg</button>
+  <button style="margin-top: 10px;" mat-raised-button color="primary" type="submit" >Add Leg</button>
 </div>
 
   </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,6 +15,10 @@ export class CreateAlgoComponent implements OnInit  {
   strikeArray=['ATM','OTM']
 
 
+  
+  @Output() addLeg = new EventEmitter<any>()
+
+
   toggleValue: string = 'off';
 
 
@@ -24,12 +28,12 @@ export class CreateAlgoComponent implements OnInit  {
   ngOnInit() {
     this.createAlgo = this.formBuilder.group({
       algoName: ['', Validators.required],
-      selectedInstrument: ['', Validators.required],
-      selectedSegment:['',Validators.required],
-      optionValue:[],
-      buySell:[],
-      selectedStrike:['',Validators.required],
-      quantity:['',Validators.required],
+      selectedInstrument: ['Bank nifty', Validators.required],
+      selectedSegment:['Options',Validators.required],
+      optionValue:['CE'],
+      buySell:['Buy'],
+      selectedStrike:['ATM',Validators.required],
+      quantity:['1',Validators.required],
 
 
 
@@ -37,9 +41,11 @@ export class CreateAlgoComponent implements OnInit  {
     });
   }
 
+
   onSubmit(){
     if (this.createAlgo.valid) {
       console.log(this.createAlgo.value);
+      this.addLeg.emit(this.createAlgo.value)
       // You can send the form data to a backend or perform other actions here
     } else {
       // Handle invalid form

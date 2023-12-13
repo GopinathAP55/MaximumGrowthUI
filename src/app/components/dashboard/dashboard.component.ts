@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignalService } from 'src/app/services/signal.service';
+import { LegComponent } from '../leg/leg.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,8 @@ export class DashboardComponent {
   openBrokerPage =false
   showFiller = false;
   itemClicked=''
+  legValue
+  @ViewChild('legComponent', { read: ViewContainerRef }) legComponent: ViewContainerRef;
 
   constructor(public signalService : SignalService,private route : Router){
 
@@ -31,9 +34,27 @@ export class DashboardComponent {
   
   }
 
+  addLegComponent(event){
+    this.legValue = event
+    console.log(event)
+    const componentRef =  this.legComponent.createComponent(LegComponent);
+     componentRef.instance.legValue = event
+     componentRef.instance.deleteLeg.subscribe(()=>{
+      console.log('remove')
+      componentRef.destroy()
+     })
+
+     componentRef.instance.buySellValue.subscribe((val)=>{
+      componentRef.instance.legValue.buySell = val
+     })
+  }
+
+
+ 
   logOut(){
     this.signalService.isLogin.set(false)
     this.route.navigateByUrl('/login')
   }
+
 
 }

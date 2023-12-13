@@ -31,6 +31,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CreateAlgoComponent } from './components/create-algo/create-algo.component';
+import { LegComponent } from './components/leg/leg.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CreateAlgoComponent } from './components/create-algo/create-algo.compon
          TableComponent,
          LoginComponent,
          DashboardComponent,
-         CreateAlgoComponent
+         CreateAlgoComponent,
+         LegComponent
          
        ],
   imports: [

@@ -37,7 +37,8 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <app-create-algo *ngIf="itemClicked=='one'"></app-create-algo>
+    <app-create-algo  (addLeg)="addLegComponent($event)" *ngIf="itemClicked=='one'"></app-create-algo>
+    <div #legComponent ></div>
 
   </div>
 

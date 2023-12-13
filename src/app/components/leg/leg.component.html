@@ -1,0 +1,16 @@
+<div style="background-color: #e7e4e4;margin-top: 10px;">
+    
+
+<button (click)="toggle('buySell','Buy','Sell')">
+    {{ legValue.buySell }}
+  </button>
+
+  <button (click)="toggle('optionValue','CE','PE')">
+    {{ legValue.optionValue }}
+  </button>
+
+    <button (click)="delete()"
+     style="float: right;" type="button" mat-button >
+        <mat-icon style="color: #673ab7;">delete</mat-icon> 
+      </button>
+</div>
