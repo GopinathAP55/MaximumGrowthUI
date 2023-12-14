@@ -10,9 +10,11 @@ export class CreateAlgoComponent implements OnInit  {
 
   createAlgo: FormGroup;
 
-  instrumentArray=['Bank nifty','Fin nifty']
+  instrumentArray=['Banknifty','Finnifty','Sensex','Nifty','Midcpnifty']
   segmentArray=['Options','Futures']
   strikeArray=['ATM','OTM']
+  isMIS=['MIS','NRML']
+
 
 
   
@@ -28,12 +30,15 @@ export class CreateAlgoComponent implements OnInit  {
   ngOnInit() {
     this.createAlgo = this.formBuilder.group({
       algoName: ['', Validators.required],
-      selectedInstrument: ['Bank nifty', Validators.required],
+      selectedInstrument: ['Banknifty', Validators.required],
       selectedSegment:['Options',Validators.required],
       optionValue:['CE'],
       buySell:['Buy'],
       selectedStrike:['ATM',Validators.required],
-      quantity:['1',Validators.required],
+      quantity:[1,Validators.required],
+      isMIS:['MIS'],
+      legs:['Legs'],
+      specificStrikeSelection:['None']
 
 
 

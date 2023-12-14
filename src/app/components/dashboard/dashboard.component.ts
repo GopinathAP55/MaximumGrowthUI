@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignalService } from 'src/app/services/signal.service';
 import { LegComponent } from '../leg/leg.component';
@@ -13,6 +13,8 @@ export class DashboardComponent {
   showFiller = false;
   itemClicked=''
   legValue
+  dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
+
   @ViewChild('legComponent', { read: ViewContainerRef }) legComponent: ViewContainerRef;
 
   constructor(public signalService : SignalService,private route : Router){
@@ -38,15 +40,30 @@ export class DashboardComponent {
     this.legValue = event
     console.log(event)
     const componentRef =  this.legComponent.createComponent(LegComponent);
+    this.dynamicComponentRefs.push(componentRef)
      componentRef.instance.legValue = event
      componentRef.instance.deleteLeg.subscribe(()=>{
+
+      const index = this.dynamicComponentRefs.indexOf(componentRef);
+      if (index !== -1) {
+        componentRef.destroy();
+        this.dynamicComponentRefs.splice(index, 1);
+      }
       console.log('remove')
-      componentRef.destroy()
      })
 
      componentRef.instance.buySellValue.subscribe((val)=>{
-      componentRef.instance.legValue.buySell = val
+      componentRef.instance.legValue[val.buttonName] = val.labelValue 
+      this.getValuesFromInstance()
      })
+  }
+
+  getValuesFromInstance(){
+    this.dynamicComponentRefs.forEach((dynamicComponentRef, index) => {
+      const dynamicComponentInstance = dynamicComponentRef.instance;
+      const value = dynamicComponentInstance.legValue;
+      console.log(`Value from Dynamic Component ${index + 1}:`, value);
+    });
   }
 
 
