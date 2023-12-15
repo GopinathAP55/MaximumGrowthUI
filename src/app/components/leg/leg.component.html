@@ -1,53 +1,122 @@
-<div style="background-color:rgb(226 225 243)">
+<div  style="background-color:rgb(226 225 243)">
 
-    <div style="padding: 10px; margin-top: 10px;">
+  <div class="container-fluid">
+
+    <div class="row" style="padding: 10px; margin-top: 10px;">
         
-    
-    <button mat-raised-button  (click)="toggle('buySell','Buy','Sell')">
-        {{ legValue.buySell }}
-      </button>
-    
-      <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('optionValue','CE','PE')">
-        {{ legValue.optionValue }}
-      </button>
-
-      <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('isMIS','MIS','NRML')">
-        {{ legValue.isMIS }}
-      </button>
-
-      <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px">
-        <mat-select [(value)]="legValue.legs" >
-          <mat-option *ngFor="let option of legsArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field  appearance="outline" style="margin-left: 10px;width: 100px;">
-        <mat-select [(value)]="legValue.selectedStrike" >
-          <mat-option *ngFor="let option of strikeArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="col-md-7">
+  
+      <button mat-raised-button style="color: white;" [ngStyle]="{'background-color': legValue.buySell=='Buy' ? 'green' : 'rgb(226, 62, 62)'}"  (click)="toggle('buySell','Buy','Sell')">
+          {{ legValue.buySell }}
+        </button>
       
-      <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px;">
-        <mat-select (selectionChange)="onChangeInstrument($event)" [(value)]="legValue.selectedInstrument" >
-          <mat-option  *ngFor="let option of instrumentArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field style="margin-left: 10px;width: 100px;" appearance="outline" >
-        <input type="number" (keyup)="calculateQuantityBasedOnLots($event)" (mouseup)="calculateQuantityBasedOnLots($event)" matInput min="0"  [(ngModel)]="quantity">
-      </mat-form-field>
-      <span style="margin-left: 10px">({{calculatedQuantity}})</span>
-
-    
-        <button (click)="delete()"
-         style="margin-left: 80%;" type="button" mat-button >
-            <mat-icon style="color: #673ab7;">delete</mat-icon> 
-          </button>
+        <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('optionValue','CE','PE')">
+          {{ legValue.optionValue }}
+        </button>
+  
+        <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('isMIS','MIS','NRML')">
+          {{ legValue.isMIS }}
+        </button>
+  
+        <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px">
+          <mat-select (selectionChange)="onChangeLeg($event)" [(value)]="legValue.legs" >
+            <mat-option *ngFor="let option of legsArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field  appearance="outline" style="margin-left: 10px;width: 100px;">
+          <mat-select [(value)]="legValue.selectedStrike" >
+            <mat-option *ngFor="let option of strikeArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px;">
+          <mat-select (selectionChange)="onChangeInstrument($event)" [(value)]="legValue.selectedInstrument" >
+            <mat-option  *ngFor="let option of instrumentArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field style="margin-left: 10px;width: 100px;" appearance="outline" >
+          <input type="number" (keyup)="calculateQuantityBasedOnLots($event)" (mouseup)="calculateQuantityBasedOnLots($event)" matInput min="0"  [(ngModel)]="quantity">
+        </mat-form-field>
+        <span style="margin-left: 10px">({{calculatedQuantity}})</span>
     </div>
+  
+      <div class="col-md-4">
+        <div>
+
+          <mat-form-field  appearance="outline" style="margin-left: 10px;width: 120px;">
+            <mat-select (selectionChange)="onChangeTarget($event)" [(value)]="selectedTarget" >
+              <mat-option  *ngFor="let option of targetAndStopLossArray" [value]="option">
+               TGT: {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+          <mat-form-field  appearance="outline" style="margin-left: 10px;width: 120px;">
+            <mat-select (selectionChange)="onChangeStoploss($event)" [(value)]="selectedStoploss" >
+              <mat-option  *ngFor="let option of targetAndStopLossArray" [value]="option">
+               SL: {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  appearance="outline" style="margin-left: 10px;width: 130px;">
+            <mat-select (selectionChange)="onChangeTrailing($event)" [(value)]="trailing" >
+              <mat-option  *ngFor="let option of trailingArray" [value]="option">
+             TRL: {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  appearance="outline" style="margin-left: 10px;width: 130px;">
+            <mat-select (selectionChange)="onChangeSquareOff($event)" [(value)]="squareOff" >
+              <mat-option  *ngFor="let option of squareOffArray" [value]="option">
+              {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+        </div>
+
+        <div>
+          <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
+          <input type="number" (keyup)="manupulateData($event,'target')"  [disabled]="selectedTarget=='none'"  matInput min="0"  [(ngModel)]="target">
+        </mat-form-field>
+
+        <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
+          <input type="number" (keyup)="manupulateData($event,'stoploss')" [disabled]="selectedStoploss=='none'"  matInput min="0"  [(ngModel)]="stoploss">
+        </mat-form-field>
+
+        <mat-form-field style="margin-left: 10px;width: 60px;" appearance="outline" >
+          <input  type="number" (keyup)="manupulateData($event,'valueX')"  [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueX">
+        </mat-form-field>
+  
+        <mat-form-field style="margin-left: 5px;width: 60px;" appearance="outline" >
+          <input  type="number" (keyup)="manupulateData($event,'valueY')" [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueY">
+        </mat-form-field>
+        </div> 
+
+       
+      </div>
+
+     
+     
+  
+  <div class="col-md-1">
+  
+  <button (click)="delete()" type="button" mat-button >
+      <mat-icon style="color: #673ab7;">delete</mat-icon> 
+    </button>
+  </div>
+    
+    </div>
+  </div>
+
 </div>

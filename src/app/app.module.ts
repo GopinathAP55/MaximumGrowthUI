@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
@@ -32,6 +33,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CreateAlgoComponent } from './components/create-algo/create-algo.component';
 import { LegComponent } from './components/leg/leg.component';
+import { LegsSettingDialogComponent } from './components/legs-setting-dialog/legs-setting-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,10 +42,12 @@ import { LegComponent } from './components/leg/leg.component';
          LoginComponent,
          DashboardComponent,
          CreateAlgoComponent,
-         LegComponent
+         LegComponent,
+         LegsSettingDialogComponent
          
        ],
   imports: [
+    MatDialogModule,
     MatButtonToggleModule,
     MatSelectModule,
     MatListModule,

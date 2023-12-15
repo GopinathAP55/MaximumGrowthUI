@@ -14,6 +14,16 @@
     color:#673ab7 ;    
 }
 
+.buy.mat-button-toggle-checked {
+    background-color:green;
+    color: white;
+}
+
+.sell.mat-button-toggle-checked {
+    background-color:rgb(226, 62, 62);
+    color: white;
+}
+
 .mat-button-toggle-checked {
     background-color:#673ab7;
     color: white;
@@ -29,6 +39,10 @@
 }
 ::ng-deep .mat-mdc-form-field-flex {
     margin-top: -9px !important;
+}
+
+.buy:checked {
+    background-color: green;
 }
 
 

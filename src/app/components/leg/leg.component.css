@@ -15,4 +15,25 @@
 ::ng-deep .mat-input-element::-webkit-scrollbar {
     display: none; /* Hide scrollbar for WebKit (Chrome, Safari, etc.) */
   }
+
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+
+  .icon-size {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+  }
+
+
   

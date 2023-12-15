@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-leg',
@@ -33,6 +35,16 @@ export class LegComponent implements OnInit {
     "lotQuantity":75
   }]
 
+  targetAndStopLossArray =['none','%','pts','UL%','UL pts']
+  squareOffArray =['Square Off Leg','Square Off All']
+  squareOff:number
+
+  trailingArray=['none','%','pts']
+  trailing='none';
+
+  selectedTarget='none'
+  selectedStoploss = 'none'
+
 
   quantity;
   calculatedQuantity:number;
@@ -40,6 +52,16 @@ export class LegComponent implements OnInit {
    selectedInstrumentArray
 
   isOn: boolean = false;
+
+  target :number;
+  stoploss:number;
+  valueY :number;
+  valueX :number
+
+  constructor( public dialog : MatDialog ){
+
+  }
+
   ngOnInit() {
     console.log(this.legValue)
     this.quantity = this.legValue.quantity
@@ -78,6 +100,72 @@ export class LegComponent implements OnInit {
     this.legValue.selectedInstrument = event.value
     this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
+
+  }
+
+
+  onChangeLeg(event){
+    this.legValue.selectedLeg = event.value
+    const dialogRef = this.dialog.open(LegsSettingDialogComponent, {
+      width: '400px',
+      data: { 'label' : event.value}
+    });
+
+    
+    dialogRef.componentInstance.dialogValueEmitter.subscribe((emittedValue: string) => {
+      this.legValue.premium = parseInt(emittedValue)
+
+      console.log('Received value from dialog:', emittedValue);
+      // Do something with the received value
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      // Additional actions after the dialog is closed if needed
+    });
+  }
+
+  onChangeStoploss(event){
+    let stoplossValue = event.value
+    if(stoplossValue =='none'){
+      this.stoploss=0
+    }else{
+      this.legValue.selectedStopLoss =stoplossValue
+    }
+
+  }
+
+  onChangeTarget(event){
+    let targetValue = event.value
+    if(targetValue =='none'){
+      this.target=0
+    }else{
+      this.legValue.selectedTarget =targetValue
+
+    }
+  }
+
+  onChangeTrailing(event){
+    let trailingValue = event.value
+    if(trailingValue =='none'){
+      this.valueX=0
+      this.valueY=0
+
+    }else{
+      this.legValue.selectedTrail =trailingValue  
+     
+
+    }
+  }
+
+  manupulateData(event,label){
+    console.log(event)
+    console.log(label)
+    this.legValue[label]= parseInt(event.srcElement.value)
+    console.log(this.legValue)
+  }
+
+  onChangeSquareOff(event){
 
   }
 

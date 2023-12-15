@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Setting</h1>
+<div mat-dialog-content>
+    <h3>{{data.label}}</h3>
+  <mat-form-field appearance="outline" >
+    <input matInput [(ngModel)]="inputValue">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClickDone()">Done</button>
+  <button mat-button (click)="onClickNo()">Close</button>
+
+</div>
