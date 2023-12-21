@@ -2,7 +2,7 @@
 <div mat-dialog-content>
     <h3>{{data.label}}</h3>
   <mat-form-field appearance="outline" >
-    <input matInput [(ngModel)]="inputValue">
+    <input type="number" min="0" matInput [(ngModel)]="inputValue">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

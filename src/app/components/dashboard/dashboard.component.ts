@@ -36,35 +36,7 @@ export class DashboardComponent {
   
   }
 
-  addLegComponent(event){
-    this.legValue = event
-    console.log(event)
-    const componentRef =  this.legComponent.createComponent(LegComponent);
-    this.dynamicComponentRefs.push(componentRef)
-     componentRef.instance.legValue = event
-     componentRef.instance.deleteLeg.subscribe(()=>{
-
-      const index = this.dynamicComponentRefs.indexOf(componentRef);
-      if (index !== -1) {
-        componentRef.destroy();
-        this.dynamicComponentRefs.splice(index, 1);
-      }
-      console.log('remove')
-     })
-
-     componentRef.instance.buySellValue.subscribe((val)=>{
-      componentRef.instance.legValue[val.buttonName] = val.labelValue 
-      this.getValuesFromInstance()
-     })
-  }
-
-  getValuesFromInstance(){
-    this.dynamicComponentRefs.forEach((dynamicComponentRef, index) => {
-      const dynamicComponentInstance = dynamicComponentRef.instance;
-      const value = dynamicComponentInstance.legValue;
-      console.log(`Value from Dynamic Component ${index + 1}:`, value);
-    });
-  }
+  
 
 
  

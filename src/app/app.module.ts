@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDatepickerToggle } from '@angular/material/datepicker';
 
 
 import { TableComponent } from '../app/components/table/table.component';
@@ -35,6 +36,7 @@ import { CreateAlgoComponent } from './components/create-algo/create-algo.compon
 import { LegComponent } from './components/leg/leg.component';
 import { LegsSettingDialogComponent } from './components/legs-setting-dialog/legs-setting-dialog.component';
 
+
 @NgModule({
   declarations: [
          AppComponent,
@@ -44,8 +46,7 @@ import { LegsSettingDialogComponent } from './components/legs-setting-dialog/leg
          CreateAlgoComponent,
          LegComponent,
          LegsSettingDialogComponent
-         
-       ],
+        ],
   imports: [
     MatDialogModule,
     MatButtonToggleModule,

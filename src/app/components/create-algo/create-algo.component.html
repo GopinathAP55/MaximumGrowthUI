@@ -1,78 +1,253 @@
 <h2 style="margin-left: 1%;">Create New Algo</h2>
 
-<form  [formGroup]="createAlgo" (ngSubmit)="onSubmit()" class="example-form">
+<form [formGroup]="createAlgo" (ngSubmit)="onSubmit()" class="example-form">
 
   <div>
     <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>Algo Name</mat-label>
-      <input matInput  formControlName="algoName">
+      <input matInput formControlName="algoName">
     </mat-form-field>
   </div>
 
-    <div style="margin-top: 20px;">
-
-       
+  <div style="margin-top: 20px;">
 
 
-      <mat-form-field  appearance="outline" style="margin-top: 10px;" >
-        <mat-label>Instrument</mat-label>
-        <mat-select formControlName="selectedInstrument">
-          <mat-option *ngFor="let option of instrumentArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
 
-      <mat-form-field  appearance="outline" style="margin-left: 10px;">
-        <mat-label>Segment</mat-label>
-        <mat-select formControlName="selectedSegment">
-          <mat-option *ngFor="let option of segmentArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-top: 10px;">
+      <mat-label>Instrument</mat-label>
+      <mat-select formControlName="selectedInstrument">
+        <mat-option *ngFor="let option of instrumentArray" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
-      <mat-form-field  appearance="outline" style="margin-left: 10px;">
-        <mat-label>Strike</mat-label>
-        <mat-select formControlName="selectedStrike">
-          <mat-option *ngFor="let option of strikeArray" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-left: 10px;">
+      <mat-label>Segment</mat-label>
+      <mat-select formControlName="selectedSegment">
+        <mat-option *ngFor="let option of segmentArray" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
-      <mat-form-field style="margin-left: 10px;width: 100px;" appearance="outline" >
-        <mat-label>Quantity(lots)</mat-label>
-        <input type="number" matInput min="0" formControlName="quantity">
-      </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-left: 10px;">
+      <mat-label>Strike</mat-label>
+      <mat-select formControlName="selectedStrike">
+        <mat-option *ngFor="let option of strikeArray" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      
-      
+
+    <mat-form-field style="margin-left: 10px;width: 110px;" appearance="outline">
+      <mat-label>Quantity(lots)</mat-label>
+      <input type="number" matInput min="0" formControlName="quantity">
+    </mat-form-field>
+
+
+
+  </div>
+  <mat-button-toggle-group style="margin-top: -10px;" #group="matButtonToggleGroup" formControlName="optionValue">
+    <mat-button-toggle class="options" value="CE">CE</mat-button-toggle>
+    <mat-button-toggle class="options" value="PE">PE</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-button-toggle-group style="margin-top: -10px;margin-left: 10px;" #group="matButtonToggleGroup"
+    formControlName="buySell">
+    <mat-button-toggle class="buy" value="Buy">Buy</mat-button-toggle>
+    <mat-button-toggle class="sell" value="Sell">Sell</mat-button-toggle>
+  </mat-button-toggle-group>
+
+
+  <div>
+
+    <button style="margin-top: 10px;" type="button" (click)="addLegComponent()" mat-raised-button color="primary">Add Leg</button>
+  </div>
+  
+  <div #legComponent  (addLeg)="addLegComponent()" ></div>
+
+  <button style="margin-top: 10px;" mat-raised-button color="primary" >Spot</button>
+
+    <mat-button-toggle-group style="margin-top: 10px;margin-left: 10px;;" #group="matButtonToggleGroup"
+      formControlName="intradayOrPosition">
+      <mat-button-toggle value="intraday">Intraday</mat-button-toggle>
+      <mat-button-toggle value="positional">Positional</mat-button-toggle>
+    </mat-button-toggle-group>
+  
+  
+    <mat-form-field *ngIf="isPosition" appearance="outline" style="margin-left: 10px;">
+      <mat-label>Duration</mat-label>
+      <mat-select formControlName="selectedDuration">
+        <mat-option *ngFor="let option of durationArray" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="margin-top: 10px;">
+  
+      <label>Start Time</label>
+      <label style="margin-left: 225px;">End Time</label>
+      <label *ngIf="isPosition" style="margin-left: 225px;">
+        Check condition next day after
+        </label>
+        <label *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST' && isPosition " style="margin-left: 97px;">
+         Days Before expiry
+          </label>
+
     </div>
 
-    
+
+    <div style="display: flex;">
+
      
-
-        <mat-button-toggle-group style="margin-top: -10px;"
-         #group="matButtonToggleGroup" formControlName="optionValue">
-          <mat-button-toggle class="options" value="CE">CE</mat-button-toggle>
-          <mat-button-toggle class="options" value="PE">PE</mat-button-toggle>
-        </mat-button-toggle-group>
-      
-
-  <mat-button-toggle-group style="margin-top: -10px;margin-left: 10px;"
-   #group="matButtonToggleGroup" formControlName="buySell">
-    <mat-button-toggle class="buy"   value="Buy">Buy</mat-button-toggle>
-    <mat-button-toggle class="sell"   value="Sell">Sell</mat-button-toggle>
-  </mat-button-toggle-group>
+      <div >
+        <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
+          <input type="number" min="09" max="15" matInput formControlName="startHour">
+        </mat-form-field>
   
+        <mat-form-field  style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" min="00" max="59" matInput formControlName="startMin">
+        </mat-form-field>
+  
+        <mat-form-field style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" maxlength="2" matInput formControlName="startSec">
+        </mat-form-field>
+      </div>
 
-<div>
+      
+      <div  style="margin-left: 100px;">
+        <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
+          <input type="number" min="09" max="15" matInput formControlName="endHour">
+        </mat-form-field>
+  
+        <mat-form-field  style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" min="00" max="59" matInput formControlName="endMin">
+        </mat-form-field>
+  
+        <mat-form-field style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" maxlength="2" matInput formControlName="endSec">
+        </mat-form-field>
+      </div>
 
-  <button style="margin-top: 10px;" mat-raised-button color="primary" type="submit" >Add Leg</button>
-</div>
+      <div  *ngIf="isPosition" style="margin-left: 100px;">
+        <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
+          <input type="number" min="09" max="15" matInput formControlName="nextDayHour">
+        </mat-form-field>
+  
+        <mat-form-field  style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" min="00" max="59" matInput formControlName="nextDayMin">
+        </mat-form-field>
+  
+        <mat-form-field style="width: 60px;margin-left: 5px;" appearance="outline" class="example-full-width">
+          <input type="number" maxlength="2" matInput formControlName="nextDaySec">
+        </mat-form-field>
+      </div>
+  
+      <div  *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST'  && isPosition " style="margin-left: 100px;">
+        <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
+          <input type="number"  matInput formControlName="daysBeforeExpiry">
+        </mat-form-field>
+  
+       
+      </div>    
+    </div>
+    <h4 style="margin-top: 30px;"></h4>
+    <hr  style="margin-top: 10px;">
+   
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div>
 
-  </form>
+            <label >MTM Target</label>
+          </div>
+      <mat-form-field  appearance="outline" style="width: 300px;">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="selectedMTM">
+          <mat-option *ngFor="let option of mtmArray" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field   style="margin-left: 100px; width: 100px;" appearance="outline" class="example-full-width">
+        <mat-label>Value</mat-label>
+        <input  type="number"  matInput formControlName="mtmValue">
+      </mat-form-field>
+      <div>
+
+        <mat-form-field  appearance="outline" style="width: 300px;">
+          <mat-label>Action</mat-label>
+          <mat-select formControlName="selectedAction">
+            <mat-option *ngFor="let option of mtmActionArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col">
+      <div>
+
+        <label >MTM Stoploss</label>
+      </div>
+
+      <mat-form-field  appearance="outline" style="width: 300px;">
+        <mat-label>Fixed Stoploss</mat-label>
+        <mat-select formControlName="mtmFixedStoploss">
+          <mat-option *ngFor="let option of mtmArray" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    
+
+      <mat-form-field   style="margin-left: 100px; width: 100px;" appearance="outline" class="example-full-width">
+        <mat-label>Value</mat-label>
+        <input type="number"   matInput formControlName="mtmStoplossValue">
+      </mat-form-field>
+      <div>
+
+        <mat-form-field  appearance="outline" style="width: 300px;">
+          <mat-label>Action</mat-label>
+          <mat-select formControlName="selectedStoplossAction">
+            <mat-option *ngFor="let option of mtmActionArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div>
+        <mat-form-field  appearance="outline" style="width: 300px;">
+          <mat-label>Profit lock and Trailing stoploss</mat-label>
+          <mat-select formControlName="trailingStoploss">
+            <mat-option *ngFor="let option of trailingStoplossArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+
+    <hr  style="margin-top: 10px;">
+
+    <div>
+      <button [disabled]="createAlgo.invalid" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Save Settings</button>
+
+    </div>
+
+</form>

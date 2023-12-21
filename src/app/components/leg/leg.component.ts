@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class LegComponent implements OnInit {
 
-  @Input() legValue;
+   legValue;
   @Output() deleteLeg: EventEmitter<any> = new EventEmitter<any>();
   @Output() buySellValue: EventEmitter<any> = new EventEmitter<any>();
   legsArray = ['Legs', 'Premium Close', 'Premium > than', 'Premium < than', 'ATM%', 'Straddle Width', 'Straddle Premium']
@@ -66,8 +66,7 @@ export class LegComponent implements OnInit {
     console.log(this.legValue)
     this.quantity = this.legValue.quantity
 
-    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
-    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.legValue.quantity
+   
 
   }
 

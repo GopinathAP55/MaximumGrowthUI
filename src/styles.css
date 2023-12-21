@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+::ng-deep .mat-input-element::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit (Chrome, Safari, etc.) */
+  }
+
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }

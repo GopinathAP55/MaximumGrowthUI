@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,8 @@ import { Injectable, signal } from '@angular/core';
 export class SignalService {
 
   public isLogin = signal(false)
+
+  public formValue= signal('')
 
 
   constructor() { }
