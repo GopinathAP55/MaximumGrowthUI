@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class LegComponent implements OnInit {
 
    legValue;
+  @Output() cloneLeg: EventEmitter<any> = new EventEmitter<any>();
+
   @Output() deleteLeg: EventEmitter<any> = new EventEmitter<any>();
   @Output() buySellValue: EventEmitter<any> = new EventEmitter<any>();
   legsArray = ['Legs', 'Premium Close', 'Premium > than', 'Premium < than', 'ATM%', 'Straddle Width', 'Straddle Premium']
@@ -164,6 +166,10 @@ export class LegComponent implements OnInit {
     console.log(this.legValue)
   }
 
+  clone(){
+    this.cloneLeg.emit()
+
+  }
   onChangeSquareOff(event){
 
   }

@@ -14,3 +14,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .example-margin {
+    margin: 0 12px;
+  }
+  
+
+  .mdc-form-field>label {
+    margin-top: 10px;
+  }

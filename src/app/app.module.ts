@@ -21,9 +21,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 import { TableComponent } from '../app/components/table/table.component';
@@ -48,6 +51,8 @@ import { LegsSettingDialogComponent } from './components/legs-setting-dialog/leg
          LegsSettingDialogComponent
         ],
   imports: [
+    MatRadioModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatButtonToggleModule,
     MatSelectModule,

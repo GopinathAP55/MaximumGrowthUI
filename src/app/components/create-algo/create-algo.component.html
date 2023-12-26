@@ -52,12 +52,12 @@
 
 
   </div>
-  <mat-button-toggle-group style="margin-top: -10px;" #group="matButtonToggleGroup" formControlName="optionValue">
+  <mat-button-toggle-group  appearance="legacy" style="margin-top: -10px;" #group="matButtonToggleGroup" formControlName="optionValue">
     <mat-button-toggle class="options" value="CE">CE</mat-button-toggle>
     <mat-button-toggle class="options" value="PE">PE</mat-button-toggle>
   </mat-button-toggle-group>
 
-  <mat-button-toggle-group style="margin-top: -10px;margin-left: 10px;" #group="matButtonToggleGroup"
+  <mat-button-toggle-group appearance="legacy" style="margin-top: -10px;margin-left: 10px;" #group="matButtonToggleGroup"
     formControlName="buySell">
     <mat-button-toggle class="buy" value="Buy">Buy</mat-button-toggle>
     <mat-button-toggle class="sell" value="Sell">Sell</mat-button-toggle>
@@ -69,11 +69,15 @@
     <button style="margin-top: 10px;" type="button" (click)="addLegComponent()" mat-raised-button color="primary">Add Leg</button>
   </div>
   
-  <div #legComponent  (addLeg)="addLegComponent()" ></div>
+  <div #legComponent  (addLeg)="addLegComponent()" (cloneLeg)="clone()"></div>
 
-  <button style="margin-top: 10px;" mat-raised-button color="primary" >Spot</button>
 
-    <mat-button-toggle-group style="margin-top: 10px;margin-left: 10px;;" #group="matButtonToggleGroup"
+  <hr  style="margin-top: 10px;">
+
+
+  <button  mat-raised-button  >Spot</button>
+
+    <mat-button-toggle-group appearance="legacy" style="margin-top: 10px;margin-left: 10px;;" #group="matButtonToggleGroup"
       formControlName="intradayOrPosition">
       <mat-button-toggle value="intraday">Intraday</mat-button-toggle>
       <mat-button-toggle value="positional">Positional</mat-button-toggle>
@@ -158,14 +162,17 @@
       </div>    
     </div>
     <h4 style="margin-top: 30px;"></h4>
+
+
+    <!-- MTM Target -->
     <hr  style="margin-top: 10px;">
    
     <div class="container-fluid">
       <div class="row">
         <div class="col">
           <div>
+            <label style="font-style: italic;margin-left: -12px;"><b>MTM TARGET</b> </label>
 
-            <label >MTM Target</label>
           </div>
       <mat-form-field  appearance="outline" style="width: 300px;">
         <mat-label>Type</mat-label>
@@ -182,7 +189,7 @@
       </mat-form-field>
       <div>
 
-        <mat-form-field  appearance="outline" style="width: 300px;">
+        <mat-form-field  appearance="outline" style="width: 60%;">
           <mat-label>Action</mat-label>
           <mat-select formControlName="selectedAction">
             <mat-option *ngFor="let option of mtmActionArray" [value]="option">
@@ -195,8 +202,8 @@
 
     <div class="col">
       <div>
+        <label style="font-style: italic;"><b>MTM STOPLOSS</b> </label>
 
-        <label >MTM Stoploss</label>
       </div>
 
       <mat-form-field  appearance="outline" style="width: 300px;">
@@ -216,7 +223,7 @@
       </mat-form-field>
       <div>
 
-        <mat-form-field  appearance="outline" style="width: 300px;">
+        <mat-form-field  appearance="outline" style="width: 60%;">
           <mat-label>Action</mat-label>
           <mat-select formControlName="selectedStoplossAction">
             <mat-option *ngFor="let option of mtmActionArray" [value]="option">
@@ -228,7 +235,7 @@
       </div>
 
       <div>
-        <mat-form-field  appearance="outline" style="width: 300px;">
+        <mat-form-field  appearance="outline" style="width: 60%;">
           <mat-label>Profit lock and Trailing stoploss</mat-label>
           <mat-select formControlName="trailingStoploss">
             <mat-option *ngFor="let option of trailingStoplossArray" [value]="option">
@@ -237,13 +244,261 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div>
+        <mat-form-field *ngIf="createAlgo.get('trailingStoploss').value !=='none'" appearance="outline" style="width: 60%;">
+          <mat-label>Value</mat-label>
+          <mat-select formControlName="mtmStoplossType">
+            <mat-option *ngFor="let option of mtmArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+      </div>
+      <div>
+        <mat-form-field  *ngIf="createAlgo.get('trailingStoploss').value =='Trailing Stoploss'"  style=" width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label> profit by (X)</mat-label>
+          <input type="number"   matInput formControlName="mtmStoplossX">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAlgo.get('trailingStoploss').value =='Trailing Stoploss'"   style="margin-left: 30px; width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label>Trail stoploss by(Y)</mat-label>
+          <input type="number"   matInput formControlName="mtmStoplossY">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field  *ngIf="createAlgo.get('trailingStoploss').value =='Lock Profit' || createAlgo.get('trailingStoploss').value =='Lock & Trail Profit'"  style=" width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label>profit Reaches(X)</mat-label>
+          <input type="number"   matInput formControlName="profitReachesX">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAlgo.get('trailingStoploss').value =='Lock Profit' || createAlgo.get('trailingStoploss').value =='Lock & Trail Profit'"   style="margin-left: 30px; width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label>Lock Profit(Y)</mat-label>
+          <input type="number"   matInput formControlName="lockProfitY">
+        </mat-form-field>
+      </div>
+      
+      <div>
+        <mat-form-field  *ngIf="createAlgo.get('trailingStoploss').value =='Trail Profit' || createAlgo.get('trailingStoploss').value =='Lock & Trail Profit' "  style=" width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label>For every increase in profit by (A)</mat-label>
+          <input type="number"   matInput formControlName="trailProfitA">
+        </mat-form-field>
+
+        <mat-form-field [ngStyle]="createAlgo.get('trailingStoploss').value =='Lock & Trail Profit' ? {'margin-top': '20px' } : {} " *ngIf="createAlgo.get('trailingStoploss').value =='Trail Profit' || createAlgo.get('trailingStoploss').value =='Lock & Trail Profit'"   style="margin-left: 30px; width: 28%;" appearance="outline" class="example-full-width">
+          <mat-label>Trail minimum profit by (B)</mat-label>
+          <input type="number"   matInput formControlName="trailProfitB">
+        </mat-form-field>
+      </div>
     </div>
     </div>
 
   </div>
 
 
+  <!-- Premium Matching -->
+
+
+
     <hr  style="margin-top: 10px;">
+   <label style="font-style: italic;"><b>PREMIUM MATCHING</b> </label>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col"> 
+          <mat-checkbox (change)="onChangeCheckbox('isNoMatchingOfPremium')"  class="example-margin" [color]="checkboxColor" formControlName="isNoMatchingOfPremium" >No matching of premiums</mat-checkbox>       
+        </div>
+        <div class="col"> 
+          <mat-checkbox (change)="onChangeCheckbox('isMatchPremium')"   [color]="checkboxColor"  formControlName="isMatchPremium" >Match premiums with maximum difference</mat-checkbox>    
+          <div>
+            <mat-form-field  *ngIf="createAlgo.get('isMatchPremium').value" style="margin-left: 10px;width: 75%;" appearance="outline" >
+              <input  type="number"  matInput formControlName="maximumDifferenceValue">
+            </mat-form-field>
+          </div>      
+        </div>
+        <div class="col"> 
+         <mat-checkbox (change)="onChangeCheckbox('isPremiumCloseTo')"  [color]="checkboxColor" formControlName="isPremiumCloseTo" >Premium close to</mat-checkbox>
+         <div>
+           <mat-form-field  *ngIf="createAlgo.get('isPremiumCloseTo').value" style="margin-left: 10px;width: 75%;" appearance="outline" >
+            <input  type="number"  matInput formControlName="premiumCloseToValue">
+          </mat-form-field>
+         </div>
+        </div>
+        <div class="col">
+          <mat-checkbox (change)="onChangeCheckbox('isPremiumRange')"  [color]="checkboxColor" formControlName="isPremiumRange" >Premium range</mat-checkbox>
+          <div>
+            <mat-form-field *ngIf="createAlgo.get('isPremiumRange').value"  style="margin-left: 10px;width: 40%;" appearance="outline" >
+              <input  type="number"  matInput formControlName="permiumRangeOneValue">
+            </mat-form-field>
+            <mat-form-field *ngIf="createAlgo.get('isPremiumRange').value" style="margin-left: 10px;width: 40%;" appearance="outline" >
+              <input type="number"  matInput formControlName="permiumRangeTwoValue">
+            </mat-form-field>
+          </div>
+          </div>
+      </div>
+    </div>
+
+
+<!-- advanced settings -->
+    
+    <hr  style="margin-top: 10px;">
+   <label style="font-style: italic;"><b>ADVANCED SETTINGS</b> </label>
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+
+        <mat-form-field  appearance="outline" style="width: 20%;">
+          <mat-label>Entry order type</mat-label>
+          <mat-select formControlName="entryOrderType">
+            <mat-option *ngFor="let option of entryOrderTypeArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAlgo.get('entryOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" appearance="outline" style="margin-left: 10px; width: 20%;">
+          <mat-label>Trigger & Limit price buffer in</mat-label>
+          <mat-select formControlName="pointsOrPercentage">
+            <mat-option *ngFor="let option of pointsOrPercentageArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="createAlgo.get('entryOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Trigger & Limit price buffer value</mat-label>
+          <input  type="number"  matInput formControlName="entryBufferIn">
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="createAlgo.get('entryOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Entry with Market order if order Open for (N) secs:
+          </mat-label>
+          <input  type="number"  matInput formControlName="entryBufferValue">
+        </mat-form-field>
+        
+
+       
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col">
+
+        <mat-form-field  appearance="outline" style="width: 20%;">
+          <mat-label>Exit order type</mat-label>
+          <mat-select formControlName="exitOrderType">
+            <mat-option *ngFor="let option of entryOrderTypeArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field *ngIf="createAlgo.get('exitOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" appearance="outline" style="margin-left: 10px; width: 20%;">
+          <mat-label>Trigger & Limit price buffer in</mat-label>
+          <mat-select formControlName="pointsOrPercentage">
+            <mat-option *ngFor="let option of pointsOrPercentageArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field  *ngIf="createAlgo.get('exitOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Trigger & Limit price buffer value</mat-label>
+          <input  type="number"  matInput formControlName="exitBufferIn">
+        </mat-form-field>
+  
+        <mat-form-field  *ngIf="createAlgo.get('exitOrderType').value =='Limit(L)/Stoploss limit(SL-L)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Exit with Market order if order Open for (N) secs:
+          </mat-label>
+          <input  type="number"  matInput formControlName="exitBufferValue">
+        </mat-form-field>
+
+        <!-- market -->
+        <mat-form-field  *ngIf="createAlgo.get('exitOrderType').value =='Market(M)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>SL placement delay (individual leg)</mat-label>
+          <input  type="number"  matInput formControlName="exitPlacementDelayLeg">
+        </mat-form-field>
+  
+        <mat-form-field  *ngIf="createAlgo.get('exitOrderType').value =='Market(M)'" style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>SL placement delay (MTM SL):
+          </mat-label>
+          <input  type="number"  matInput formControlName="exitPlacementDelaySL">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field  appearance="outline" style="width: 20%;">
+          <mat-label>Entry Order Delay</mat-label>
+          <mat-select formControlName="entryOrderDelay">
+            <mat-option *ngFor="let option of delayArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field   style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Delay by sec</mat-label>
+          <input  type="number"  matInput formControlName="entryDelayValue">
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline" style="margin-left: 10px;width: 20%;">
+          <mat-label>Exit Order Delay</mat-label>
+          <mat-select formControlName="exitOrderDelay">
+            <mat-option *ngFor="let option of delayArray" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="margin-left: 10px;width: 20%;" appearance="outline" >
+          <mat-label>Delay by sec</mat-label>
+          <input  type="number"  matInput formControlName="exitDelayValue">
+        </mat-form-field>
+      </div>
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col">
+      <mat-form-field  appearance="outline" style="margin-left: 10px;width: 20%;">
+        <mat-label>Calculate entry from</mat-label>
+        <mat-select formControlName="calcEntry">
+          <mat-option *ngFor="let option of entryArray " [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field  appearance="outline" style="margin-left: 10px;width: 20%;">
+        <mat-label>Calculate exit from</mat-label>
+        <mat-select formControlName="calcExit">
+          <mat-option *ngFor="let option of exitArray" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="margin-left: 10px;width: 20%;" appearance="outline" >
+        <mat-label>Trailing Frequency Interval(sec)</mat-label>
+        <input  type="number"  matInput formControlName="trailingFrequencyInterval">
+      </mat-form-field>
+    </div>
+
+   </div>
+
+   <div class="row">
+    <div class="col">
+      <label >Auto exit on margin error:</label>
+      <div>
+
+        <mat-checkbox   class="example-margin" [color]="checkboxColor" formControlName="isExit" >Exit all open positions</mat-checkbox>       
+      </div>
+    </div>
+   </div>
 
     <div>
       <button [disabled]="createAlgo.invalid" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Save Settings</button>

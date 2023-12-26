@@ -19,10 +19,17 @@ export class CreateAlgoComponent implements OnInit  {
   durationArray=['STBT/BTST','(N) days before expiry']
   mtmArray=['none','MTM in percentage','MTM in total amount']
   mtmActionArray=['Square Off All Positions']
-  trailingStoplossArray=['none','Trailing Stoploss','Lock Profit','Trail Profit']
+  trailingStoplossArray=['none','Trailing Stoploss','Lock Profit','Trail Profit','Lock & Trail Profit']
   dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
-  showLeg =false
+  checkboxArray = ['isNoMatchingOfPremium','isPremiumRange','isPremiumCloseTo','isMatchPremium']
+  entryOrderTypeArray=['Market(M)','Limit(L)/Stoploss limit(SL-L)']
+  pointsOrPercentageArray=['Points','Percentage']
+  delayArray=['no delay','Delay entry of buy position','Delay entry of buy position']
+  entryArray=['Average entry price','LTP']
+  exitArray=['Average exit price','LTP']
 
+  showLeg =false
+  checkboxForm: FormGroup;
   legsArray=[]
   @ViewChild('legComponent', { read: ViewContainerRef }) legComponent: ViewContainerRef;
   
@@ -30,7 +37,7 @@ export class CreateAlgoComponent implements OnInit  {
 
 
   toggleValue: string = 'off';
-
+  checkboxColor ='primary'
 
   constructor(private formBuilder: FormBuilder){
   }
@@ -50,6 +57,8 @@ export class CreateAlgoComponent implements OnInit  {
       intradayOrPosition:['intraday'],
       selectedDuration:['STBT/BTST'],
       spot :['Spot'],
+
+      //start time end time variables
       startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
       startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
       startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
@@ -62,6 +71,8 @@ export class CreateAlgoComponent implements OnInit  {
       
       daysBeforeExpiry:['0',[Validators.required, Validators.min(0), Validators.max(5),Validators.maxLength(1)]],
 
+      //mtm variables
+
       selectedMTM:['none'],
       mtmFixedStoploss:['none'],
       mtmValue: new FormControl({value: '', disabled: true}, Validators.required),
@@ -69,10 +80,53 @@ export class CreateAlgoComponent implements OnInit  {
 
       mtmStoplossValue: new FormControl({value: '', disabled: true}, Validators.required),
       selectedStoplossAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
-      trailingStoploss:['none']
+      trailingStoploss:['none'],
+      mtmStoplossType:['MTM in percentage'],
+      mtmStoplossX:[0],
+      mtmStoplossY:[0],
+      lockProfitY:[0],
+      profitReachesX:[0],
+      trailProfitA:[0],
+      trailProfitB:[0],
+
+      //primium matchting variables
+      isNoMatchingOfPremium:[true],
+      isPremiumRange:[false],
+      isPremiumCloseTo:[false],
+      isMatchPremium:[false],
+
+      maximumDifferenceValue:['',Validators.required],
+      premiumCloseToValue: ['',Validators.required],
+      permiumRangeOneValue:['',Validators.required],
+      permiumRangeTwoValue:['',Validators.required],
+
+      //advanced settings
+      entryOrderType:['Market(M)'],
+      pointsOrPercentage:['Points'],
+      entryBufferIn:[],
+      entryBufferValue:[0],
+      exitOrderType:['Market(M)'],
+      exitBufferIn:[],
+      exitBufferValue:[0],
+      exitPlacementDelaySL:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      exitPlacementDelayLeg:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+
+
+      entryOrderDelay:['no delay'],
+      entryDelayValue:[0,[Validators.required, Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+
+      exitDelayValue:[0,[Validators.required, Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+
+      exitOrderDelay:['no delay'],
+      calcEntry:['Average entry price'],
+      calcExit:['Average exit price'],
+      trailingFrequencyInterval:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      isExit:[false]
 
       
     });
+
+
 
     this.createAlgo.get('intradayOrPosition').valueChanges.subscribe((value) => {
       console.log('Value changed:', value);
@@ -105,6 +159,10 @@ export class CreateAlgoComponent implements OnInit  {
       }
     });
 
+
+
+    //premuim matching
+   
   }
 
   addLegComponent(){
@@ -127,6 +185,16 @@ export class CreateAlgoComponent implements OnInit  {
       componentRef.instance.legValue[val.buttonName] = val.labelValue 
      // this.getValuesFromInstance()
      })
+     componentRef.instance.cloneLeg.subscribe(()=>{
+      const index = this.dynamicComponentRefs.indexOf(componentRef);
+      if (index !== -1) {
+        const componentRefClone =  this.legComponent.createComponent(LegComponent);
+        componentRefClone.instance.legValue =  componentRef.instance.legValue
+        this.dynamicComponentRefs.push(componentRefClone)
+      }
+      this.clone()
+     })
+
   }
 
   getValuesFromInstance(){
@@ -139,6 +207,14 @@ export class CreateAlgoComponent implements OnInit  {
     });
   }
 
+  onChangeCheckbox(checkbox){
+
+    this.checkboxArray.forEach((val)=>{
+      if(val!=checkbox){
+        this.createAlgo.get(val)?.setValue(false);
+      }
+    })
+  }
   onSubmit(){
 
     if (this.createAlgo.valid) {
@@ -151,6 +227,10 @@ export class CreateAlgoComponent implements OnInit  {
       // Handle invalid form
       console.error('Form is invalid');
     }
+  }
+
+  clone(){
+    console.log('test')
   }
 
 
