@@ -1,6 +1,8 @@
 import { Component, ComponentRef, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegComponent } from '../leg/leg.component';
+import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-algo',
@@ -35,11 +37,14 @@ export class CreateAlgoComponent implements OnInit  {
   
   @Output() addLeg = new EventEmitter<any>()
 
+  @Output() onSubmitForm = new EventEmitter<any>()
+
+
 
   toggleValue: string = 'off';
   checkboxColor ='primary'
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder, public dialog : MatDialog ){
   }
 
   ngOnInit() {
@@ -108,19 +113,19 @@ export class CreateAlgoComponent implements OnInit  {
       exitOrderType:['Market(M)'],
       exitBufferIn:[],
       exitBufferValue:[0],
-      exitPlacementDelaySL:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-      exitPlacementDelayLeg:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      exitPlacementDelaySL:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      exitPlacementDelayLeg:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
 
 
       entryOrderDelay:['no delay'],
-      entryDelayValue:[0,[Validators.required, Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+      entryDelayValue:[3,[Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
 
-      exitDelayValue:[0,[Validators.required, Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+      exitDelayValue:[3,[ Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
 
       exitOrderDelay:['no delay'],
       calcEntry:['Average entry price'],
       calcExit:['Average exit price'],
-      trailingFrequencyInterval:[0,[Validators.required, Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
       isExit:[false]
 
       
@@ -217,10 +222,31 @@ export class CreateAlgoComponent implements OnInit  {
   }
   onSubmit(){
 
+    const dialogRef = this.dialog.open(LegsSettingDialogComponent, {
+      width: '400px',
+      data: { 'label' : 'Submit form',
+              'fromSubmit':true        
+      }
+    });
+
+    
+    dialogRef.componentInstance.dialogValueEmitter.subscribe((emittedValue: string) => {
+    
+
+      console.log('Received value from dialog:', emittedValue);
+
+      this.onSubmitForm.emit()
+
+      // Do something with the received value
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      // Additional actions after the dialog is closed if needed
+    });
     if (this.createAlgo.valid) {
       this.getValuesFromInstance()
      
-      console.log(this.createAlgo.value);
 
       // You can send the form data to a backend or perform other actions here
     } else {

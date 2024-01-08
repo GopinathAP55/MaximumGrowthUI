@@ -1,12 +1,40 @@
-<h1 mat-dialog-title>Setting</h1>
-<div mat-dialog-content>
-    <h3>{{data.label}}</h3>
-  <mat-form-field appearance="outline" >
-    <input type="number" min="0" matInput [(ngModel)]="inputValue">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onClickDone()">Done</button>
-  <button mat-button (click)="onClickNo()">Close</button>
+<div *ngIf="data.fromSubmit">
 
+
+  <div mat-dialog-content>
+      <h3>{{data.label}}</h3>
+
+      <mat-form-field  appearance="outline" style="margin-left: 10px;">
+        <mat-label>Choose day</mat-label>
+        <mat-select [(ngModel)]="submitValue">
+          <mat-option *ngFor="let option of daysArray" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClickSubmit()">Submit</button>
+    <button mat-button (click)="onClickNo()">Close</button>
+  
+  </div>
+</div>
+
+
+<div *ngIf="!data.fromSubmit">
+
+  <h1 mat-dialog-title>Setting</h1>
+  <div mat-dialog-content>
+      <h3>{{data.label}}</h3>
+    <mat-form-field appearance="outline" >
+      <input type="number" min="0" matInput [(ngModel)]="inputValue">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClickDone()">Done</button>
+    <button mat-button (click)="onClickNo()">Close</button>
+  
+  </div>
 </div>

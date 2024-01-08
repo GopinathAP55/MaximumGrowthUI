@@ -1,27 +1,47 @@
 <p>
-    <mat-toolbar>
+    <mat-toolbar >
         
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-1">
+            <button type="button" mat-button (click)="drawer.toggle()">
+              <mat-icon>more_vert</mat-icon> 
+            </button>
+          </div>
+          <div class="col-1">
+            <span>Maximum Growth</span>
+          </div>
+
+          <div class="col-8">
+
+          </div>
+
+          <div class="col-2">
+            <button style="margin-top: -17px; width: 50%;" mat-raised-button color="primary" (click)="openBrokerPage=true">Broker Login</button>
+            <button style="margin-left: 20px;" (click)='logOut()' mat-icon-button>
+                <mat-icon>logout</mat-icon>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
          
        
         <!-- <button (click)="showFiller = !showFiller" mat-raised-button>
           
         </button> -->
-        <button type="button" mat-button (click)="drawer.toggle()">
-          <mat-icon>more_vert</mat-icon> 
-        </button>
+       
 <!--         
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="menuItemClicked('Item 1')">Item 1</button>
           <button mat-menu-item (click)="menuItemClicked('Item 2')">Item 2</button>
       
         </mat-menu> -->
-      <span>Maximum Growth</span>
-      <div style="margin-left:70%;">
-        <button style="margin-top: -17px;" mat-raised-button color="primary" (click)="openBrokerPage=true">Broker Login</button>
-        <button (click)='logOut()' style=" margin-left:10%;" mat-icon-button>
-            <mat-icon>logout</mat-icon>
-        </button>
-    </div>            
+      
+                 
     </mat-toolbar>
 </p>
 
@@ -37,11 +57,13 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <app-create-algo *ngIf="itemClicked=='one'"></app-create-algo>
+    <app-create-algo (onSubmitForm)="menuItemClicked('none')" *ngIf="itemClicked=='one'"></app-create-algo>
 
+    <app-table *ngIf="itemClicked=='none'" ></app-table>
   </div>
 
 </mat-drawer-container>
+
 
 
   

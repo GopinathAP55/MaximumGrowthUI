@@ -10,6 +10,9 @@ export class LegsSettingDialogComponent implements OnInit{
 
 
   inputValue;
+  submitValue
+
+  daysArray = ['Monday','Tuesday','Wednesday','Thursday','Friday']
   @Output() dialogValueEmitter = new EventEmitter<any>()
 
   constructor(
@@ -19,6 +22,7 @@ export class LegsSettingDialogComponent implements OnInit{
 
 
   ngOnInit() {
+    console.log(this.data)
 
  }
 
@@ -26,7 +30,10 @@ export class LegsSettingDialogComponent implements OnInit{
    this.dialogValueEmitter.emit(this.inputValue)
    this.dialogRef.close();
   }
-
+  onClickSubmit(){
+    this.dialogValueEmitter.emit(this.submitValue)
+   this.dialogRef.close();
+  }
   onClickNo(){
     this.dialogRef.close();
 

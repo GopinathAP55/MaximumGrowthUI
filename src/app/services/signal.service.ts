@@ -10,6 +10,8 @@ export class SignalService {
 
   public formValue= signal('')
 
+  public itemClicked = signal('none')
+
 
   constructor() { }
 }

@@ -11,7 +11,7 @@ import { LegComponent } from '../leg/leg.component';
 export class DashboardComponent {
   openBrokerPage =false
   showFiller = false;
-  itemClicked=''
+  itemClicked='none'
   legValue
   dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
 
@@ -36,6 +36,7 @@ export class DashboardComponent {
   
   }
 
+  
   
 
 
