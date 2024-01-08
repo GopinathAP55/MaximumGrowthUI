@@ -19,7 +19,7 @@ export class LegComponent implements OnInit {
   legsArray = ['Legs', 'Premium Close', 'Premium > than', 'Premium < than', 'ATM%', 'Straddle Width', 'Straddle Premium']
   strikeArray = ['ATM', 'OTM']
   instrumentArray = ['Banknifty', 'Finnifty', 'Sensex', 'Nifty', 'Midcpnifty']
-
+  isPremiumDialogOpen =false
   instrumentValueArray = [ {
     "instrument":'Banknifty',
     "lotQuantity":15
@@ -68,7 +68,8 @@ export class LegComponent implements OnInit {
     console.log(this.legValue)
     this.quantity = this.legValue.quantity
 
-   
+    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
+    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
   }
 
@@ -112,10 +113,19 @@ export class LegComponent implements OnInit {
       data: { 'label' : event.value}
     });
 
+    if(this.legValue.selectedLeg == 'Legs'){
+      this.isPremiumDialogOpen =false
+
+    }
+
     
     dialogRef.componentInstance.dialogValueEmitter.subscribe((emittedValue: string) => {
       this.legValue.premium = parseInt(emittedValue)
+      if(this.legValue.premium){
+        this.isPremiumDialogOpen =true
+      }
 
+      this.legValue.selectedStrike = parseInt(emittedValue)
       console.log('Received value from dialog:', emittedValue);
       // Do something with the received value
     });

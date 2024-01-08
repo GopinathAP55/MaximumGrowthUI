@@ -26,12 +26,16 @@
           </mat-select>
         </mat-form-field>
   
-        <mat-form-field  appearance="outline" style="margin-left: 10px;width: 100px;">
+        <mat-form-field *ngIf='!isPremiumDialogOpen' appearance="outline" style="margin-left: 10px;width: 100px;">
           <mat-select [(value)]="legValue.selectedStrike" >
             <mat-option *ngFor="let option of strikeArray" [value]="option">
               {{ option }}
             </mat-option>
           </mat-select>
+        </mat-form-field>
+
+        <mat-form-field  *ngIf='isPremiumDialogOpen' style="margin-left: 10px;width: 100px;" appearance="outline" >
+          <input type="number" matInput min="0"  [(ngModel)]="legValue.premium">
         </mat-form-field>
         
         <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px;">
