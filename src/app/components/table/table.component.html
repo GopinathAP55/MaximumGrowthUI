@@ -1,24 +1,52 @@
+
+<mat-form-field  appearance="outline" style="margin-left: 10px;">
+  <mat-label>Choose day</mat-label>
+  <mat-select [(ngModel)]="selectedDay">
+    <mat-option *ngFor="let option of daysArray" [value]="option">
+      {{ option }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
     <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="enable">
+      <th mat-header-cell *matHeaderCellDef>Enable</th>
+      <td mat-cell *matCellDef="let device">
+        <mat-slide-toggle [checked]="device.enable" (change)="toggleStatus(device)"></mat-slide-toggle>
+      </td>
     </ng-container>
   
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container matColumnDef="mtm">
+      <th mat-header-cell *matHeaderCellDef> MTM </th>
+      <td mat-cell *matCellDef="let element"> {{element.mtm}} </td>
     </ng-container>
   
     <!-- Weight Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    <ng-container matColumnDef="algoName">
+      <th mat-header-cell *matHeaderCellDef> Algo Name </th>
+      <td mat-cell link *matCellDef="let element">{{element.algoName}}</td>
     </ng-container>
   
     <!-- Symbol Column -->
@@ -26,7 +54,20 @@
       <th mat-header-cell *matHeaderCellDef> Symbol </th>
       <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
     </ng-container>
-  
+
+    
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let item">
+        <button mat-icon-button (click)="editItem(item)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteItem(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!-- Add more buttons or customize actions as needed -->
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

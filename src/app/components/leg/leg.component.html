@@ -1,4 +1,4 @@
-<div  style="background-color:rgb(226 225 243)">
+<div  style="background-color:rgb(191, 191, 196)">
 
   <div class="container-fluid">
 
@@ -6,15 +6,15 @@
         
     <div class="col-md-7">
   
-      <button mat-raised-button style="color: white;" [ngStyle]="{'background-color': legValue.buySell=='Buy' ? 'green' : 'rgb(226, 62, 62)'}"  (click)="toggle('buySell','Buy','Sell')">
+      <button type="button" mat-raised-button style="color: white;" [ngStyle]="{'background-color': legValue.buySell=='Buy' ? 'green' : 'rgb(226, 62, 62)'}"  (click)="toggle('buySell','Buy','Sell')">
           {{ legValue.buySell }}
         </button>
       
-        <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('optionValue','CE','PE')">
+        <button type="button" mat-raised-button  style="margin-left: 10px;" (click)="toggle('optionValue','CE','PE')">
           {{ legValue.optionValue }}
         </button>
   
-        <button mat-raised-button  style="margin-left: 10px;" (click)="toggle('isMIS','MIS','NRML')">
+        <button type="button" mat-raised-button  style="margin-left: 10px;" (click)="toggle('isMIS','MIS','NRML')">
           {{ legValue.isMIS }}
         </button>
   
