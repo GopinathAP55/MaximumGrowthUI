@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiServiceService {
  
 
-  private apiUrl = 'https://xsijk0q486.execute-api.ap-southeast-2.amazonaws.com/default/getAlgo'; // Replace with your API endpoint URL
+  private apiUrl = 'https://maeciw2vn8.execute-api.ap-southeast-2.amazonaws.com/dev/getAlgo'; // Replace with your API endpoint URL
   private localURL = 'http://localhost:3000/api'
   constructor(private http: HttpClient) {}
 
