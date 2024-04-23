@@ -8,29 +8,33 @@ import { Observable } from 'rxjs';
 export class ApiServiceService {
  
 
-  private apiUrl = 'https://maeciw2vn8.execute-api.ap-southeast-2.amazonaws.com/dev/getAlgo'; // Replace with your API endpoint URL
-  private localURL = 'http://localhost:3000/api'
+   // Replace with your API endpoint URL
+  private apiUrl = 'http://localhost:3000/api/mg'
   constructor(private http: HttpClient) {}
 
 
 
 
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getData(data): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getAllAlgo?day=${data}`);
+  }
+  addAlgo(data): Observable<any> {
+    console.log('addalgo')
+    return this.http.post<any>(`${this.apiUrl}/addAlgo`,data);
   }
 
   generateOTP(data) : Observable<any>{
     let payload = {
       'phoneNumber' : data
     }
-    return this.http.post<any>(`${this.localURL}/send-otp`,payload)
+    return this.http.post<any>(`${this.apiUrl}/send-otp`,payload)
   }
 
   verifyOtp(data) : Observable<any>{
     let payload = {
       'otp' : data
     }
-    return this.http.post<any>(`${this.localURL}/verify-otp`,payload)
+    return this.http.post<any>(`${this.apiUrl}/verify-otp`,payload)
   }
 }

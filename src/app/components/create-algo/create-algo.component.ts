@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ApiServiceService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-create-algo',
@@ -44,7 +45,7 @@ export class CreateAlgoComponent implements OnInit  {
   toggleValue: string = 'off';
   checkboxColor ='primary'
 
-  constructor(private formBuilder: FormBuilder, public dialog : MatDialog ){
+  constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService){
   }
 
   ngOnInit() {
@@ -235,8 +236,25 @@ export class CreateAlgoComponent implements OnInit  {
 
       console.log('Received value from dialog:', emittedValue);
 
-      this.onSubmitForm.emit()
 
+      this.onSubmitForm.emit()
+      this.createAlgo.value.day = emittedValue
+      console.log(this.createAlgo)
+      let data = {
+        name:this.createAlgo.value.algoName,
+        algo:this.createAlgo.value,
+        day:this.createAlgo.value.day
+      }
+      this.apiService.addAlgo(data).subscribe({
+        next: res => {
+         console.log(res)
+        },
+        error:err=>{
+         console.log(err)
+        }
+        
+       // Do something with the received value
+     });
       // Do something with the received value
     });
   
@@ -246,7 +264,7 @@ export class CreateAlgoComponent implements OnInit  {
     });
     if (this.createAlgo.valid) {
       this.getValuesFromInstance()
-     
+     console.log('submit')
 
       // You can send the form data to a backend or perform other actions here
     } else {
