@@ -46,7 +46,7 @@
 </p>
 
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+  <mat-drawer [opened]="true" #drawer class="example-sidenav" mode="side">
       <button class="button-style"  mat-button (click)="menuItemClicked('one')"> Create Algo</button>
       <br>
       <br>
@@ -57,9 +57,9 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <app-create-algo (onSubmitForm)="menuItemClicked('none')" *ngIf="itemClicked=='one'"></app-create-algo>
+    <app-create-algo [selectedAlgo]="selectedAlgoData" (onSubmitForm)="menuItemClicked('none')" *ngIf="itemClicked=='one'"></app-create-algo>
 
-    <app-table *ngIf="itemClicked=='none'" ></app-table>
+    <app-table (algoDataClicked)="loadAlgo($event)" *ngIf="itemClicked=='none'" ></app-table>
   </div>
 
 </mat-drawer-container>

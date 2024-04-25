@@ -1,4 +1,4 @@
-import { Component, ComponentRef, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
@@ -40,6 +40,8 @@ export class CreateAlgoComponent implements OnInit  {
 
   @Output() onSubmitForm = new EventEmitter<any>()
 
+  @Input() selectedAlgo;
+
 
 
   toggleValue: string = 'off';
@@ -49,6 +51,8 @@ export class CreateAlgoComponent implements OnInit  {
   }
 
   ngOnInit() {
+    console.log(this.selectedAlgo)
+   
     this.createAlgo = this.formBuilder.group({
       algoName: ['', Validators.required],
       selectedInstrument: ['Banknifty', Validators.required],
@@ -131,6 +135,11 @@ export class CreateAlgoComponent implements OnInit  {
 
       
     });
+
+    if(this.selectedAlgo){
+      //this.createAlgo = this.selectedAlgo.algo
+      this.createAlgo.patchValue(this.selectedAlgo.algo)
+    }
 
 
 

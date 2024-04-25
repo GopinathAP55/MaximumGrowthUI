@@ -24,6 +24,12 @@ export class ApiServiceService {
     return this.http.post<any>(`${this.apiUrl}/addAlgo`,data);
   }
 
+  deleteAlgo(data): Observable<any> {
+    console.log('delete')
+    console.log(data)
+    return this.http.delete<any>(`${this.apiUrl}/deleteAlgo?name=${data}`);
+  }
+
   generateOTP(data) : Observable<any>{
     let payload = {
       'phoneNumber' : data

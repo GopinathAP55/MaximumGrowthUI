@@ -14,6 +14,7 @@ export class DashboardComponent {
   itemClicked='none'
   legValue
   dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
+  selectedAlgoData;
 
   @ViewChild('legComponent', { read: ViewContainerRef }) legComponent: ViewContainerRef;
 
@@ -31,6 +32,12 @@ export class DashboardComponent {
     console.log('Clicked:', item);
   }
 
+  loadAlgo(algoData){
+    console.log(algoData)
+    this.selectedAlgoData = algoData
+    this.menuItemClicked('one')
+
+  }
   // Function to toggle the side menu
   toggleMenu() {
   

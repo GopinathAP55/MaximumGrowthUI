@@ -1,18 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service'
 import { SelectionModel } from '@angular/cdk/collections';
 
-export interface PeriodicElement {
-  id: number;
-  name: string;
-  email: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, name: 'Hydrogen', email: 1.0079, symbol: 'H' },
-
-];
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -36,21 +26,24 @@ export class TableComponent implements OnInit {
   // ];
   data;
   daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-  selectedDay
+  selectedDay = ['Monday']
   selection = new SelectionModel<any>(true, []);
   dataSource
+
+  @Output() algoDataClicked = new EventEmitter<any>();
 
   constructor(private apiService: ApiServiceService) { }
 
   ngOnInit() {
     console.log('test')
+    this.loadData(this.selectedDay)
     
   }
   displayedColumns: string[] = ['select', 'enable', 'mtm', 'name', 'day', 'actions'];
-  daySelect(event) {
-    if (event.value) {
+  loadData(event) {
+    if (event.value || event ) {
 
-      this.apiService.getData(event.value).subscribe({
+      this.apiService.getData(event.value || event).subscribe({
 
         next: (res: any) => {
           this.data = res
@@ -86,12 +79,30 @@ export class TableComponent implements OnInit {
   editItem(item): void {
     // Implement your edit logic here
     console.log('Edit item:', item);
+    item.edit= true
+    this.algoDataClicked.emit(item)
   }
 
   deleteItem(item): void {
     // Implement your delete logic here
     console.log('Delete item:', item);
+    this.apiService.deleteAlgo(item.name).subscribe({
+      next : res=>{
+        console.log(res)
+        this.loadData(this.selectedDay)
+      },
+      error : err=>{
+        console.log(err)
+      }
+    })
+    
+    
   }
 
+  onClickColumn(event){
+    console.log(event)
+    this.algoDataClicked.emit(event)
+
+  }
 
 }

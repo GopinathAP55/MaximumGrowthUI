@@ -1,7 +1,7 @@
 
 <mat-form-field  appearance="outline" style="margin-left: 10px;">
   <mat-label>Choose day</mat-label>
-  <mat-select (selectionChange)="daySelect($event)" [(ngModel)]="selectedDay">
+  <mat-select (selectionChange)="loadData($event)" [(ngModel)]="selectedDay">
     <mat-option *ngFor="let option of daysArray" [value]="option">
       {{ option }}
     </mat-option>
@@ -46,7 +46,8 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Algo Name </th>
-      <td mat-cell link *matCellDef="let element">{{element.name}}</td>
+      
+      <td mat-cell link *matCellDef="let element">   <a routerLink="/dashboard" (click)="onClickColumn(element)">{{element.name}}</a></td>
     </ng-container>
   
     <!-- Symbol Column -->
