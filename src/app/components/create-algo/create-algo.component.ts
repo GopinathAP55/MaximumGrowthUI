@@ -1,10 +1,9 @@
-import { Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef,AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiServiceService } from 'src/app/services/api-service.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-algo',
@@ -133,7 +132,8 @@ export class CreateAlgoComponent implements OnInit  {
       calcEntry:['Average entry price'],
       calcExit:['Average exit price'],
       trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-      isExit:[false]
+      isExit:[false],
+      legsArray:[]
 
       
     });
@@ -141,9 +141,12 @@ export class CreateAlgoComponent implements OnInit  {
    
 
     if(this.selectedAlgo){
+      console.log(this.legComponent)
       //this.createAlgo = this.selectedAlgo.algo
       this.createAlgo.patchValue(this.selectedAlgo.algo)
-    }
+      console.log(this.createAlgo.value.legsArray)
+     
+  }
 
 
 
@@ -184,12 +187,31 @@ export class CreateAlgoComponent implements OnInit  {
    
   }
 
-  addLegComponent(){
+  ngAfterViewInit() {
+    // Access the child components here
+   console.log(this.legComponent)
+   if(this.createAlgo.value.legsArray.length > 0){
+    this.createAlgo.value.legsArray.forEach((ele)=>{
+      console.log(ele)
+      this.addLegComponent(ele)
+      console.log('add')
+    })
+}
+  }
+  
+
+  addLegComponent(val){
    console.log( this.createAlgo.value)
     this.showLeg = false
     const componentRef =  this.legComponent.createComponent(LegComponent);
     componentRef.instance.legValue =  this.createAlgo.value
-    componentRef.instance.finalLegValue =  {}
+    if(val){
+      componentRef.instance.finalLegValue = val
+
+    }else{
+
+      componentRef.instance.finalLegValue =  {}
+    }
    
     this.dynamicComponentRefs.push(componentRef)
 
@@ -262,7 +284,7 @@ export class CreateAlgoComponent implements OnInit  {
         algo:this.createAlgo.value,
         day:this.createAlgo.value.day
       }
-      this.apiService.addAlgo(JSON.stringify(data)).subscribe({
+      this.apiService.addAlgo((data)).subscribe({
         next: res => {
          console.log(res)
         },

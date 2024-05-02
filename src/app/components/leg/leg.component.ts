@@ -70,15 +70,21 @@ export class LegComponent implements OnInit {
 
     
 
-    console.log(this.legValue)
-    this.finalLegValue.quantity = this.legValue.quantity
-    this.finalLegValue.selectedInstrument = this.legValue.selectedInstrument
-    this.finalLegValue.strike = this.legValue.strike
+    console.log(this.finalLegValue.selectedInstrument)
+    if(!this.finalLegValue){
 
+      this.finalLegValue.quantity = this.legValue.quantity
+      this.finalLegValue.selectedInstrument = this.legValue.selectedInstrument
+     
+    }else{
+      this.finalLegValue.quantity = this.finalLegValue.quantity
+      this.finalLegValue.selectedInstrument = this.finalLegValue.selectedInstrument
+    }
     this.quantity = this.legValue.quantity
 
     this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
+
 
   }
 

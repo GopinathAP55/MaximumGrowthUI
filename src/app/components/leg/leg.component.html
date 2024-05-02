@@ -39,7 +39,7 @@
         </mat-form-field>
         
         <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px;">
-          <mat-select (selectionChange)="onChangeInstrument($event)" [(value)]="legValue.selectedInstrument" >
+          <mat-select (selectionChange)="onChangeInstrument($event)" [(value)]="finalLegValue.selectedInstrument" >
             <mat-option  *ngFor="let option of instrumentArray" [value]="option">
               {{ option }}
             </mat-option>

@@ -66,10 +66,10 @@
 
   <div>
 
-    <button style="margin-top: 10px;" type="button" (click)="addLegComponent()" mat-raised-button color="primary">Add Leg</button>
+    <button style="margin-top: 10px;" type="button" (click)="addLegComponent('')" mat-raised-button color="primary">Add Leg</button>
   </div>
   
-  <div #legComponent  (addLeg)="addLegComponent()" (cloneLeg)="clone()"></div>
+  <div #legComponent  (addLeg)="addLegComponent('')" (cloneLeg)="clone()"></div>
 
 
   <hr  style="margin-top: 10px;">
