@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-leg',
@@ -12,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class LegComponent implements OnInit {
 
    legValue;
+   finalLegValue;
   @Output() cloneLeg: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() deleteLeg: EventEmitter<any> = new EventEmitter<any>();
@@ -51,7 +53,7 @@ export class LegComponent implements OnInit {
   quantity;
   calculatedQuantity:number;
 
-   selectedInstrumentArray
+  selectedInstrumentArray
 
   isOn: boolean = false;
 
@@ -60,12 +62,19 @@ export class LegComponent implements OnInit {
   valueY :number;
   valueX :number
 
-  constructor( public dialog : MatDialog ){
+  constructor( public dialog : MatDialog ,private formBuilder: FormBuilder){
 
   }
 
   ngOnInit() {
+
+    
+
     console.log(this.legValue)
+    this.finalLegValue.quantity = this.legValue.quantity
+    this.finalLegValue.selectedInstrument = this.legValue.selectedInstrument
+    this.finalLegValue.strike = this.legValue.strike
+
     this.quantity = this.legValue.quantity
 
     this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
@@ -93,13 +102,13 @@ export class LegComponent implements OnInit {
 
   calculateQuantityBasedOnLots(event){
     console.log('focusout')
-    this.legValue.quantity = event.srcElement.value
+    this.finalLegValue.quantity = event.srcElement.value
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.legValue.quantity
 
   }
 
   onChangeInstrument(event){
-    this.legValue.selectedInstrument = event.value
+    this.finalLegValue.selectedInstrument = event.value
     this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
@@ -107,7 +116,7 @@ export class LegComponent implements OnInit {
 
 
   onChangeLeg(event){
-    this.legValue.selectedLeg = event.value
+    this.finalLegValue.selectedLeg = event.value
     const dialogRef = this.dialog.open(LegsSettingDialogComponent, {
       width: '400px',
       data: { 'label' : event.value}
@@ -120,12 +129,12 @@ export class LegComponent implements OnInit {
 
     
     dialogRef.componentInstance.dialogValueEmitter.subscribe((emittedValue: string) => {
-      this.legValue.premium = parseInt(emittedValue)
-      if(this.legValue.premium){
+      this.finalLegValue.premium = parseInt(emittedValue)
+      if(this.finalLegValue.premium){
         this.isPremiumDialogOpen =true
       }
 
-      this.legValue.selectedStrike = parseInt(emittedValue)
+      this.finalLegValue.selectedStrike = parseInt(emittedValue)
       console.log('Received value from dialog:', emittedValue);
       // Do something with the received value
     });
@@ -141,7 +150,7 @@ export class LegComponent implements OnInit {
     if(stoplossValue =='none'){
       this.stoploss=0
     }else{
-      this.legValue.selectedStopLoss =stoplossValue
+      this.finalLegValue.selectedStopLoss =stoplossValue
     }
 
   }
@@ -151,7 +160,7 @@ export class LegComponent implements OnInit {
     if(targetValue =='none'){
       this.target=0
     }else{
-      this.legValue.selectedTarget =targetValue
+      this.finalLegValue.selectedTarget =targetValue
 
     }
   }
@@ -163,13 +172,13 @@ export class LegComponent implements OnInit {
       this.valueY=0
 
     }else{
-      this.legValue.selectedTrail =trailingValue  
+      this.finalLegValue.selectedTrail =trailingValue  
      
 
     }
   }
 
-  manupulateData(event,label){
+  manipulateData(event,label){
     console.log(event)
     console.log(label)
     this.legValue[label]= parseInt(event.srcElement.value)

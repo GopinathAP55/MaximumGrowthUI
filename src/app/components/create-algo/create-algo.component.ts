@@ -4,6 +4,7 @@ import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-algo',
@@ -13,6 +14,7 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 export class CreateAlgoComponent implements OnInit  {
 
   createAlgo: FormGroup;
+  legForm:FormControl
 
   instrumentArray=['Banknifty','Finnifty','Sensex','Nifty','Midcpnifty']
   segmentArray=['Options','Futures']
@@ -46,7 +48,7 @@ export class CreateAlgoComponent implements OnInit  {
 
   toggleValue: string = 'off';
   checkboxColor ='primary'
-
+  leg=''
   constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService){
   }
 
@@ -136,6 +138,8 @@ export class CreateAlgoComponent implements OnInit  {
       
     });
 
+   
+
     if(this.selectedAlgo){
       //this.createAlgo = this.selectedAlgo.algo
       this.createAlgo.patchValue(this.selectedAlgo.algo)
@@ -185,7 +189,10 @@ export class CreateAlgoComponent implements OnInit  {
     this.showLeg = false
     const componentRef =  this.legComponent.createComponent(LegComponent);
     componentRef.instance.legValue =  this.createAlgo.value
+    componentRef.instance.finalLegValue =  {}
+   
     this.dynamicComponentRefs.push(componentRef)
+
      componentRef.instance.deleteLeg.subscribe(()=>{
 
       const index = this.dynamicComponentRefs.indexOf(componentRef);
@@ -216,7 +223,7 @@ export class CreateAlgoComponent implements OnInit  {
     this.createAlgo.value.legsArray=[]
     this.dynamicComponentRefs.forEach((dynamicComponentRef, index) => {
       const dynamicComponentInstance = dynamicComponentRef.instance;
-      const value = dynamicComponentInstance.legValue;
+      const value = dynamicComponentInstance.finalLegValue;
       this.createAlgo.value.legsArray.push(value)
       console.log(`Value from Dynamic Component ${index + 1}:`, value);
     });
@@ -231,6 +238,7 @@ export class CreateAlgoComponent implements OnInit  {
     })
   }
   onSubmit(){
+    this.getValuesFromInstance()
 
     const dialogRef = this.dialog.open(LegsSettingDialogComponent, {
       width: '400px',
@@ -254,7 +262,7 @@ export class CreateAlgoComponent implements OnInit  {
         algo:this.createAlgo.value,
         day:this.createAlgo.value.day
       }
-      this.apiService.addAlgo(data).subscribe({
+      this.apiService.addAlgo(JSON.stringify(data)).subscribe({
         next: res => {
          console.log(res)
         },

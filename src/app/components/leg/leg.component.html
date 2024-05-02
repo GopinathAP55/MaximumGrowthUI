@@ -91,19 +91,19 @@
 
         <div>
           <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
-          <input type="number" (keyup)="manupulateData($event,'target')"  [disabled]="selectedTarget=='none'"  matInput min="0"  [(ngModel)]="target">
+          <input type="number" (keyup)="manipulateData($event,'target')"  [disabled]="selectedTarget=='none'"  matInput min="0"  [(ngModel)]="target">
         </mat-form-field>
 
         <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
-          <input type="number" (keyup)="manupulateData($event,'stoploss')" [disabled]="selectedStoploss=='none'"  matInput min="0"  [(ngModel)]="stoploss">
+          <input type="number" (keyup)="manipulateData($event,'stoploss')" [disabled]="selectedStoploss=='none'"  matInput min="0"  [(ngModel)]="stoploss">
         </mat-form-field>
 
         <mat-form-field style="margin-left: 10px;width: 60px;" appearance="outline" >
-          <input  type="number" (keyup)="manupulateData($event,'valueX')"  [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueX">
+          <input  type="number" (keyup)="manipulateData($event,'valueX')"  [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueX">
         </mat-form-field>
   
         <mat-form-field style="margin-left: 5px;width: 60px;" appearance="outline" >
-          <input  type="number" (keyup)="manupulateData($event,'valueY')" [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueY">
+          <input  type="number" (keyup)="manipulateData($event,'valueY')" [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueY">
         </mat-form-field>
         </div> 
 
