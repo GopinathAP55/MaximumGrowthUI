@@ -6,16 +6,16 @@
         
     <div class="col-md-7">
   
-      <button type="button" mat-raised-button style="color: white;" [ngStyle]="{'background-color': legValue.buySell=='Buy' ? 'green' : 'rgb(226, 62, 62)'}"  (click)="toggle('buySell','Buy','Sell')">
-          {{ legValue.buySell }}
+      <button type="button" mat-raised-button style="color: white;" [ngStyle]="{'background-color': finalLegValue.buySell=='Buy' ? 'green' : 'rgb(226, 62, 62)'}"  (click)="toggle('buySell','Buy','Sell')">
+          {{ finalLegValue.buySell  }}
         </button>
       
         <button type="button" mat-raised-button  style="margin-left: 10px;" (click)="toggle('optionValue','CE','PE')">
-          {{ legValue.optionValue }}
+          {{ finalLegValue.optionValue }}
         </button>
   
         <button type="button" mat-raised-button  style="margin-left: 10px;" (click)="toggle('isMIS','MIS','NRML')">
-          {{ legValue.isMIS }}
+          {{ finalLegValue.isMIS }}
         </button>
   
         <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px">
@@ -27,7 +27,7 @@
         </mat-form-field>
   
         <mat-form-field *ngIf='!isPremiumDialogOpen' appearance="outline" style="margin-left: 10px;width: 100px;">
-          <mat-select [(value)]="legValue.selectedStrike" >
+          <mat-select [(value)]="finalLegValue.selectedStrike" >
             <mat-option *ngFor="let option of strikeArray" [value]="option">
               {{ option }}
             </mat-option>
@@ -35,7 +35,7 @@
         </mat-form-field>
 
         <mat-form-field  *ngIf='isPremiumDialogOpen' style="margin-left: 10px;width: 100px;" appearance="outline" >
-          <input type="number" matInput min="0"  [(ngModel)]="legValue.premium">
+          <input type="number" matInput min="0"  [(ngModel)]="finalLegValue.premium">
         </mat-form-field>
         
         <mat-form-field  appearance="outline" style="margin-left: 10px;width: 188px;">

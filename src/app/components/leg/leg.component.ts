@@ -71,18 +71,24 @@ export class LegComponent implements OnInit {
     
 
     console.log(this.finalLegValue.selectedInstrument)
-    if(!this.finalLegValue){
+   if(Object.entries(this.finalLegValue).length === 0){
+     let {quantity,selectedInstrument,buySell,optionValue,isMIS,selectedStrike,premium} = this.legValue
+     this.finalLegValue.quantity = quantity
+     this.finalLegValue.selectedInstrument = selectedInstrument
+     this.finalLegValue.buySell = buySell
+     this.finalLegValue.optionValue=optionValue
+     this.finalLegValue.isMIS=isMIS
+     this.finalLegValue.selectedStrike=selectedStrike
+     this.finalLegValue.premium=premium
+   }
 
-      this.finalLegValue.quantity = this.legValue.quantity
-      this.finalLegValue.selectedInstrument = this.legValue.selectedInstrument
-     
-    }else{
-      this.finalLegValue.quantity = this.finalLegValue.quantity
-      this.finalLegValue.selectedInstrument = this.finalLegValue.selectedInstrument
-    }
+
+    console.log(this.finalLegValue)
+
+   
     this.quantity = this.legValue.quantity
 
-    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
+    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.finalLegValue.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
 
@@ -109,13 +115,13 @@ export class LegComponent implements OnInit {
   calculateQuantityBasedOnLots(event){
     console.log('focusout')
     this.finalLegValue.quantity = event.srcElement.value
-    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.legValue.quantity
+    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.finalLegValue.quantity
 
   }
 
   onChangeInstrument(event){
     this.finalLegValue.selectedInstrument = event.value
-    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.legValue.selectedInstrument)
+    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.finalLegValue.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
   }

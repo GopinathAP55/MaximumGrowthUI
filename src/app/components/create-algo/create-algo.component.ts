@@ -284,16 +284,29 @@ export class CreateAlgoComponent implements OnInit  {
         algo:this.createAlgo.value,
         day:this.createAlgo.value.day
       }
-      this.apiService.addAlgo((data)).subscribe({
-        next: res => {
-         console.log(res)
-        },
-        error:err=>{
-         console.log(err)
-        }
-        
-       // Do something with the received value
-     });
+      if(this.selectedAlgo){
+        data['objectId']=this.selectedAlgo._id
+        this.apiService.editAlgo((data)).subscribe({
+          next:res=>{
+            console.log(res)
+          },
+          error:error=>{
+            console.log(error)
+          }
+        })
+      }else{
+        this.apiService.addAlgo((data)).subscribe({
+          next: res => {
+           console.log(res)
+          },
+          error:err=>{
+           console.log(err)
+          }
+          
+         // Do something with the received value
+       });
+
+      }
       // Do something with the received value
     });
   

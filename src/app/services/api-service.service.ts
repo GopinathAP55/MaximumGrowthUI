@@ -24,6 +24,11 @@ export class ApiServiceService {
     return this.http.post<any>(`${this.apiUrl}/addAlgo`,data);
   }
 
+  editAlgo(data): Observable<any> {
+    console.log('edit')
+    return this.http.post<any>(`${this.apiUrl}/editAlgo`,data);
+  }
+
   deleteAlgo(data): Observable<any> {
     console.log('delete')
     console.log(data)
