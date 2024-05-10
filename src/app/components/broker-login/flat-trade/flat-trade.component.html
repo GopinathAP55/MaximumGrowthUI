@@ -1,0 +1,75 @@
+<form style="margin-top: 2%;" [formGroup]="traderForm" (ngSubmit)="onSubmit()" class="example-form">
+    <div  style="padding-top: 1%;">
+        
+            <div class="col-4" >
+                
+                    <mat-form-field style="width: 60%;" appearance="outline" >
+                        <mat-label> Enter your Flat Trade Client ID</mat-label>
+                        <input matInput formControlName="clientId">
+                    </mat-form-field>
+               
+            </div>
+            
+       
+
+            <div class="col-4">
+                Generate Redirect & Postback URLs
+                <div>
+                    <button mat-raised-button color="primary" >Generate Links</button>
+                </div>
+            </div>
+            
+      
+
+            <div  style="margin-top: 1%;">
+
+                
+                     <div class="col-4">
+                         Redirect URL:
+                        
+                      
+                     </div>
+                     
+                     <div class="col-4">
+                         
+                        
+                         Postback URL:
+                     </div>
+            </div>
+       
+            <div style="margin-top: 1%;">
+
+                <div class="col-4" >
+                    
+                        Copy the API Key and API secret and paste in below and click ‘Save’.
+                </div>
+              
+                    <div class="col-4" >
+        
+                            <mat-form-field style="width: 60%;" appearance="outline" >
+                                <mat-label>API Key</mat-label>
+                                <input matInput formControlName="apiKey">
+                            </mat-form-field>
+                      
+                    </div>    
+                   
+                    <div class="col-4">
+                      
+                            <mat-form-field style="width: 60%;" appearance="outline" >
+                                <mat-label>API Secret</mat-label>
+                                <input matInput formControlName="apiSecret">
+                            </mat-form-field>
+                       
+                    </div>
+            </div>
+       
+            
+            <div class="col-4">
+                
+                <div>
+                    <button type="submit" mat-raised-button color="primary" >Save</button>
+                </div>
+            </div>
+        
+    </div>
+</form>

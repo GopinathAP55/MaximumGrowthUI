@@ -38,6 +38,9 @@ import { MatListModule } from '@angular/material/list';
 import { CreateAlgoComponent } from './components/create-algo/create-algo.component';
 import { LegComponent } from './components/leg/leg.component';
 import { LegsSettingDialogComponent } from './components/legs-setting-dialog/legs-setting-dialog.component';
+import { BrokerLoginComponent } from './components/broker-login/broker-login.component';
+import { FlatTradeComponent } from './components/broker-login/flat-trade/flat-trade.component';
+import { ZerodhaComponent } from './components/broker-login/zerodha/zerodha.component';
 
 
 @NgModule({
@@ -48,7 +51,10 @@ import { LegsSettingDialogComponent } from './components/legs-setting-dialog/leg
          DashboardComponent,
          CreateAlgoComponent,
          LegComponent,
-         LegsSettingDialogComponent
+         LegsSettingDialogComponent,
+         BrokerLoginComponent,
+         FlatTradeComponent,
+         ZerodhaComponent
         ],
   imports: [
     MatRadioModule,

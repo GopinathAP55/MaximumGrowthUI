@@ -1,0 +1,14 @@
+<div class="col-2" *ngIf="showBroker">
+    <button style=" width: 50%;" mat-raised-button color="primary" (click)="openTrade('Flat Trade')">Flat Trade</button> 
+    <br> 
+    <button style=" width: 50%;margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Zerodha')">Zerodha</button>
+   
+  </div>
+
+  <div style="float: right;" class="col-2" *ngIf="!showBroker">
+    <button style=" width: 50%;" mat-raised-button color="primary" (click)="showBroker=true">Back</button>
+   
+  </div>
+
+  <app-flat-trade *ngIf="selectedTrader=='Flat Trade' && !showBroker"></app-flat-trade>
+  <app-zerodha *ngIf="selectedTrader=='Zerodha' && !showBroker"></app-zerodha>
