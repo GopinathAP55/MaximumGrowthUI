@@ -35,6 +35,17 @@ export class ApiServiceService {
     return this.http.delete<any>(`${this.apiUrl}/deleteAlgo?name=${data}`);
   }
 
+
+  addBroker(data): Observable<any> {
+    console.log('addbroker')
+    return this.http.post<any>(`${this.apiUrl}/addBroker`,data);
+  }
+
+  getBroker(data): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/getBroker?name=${data}`);
+  }
+
+
   generateOTP(data) : Observable<any>{
     let payload = {
       'phoneNumber' : data
