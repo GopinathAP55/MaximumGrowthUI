@@ -64,10 +64,13 @@
             </div>
        
             
-            <div class="col-4">
+            <div class="col-4" style="display: flex;">
                 
                 <div>
                     <button type="submit" mat-raised-button color="primary" >Save</button>
+                </div>
+                <div *ngIf="traderForm.get('_id').value" style="margin-left: 10px;">
+                    <button type="button" mat-raised-button style="background-color: red;" (click)="deleteBroker()" >Delete</button>
                 </div>
             </div>
         

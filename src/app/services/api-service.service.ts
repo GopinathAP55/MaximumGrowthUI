@@ -45,6 +45,10 @@ export class ApiServiceService {
     return this.http.get<any>(`${this.apiUrl}/getBroker?name=${data}`);
   }
 
+  deleteBroker(data): Observable<any> {
+    console.log('deltebroker')
+    return this.http.delete<any>(`${this.apiUrl}/deleteBroker?name=${data}`);
+  }
 
   generateOTP(data) : Observable<any>{
     let payload = {
@@ -54,9 +58,7 @@ export class ApiServiceService {
   }
 
   verifyOtp(data) : Observable<any>{
-    let payload = {
-      'otp' : data
-    }
-    return this.http.post<any>(`${this.apiUrl}/verify-otp`,payload)
+    
+    return this.http.post<any>(`${this.apiUrl}/verify-otp`,data)
   }
 }

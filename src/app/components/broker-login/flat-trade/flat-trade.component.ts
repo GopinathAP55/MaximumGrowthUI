@@ -16,15 +16,29 @@ export class FlatTradeComponent implements OnInit  {
   }
   ngOnInit() {
     this.traderForm = this.formBuilder.group({
-      clientId: ['', Validators.required],
+      clientId: ['', Validators.required,],
       APIKey:[''],
-      APISecret:['']
+      APISecret:[''],
+      _id:[''],
+      name:['FlatTrade']
+    })
+    this.apiService.getBroker('FlatTrade').subscribe({
+      next:res=>{
+        this.traderForm.patchValue(res[0])
+        if(this.traderForm.get('_id').value){
+
+          this.traderForm.get('clientId').disable()
+        }
+      },
+      error:err=>{
+        console.log(err)
+      }
     })
   }
 
   onSubmit(){
     let data= this.traderForm.value
-    data.name='FlatTrade'
+    
     this.apiService.addBroker((data)).subscribe({
       next: res => {
        console.log(res)
@@ -38,6 +52,16 @@ export class FlatTradeComponent implements OnInit  {
 
   }
 
-  
-
+  deleteBroker(){
+    console.log('tdelete')
+    this.apiService.deleteBroker('FlatTrade').subscribe({
+      next:res=>{
+        console.log(res)
+        this.traderForm.reset()
+      },
+      error:err=>{
+        console.log(err)
+      }
+    })
+  }
 }

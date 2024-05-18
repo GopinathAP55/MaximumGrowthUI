@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignalService } from 'src/app/services/signal.service';
 import { ApiServiceService } from '../../services/api-service.service'
@@ -11,11 +11,21 @@ import { ApiServiceService } from '../../services/api-service.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   otpSent  = false;
+  loginForm:FormGroup
 
-  constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService){}
+  @Input() clickedValue = 'Login';
+  constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService,private formBuilder:FormBuilder){}
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username:'',
+      password:'',
+      otp:'',
+      phoneNumber:''
+    })
+  }
 
   otpGenerated: boolean = false;
 
@@ -24,8 +34,22 @@ export class LoginComponent {
     this.otpGenerated = true;
   }
 
-  login() {
-    this.signalService.isLogin.set(true)
-    this.router.navigateByUrl('/dashboard')
+  submit() {
+    if(this.clickedValue=='Login'){
+
+      this.signalService.isLogin.set(true)
+      this.router.navigateByUrl('/dashboard')
+    }else{
+      this.signalService.isLogin.set(true)
+      let data = this.loginForm.value
+      this.apiService.verifyOtp(data).subscribe({
+        next:res=>{
+          this.router.navigateByUrl('/login')
+        },
+        error:err=>{
+
+        }
+      })
+    }
   }
 }

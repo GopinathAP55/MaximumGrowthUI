@@ -2,28 +2,31 @@
   <form class="login-form" #loginForm="ngForm">
     <h2 style="margin-left: 30%;">Maximum Growth</h2>
     <mat-form-field>
-      <input matInput placeholder="Username" name="username" ngModel required>
+      <input  formControlName="usename" matInput placeholder="Username" name="username" ngModel required>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="password" placeholder="Password" name="password" ngModel required>
+      <input  formControlName="password" matInput type="password" placeholder="Password" name="password" ngModel required>
     </mat-form-field>
 
-    <div *ngIf="loginForm.value.password">
-      <mat-form-field>
-        <input matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" ngModel required>
-        <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
-      </mat-form-field>
-    </div>
+    <div *ngIf="clickedValue=='Sign Up'">
 
-    <div *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
-      <mat-form-field>
-        <input matInput placeholder="Enter OTP" name="otp" ngModel required>
-      </mat-form-field>
+      <div *ngIf="loginForm.value.password  ">
+        <mat-form-field>
+          <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" ngModel required>
+          <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
+        </mat-form-field>
+      </div>
+  
+      <div  formControlName="otp" *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
+        <mat-form-field>
+          <input matInput placeholder="Enter OTP" name="otp" ngModel required>
+        </mat-form-field>
+      </div>
     </div>
 
     <div class="login-button">
-      <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.controls['otp']?.valid">Login</button>
+      <button type="submit" mat-raised-button color="primary" (click)="submit()" [disabled]="!loginForm.controls['otp']?.valid">{{clickedValue}}</button>
     </div>
   </form>
 </div>

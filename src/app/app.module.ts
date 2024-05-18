@@ -41,6 +41,7 @@ import { LegsSettingDialogComponent } from './components/legs-setting-dialog/leg
 import { BrokerLoginComponent } from './components/broker-login/broker-login.component';
 import { FlatTradeComponent } from './components/broker-login/flat-trade/flat-trade.component';
 import { ZerodhaComponent } from './components/broker-login/zerodha/zerodha.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { ZerodhaComponent } from './components/broker-login/zerodha/zerodha.comp
          LegsSettingDialogComponent,
          BrokerLoginComponent,
          FlatTradeComponent,
-         ZerodhaComponent
+         ZerodhaComponent,
+         HomeComponent
         ],
   imports: [
     MatRadioModule,

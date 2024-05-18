@@ -1,0 +1,38 @@
+<p>
+    <mat-toolbar >
+        
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-1">
+          
+          </div>
+          <div class="col-1">
+            <span>Maximum Growth</span>
+          </div>
+
+          <div class="col-8">
+
+          </div>
+
+          <div class="col-2">
+            <button style="margin-top: -17px; width: 50%;" mat-raised-button color="primary" (click)="menuItemClicked('Sign Up')">Sign Up</button>
+            <button style="margin-top: -17px; width: 50%;margin-left: 5px;" mat-raised-button color="primary" (click)="menuItemClicked('Login')">Login</button>
+
+           
+          </div>
+
+        </div>
+
+      </div>
+              
+                 
+    </mat-toolbar>
+</p>
+
+<div *ngIf="open" class="example-sidenav-content">
+    <app-login [clickedValue]="itemClicked" *ngIf="itemClicked"></app-login>
+
+  
+  </div>
