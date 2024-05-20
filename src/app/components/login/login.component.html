@@ -1,26 +1,26 @@
 <div class="login-container">
-  <form class="login-form" #loginForm="ngForm">
+  <form class="login-form" [formGroup]="loginForm"  >
     <h2 style="margin-left: 30%;">Maximum Growth</h2>
     <mat-form-field>
-      <input  formControlName="usename" matInput placeholder="Username" name="username" ngModel required>
+      <input  formControlName="username" matInput placeholder="Username" name="username"  >
     </mat-form-field>
 
     <mat-form-field>
-      <input  formControlName="password" matInput type="password" placeholder="Password" name="password" ngModel required>
+      <input  formControlName="password" matInput type="password" placeholder="Password" name="password"  >
     </mat-form-field>
 
     <div *ngIf="clickedValue=='Sign Up'">
 
-      <div *ngIf="loginForm.value.password  ">
+      <div *ngIf="loginForm.get('password').value">
         <mat-form-field>
-          <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" ngModel required>
+          <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber"  >
           <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
         </mat-form-field>
       </div>
   
       <div  formControlName="otp" *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
         <mat-form-field>
-          <input matInput placeholder="Enter OTP" name="otp" ngModel required>
+          <input matInput placeholder="Enter OTP" name="otp"  >
         </mat-form-field>
       </div>
     </div>

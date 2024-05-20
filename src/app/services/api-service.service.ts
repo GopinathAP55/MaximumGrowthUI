@@ -10,6 +10,7 @@ export class ApiServiceService {
 
    // Replace with your API endpoint URL
   private apiUrl = 'http://localhost:3000/api/mg'
+  private apiUrl2 = 'http://localhost:3000/api'
   constructor(private http: HttpClient) {}
 
 
@@ -54,11 +55,16 @@ export class ApiServiceService {
     let payload = {
       'phoneNumber' : data
     }
-    return this.http.post<any>(`${this.apiUrl}/send-otp`,payload)
+    return this.http.post<any>(`${this.apiUrl2}/send-otp`,payload)
+  }
+
+  login(data) : Observable<any>{
+   
+    return this.http.post<any>(`${this.apiUrl2}/login`,data)
   }
 
   verifyOtp(data) : Observable<any>{
     
-    return this.http.post<any>(`${this.apiUrl}/verify-otp`,data)
+    return this.http.post<any>(`${this.apiUrl2}/verify-otp`,data)
   }
 }
