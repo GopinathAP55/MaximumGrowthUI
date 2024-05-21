@@ -42,9 +42,11 @@ import { BrokerLoginComponent } from './components/broker-login/broker-login.com
 import { FlatTradeComponent } from './components/broker-login/flat-trade/flat-trade.component';
 import { ZerodhaComponent } from './components/broker-login/zerodha/zerodha.component';
 import { HomeComponent } from './components/home/home.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth/authGuard';
+import { NotificationService } from './services/notification-service';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { AuthGuard } from './auth/authGuard';
          HomeComponent
         ],
   imports: [
+    MatSnackBarModule ,
+    MatProgressSpinnerModule,
     MatRadioModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -88,7 +92,7 @@ import { AuthGuard } from './auth/authGuard';
     RouterModule,
     
   ],
-   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ],
+   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ,NotificationService],
    bootstrap: [AppComponent]
 })
 export class AppModule { }
