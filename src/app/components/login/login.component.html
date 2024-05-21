@@ -2,7 +2,7 @@
   <form class="login-form" [formGroup]="loginForm"  >
     <h2 style="margin-left: 30%;">Maximum Growth</h2>
     <mat-form-field>
-      <input  formControlName="username" matInput placeholder="Username" name="username"  >
+      <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber"  >
     </mat-form-field>
 
     <mat-form-field>
@@ -12,15 +12,15 @@
     <div *ngIf="clickedValue=='Sign Up'">
 
       <div *ngIf="loginForm.get('password').value">
-        <mat-form-field>
-          <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber"  >
+        
+        
           <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
-        </mat-form-field>
+        
       </div>
   
-      <div  formControlName="otp" *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
+      <div  *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
         <mat-form-field>
-          <input matInput placeholder="Enter OTP" name="otp"  >
+          <input matInput placeholder="Enter OTP"  formControlName="otp"  >
         </mat-form-field>
       </div>
     </div>

@@ -50,6 +50,8 @@ export class DashboardComponent {
  
   logOut(){
     this.signalService.isLogin.set(false)
+    localStorage.removeItem('jwtToken')
+    localStorage.clear();
     this.route.navigateByUrl('/login')
   }
 

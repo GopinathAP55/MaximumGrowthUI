@@ -14,9 +14,6 @@ export class ApiServiceService {
   constructor(private http: HttpClient) {}
 
 
-
-
-
   getData(data): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/getAllAlgo?day=${data}`);
   }
@@ -59,7 +56,6 @@ export class ApiServiceService {
   }
 
   login(data) : Observable<any>{
-   
     return this.http.post<any>(`${this.apiUrl2}/login`,data)
   }
 
@@ -67,4 +63,8 @@ export class ApiServiceService {
     
     return this.http.post<any>(`${this.apiUrl2}/verify-otp`,data)
   }
+
+ 
+
+ 
 }

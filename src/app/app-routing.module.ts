@@ -5,13 +5,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { TableComponent} from './components/table/table.component'
 import { LoginComponent } from './components/login/login.component'
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './auth/authGuard';
 
 console.log('route')
 
 const routes: Routes = [ 
  
   { path:'login',component : LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard]},
   { path:'table', component: TableComponent},
   { path:'',component:HomeComponent}
 

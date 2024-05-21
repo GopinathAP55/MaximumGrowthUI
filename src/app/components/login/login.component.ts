@@ -15,15 +15,16 @@ export class LoginComponent implements OnInit {
 
   otpSent  = false;
   loginForm:FormGroup
+  phoneNumber:number
 
   @Input() clickedValue = 'Login';
   constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService,private formBuilder:FormBuilder){}
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username:[''],
+    
       password:[''],
       otp:[''],
-      phoneNumber:['']
+      phoneNumber:[]
     })
   }
 
@@ -63,10 +64,11 @@ export class LoginComponent implements OnInit {
       let data = this.loginForm.value
       this.apiService.verifyOtp(data).subscribe({
         next:res=>{
+          console.log(res)
           this.router.navigateByUrl('/login')
         },
         error:err=>{
-
+          console.log(err)
         }
       })
     }

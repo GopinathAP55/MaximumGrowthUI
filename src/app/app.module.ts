@@ -44,6 +44,7 @@ import { ZerodhaComponent } from './components/broker-login/zerodha/zerodha.comp
 import { HomeComponent } from './components/home/home.component';
 
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AuthGuard } from './auth/authGuard';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     RouterModule,
     
   ],
-   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ],
    bootstrap: [AppComponent]
 })
 export class AppModule { }
