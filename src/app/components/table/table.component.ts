@@ -105,4 +105,8 @@ export class TableComponent implements OnInit {
 
   }
 
+  refresh(){
+    this.loadData(this.selectedDay)
+  }
+
 }

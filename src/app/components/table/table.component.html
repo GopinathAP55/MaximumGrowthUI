@@ -7,7 +7,12 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<div style="float: right;margin-right: 6%;">
 
+  <button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -36,6 +41,7 @@
         <mat-slide-toggle [checked]="device.enable" (change)="toggleStatus(device)"></mat-slide-toggle>
       </td>
     </ng-container>
+   
   
     <!-- Name Column -->
     <ng-container matColumnDef="mtm">
@@ -72,6 +78,7 @@
         <!-- Add more buttons or customize actions as needed -->
       </td>
     </ng-container>
+    
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

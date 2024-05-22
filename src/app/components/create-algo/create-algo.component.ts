@@ -4,6 +4,7 @@ import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiServiceService } from 'src/app/services/api-service.service';
+import { NotificationService } from 'src/app/services/notification-service';
 
 @Component({
   selector: 'app-create-algo',
@@ -48,7 +49,7 @@ export class CreateAlgoComponent implements OnInit  {
   toggleValue: string = 'off';
   checkboxColor ='primary'
   leg=''
-  constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService){
+  constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService,private notificationService:NotificationService){
   }
 
   ngOnInit() {
@@ -86,7 +87,7 @@ export class CreateAlgoComponent implements OnInit  {
 
       selectedMTM:['none'],
       mtmFixedStoploss:['none'],
-      mtmValue: new FormControl({value: '', disabled: true}, Validators.required),
+      mtmValue: new FormControl({value: '', disabled: true},[Validators.required,Validators.maxLength(2)] ),
       selectedAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
 
       mtmStoplossValue: new FormControl({value: '', disabled: true}, Validators.required),
@@ -289,17 +290,21 @@ export class CreateAlgoComponent implements OnInit  {
         this.apiService.editAlgo((data)).subscribe({
           next:res=>{
             console.log(res)
+            this.notificationService.showNotification('Algo edited successfully','success')
           },
           error:error=>{
             console.log(error)
+            this.notificationService.showNotification('Error in algo editing','error')
           }
         })
       }else{
         this.apiService.addAlgo((data)).subscribe({
           next: res => {
+            this.notificationService.showNotification('Algo created successfully','success')
            console.log(res)
           },
           error:err=>{
+            this.notificationService.showNotification('Error in algo creating','error')
            console.log(err)
           }
           

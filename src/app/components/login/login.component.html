@@ -2,31 +2,29 @@
   <form class="login-form" [formGroup]="loginForm"  >
     <h2 style="margin-left: 30%;">Maximum Growth</h2>
     <mat-form-field>
-      <input  formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber"  >
+      <input type="number"  pattern="[0-9]{10}" formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" required >
     </mat-form-field>
 
     <mat-form-field>
-      <input  formControlName="password" matInput type="password" placeholder="Password" name="password"  >
+      <input minlength="6" formControlName="password" matInput type="password" placeholder="Password" name="password" required >
     </mat-form-field>
 
     <div *ngIf="clickedValue=='Sign Up'">
 
-      <div *ngIf="loginForm.get('password').value">
-        
-        
-          <button  *ngIf='loginForm.value.phoneNumber.length ==10' mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
+      <div *ngIf="loginForm.value.password.length >=6 ">
+              <button   mat-button matSuffix (click)="generateOTP()">Generate OTP</button>
         
       </div>
   
-      <div  *ngIf="otpGenerated && (loginForm.value.password !='' || loginForm.value.username !='' || loginForm.value.phoneNumber !='' )">
+      <div  *ngIf="otpGenerated ">
         <mat-form-field>
-          <input matInput placeholder="Enter OTP"  formControlName="otp"  >
+          <input matInput placeholder="Enter OTP" required formControlName="otp"  >
         </mat-form-field>
       </div>
     </div>
 
-    <div class="login-button">
-      <button type="submit" mat-raised-button color="primary" (click)="submit()" [disabled]="!loginForm.controls['otp']?.valid">{{clickedValue}}</button>
+    <div class="login-button" >
+      <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary" (click)="submit()" >{{clickedValue}}</button>
     </div>
   </form>
 </div>
