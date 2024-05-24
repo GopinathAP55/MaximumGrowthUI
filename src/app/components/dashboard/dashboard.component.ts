@@ -27,6 +27,9 @@ export class DashboardComponent {
     console.log('Clicked:', item);
     if(this.itemClicked=='one' && val==''){
       this.edit=true
+    }else if(this.itemClicked=='one' && val=='dashboard'){
+      this.edit=false
+      this.selectedAlgoData=''
     }
 
     // Add your logic here, such as navigating to a route, performing an action, etc.

@@ -1,4 +1,4 @@
-import { Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef,AfterViewInit } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef,AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegComponent } from '../leg/leg.component';
 import { LegsSettingDialogComponent } from '../legs-setting-dialog/legs-setting-dialog.component';
@@ -11,7 +11,7 @@ import { NotificationService } from 'src/app/services/notification-service';
   templateUrl: './create-algo.component.html',
   styleUrls: ['./create-algo.component.css']
 })
-export class CreateAlgoComponent implements OnInit  {
+export class CreateAlgoComponent implements OnInit ,OnChanges {
 
   createAlgo: FormGroup;
   legForm:FormControl
@@ -52,11 +52,22 @@ export class CreateAlgoComponent implements OnInit  {
   leg=''
   constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService,private notificationService:NotificationService){
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.edit) {
+     if(!changes.edit.currentValue){
+      this.reset()
+     }
+    }
+  }
 
   ngOnInit() {
     console.log(this.selectedAlgo)
    
     this.initializeForm()
+    if(!this.edit){
+      this.reset()
+      this.selectedAlgo=''
+    }
 
    
 
