@@ -15,16 +15,20 @@ export class DashboardComponent {
   legValue
   dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
   selectedAlgoData;
-
+  edit =false
   @ViewChild('legComponent', { read: ViewContainerRef }) legComponent: ViewContainerRef;
 
   constructor(public signalService : SignalService,private route : Router){
 
   }
 
-  menuItemClicked(item: string) {
+  menuItemClicked(item: string,val:string) {
     this.itemClicked = item
     console.log('Clicked:', item);
+    if(this.itemClicked=='one' && val==''){
+      this.edit=true
+    }
+
     // Add your logic here, such as navigating to a route, performing an action, etc.
   }
 
@@ -35,7 +39,8 @@ export class DashboardComponent {
   loadAlgo(algoData){
     console.log(algoData)
     this.selectedAlgoData = algoData
-    this.menuItemClicked('one')
+    this.menuItemClicked('one','')
+    this.edit =true
 
   }
   // Function to toggle the side menu

@@ -56,7 +56,7 @@
         <div>
 
           <mat-form-field  appearance="outline" style="margin-left: 10px;width: 120px;">
-            <mat-select (selectionChange)="onChangeTarget($event)" [(value)]="selectedTarget" >
+            <mat-select (selectionChange)="onChangeTarget($event)" [(value)]="finalLegValue.selectedTarget || selectedTarget" >
               <mat-option  *ngFor="let option of targetAndStopLossArray" [value]="option">
                TGT: {{ option }}
               </mat-option>
@@ -64,7 +64,7 @@
           </mat-form-field>
     
           <mat-form-field  appearance="outline" style="margin-left: 10px;width: 120px;">
-            <mat-select (selectionChange)="onChangeStoploss($event)" [(value)]="selectedStoploss" >
+            <mat-select (selectionChange)="onChangeStoploss($event)" [(value)]="finalLegValue.selectedStoploss || selectedStoploss" >
               <mat-option  *ngFor="let option of targetAndStopLossArray" [value]="option">
                SL: {{ option }}
               </mat-option>
@@ -72,7 +72,7 @@
           </mat-form-field>
 
           <mat-form-field  appearance="outline" style="margin-left: 10px;width: 130px;">
-            <mat-select (selectionChange)="onChangeTrailing($event)" [(value)]="trailing" >
+            <mat-select (selectionChange)="onChangeTrailing($event)" [(value)]="finalLegValue.selectedTrail || selectedTrail" >
               <mat-option  *ngFor="let option of trailingArray" [value]="option">
              TRL: {{ option }}
               </mat-option>
@@ -80,7 +80,7 @@
           </mat-form-field>
 
           <mat-form-field  appearance="outline" style="margin-left: 10px;width: 130px;">
-            <mat-select (selectionChange)="onChangeSquareOff($event)" [(value)]="squareOff" >
+            <mat-select (selectionChange)="onChangeSquareOff($event)" [(value)]="finalLegValue.selectedSquareOff || selectedSquareOff" >
               <mat-option  *ngFor="let option of squareOffArray" [value]="option">
               {{ option }}
               </mat-option>
@@ -91,19 +91,19 @@
 
         <div>
           <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
-          <input type="number" (keyup)="manipulateData($event,'target')"  [disabled]="selectedTarget=='none'"  matInput min="0"  [(ngModel)]="target">
+          <input type="number" (keyup)="manipulateData($event,'target')"  [disabled]="finalLegValue.selectedTarget=='none' || selectedTarget=='none'"  matInput min="0"  [(ngModel)]="finalLegValue.target || target">
         </mat-form-field>
 
         <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
-          <input type="number" (keyup)="manipulateData($event,'stoploss')" [disabled]="selectedStoploss=='none'"  matInput min="0"  [(ngModel)]="stoploss">
+          <input type="number" (keyup)="manipulateData($event,'stoploss')" [disabled]="finalLegValue.selectedStoploss=='none' || selectedStoploss=='none'"  matInput min="0"  [(ngModel)]="finalLegValue.stoploss || stoploss">
         </mat-form-field>
 
         <mat-form-field style="margin-left: 10px;width: 60px;" appearance="outline" >
-          <input  type="number" (keyup)="manipulateData($event,'valueX')"  [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueX">
+          <input  type="number" (keyup)="manipulateData($event,'valueX')"  [disabled]="finalLegValue.selectedTrail=='none' || selectedTrail=='none'"  matInput min="0"  [(ngModel)]="finalLegValue.valueX || valueX">
         </mat-form-field>
   
         <mat-form-field style="margin-left: 5px;width: 60px;" appearance="outline" >
-          <input  type="number" (keyup)="manipulateData($event,'valueY')" [disabled]="trailing=='none'"  matInput min="0"  [(ngModel)]="valueY">
+          <input  type="number" (keyup)="manipulateData($event,'valueY')" [disabled]="finalLegValue.selectedTrail=='none' || selectedTrail=='none'"  matInput min="0"  [(ngModel)]="finalLegValue.valueY || valueY">
         </mat-form-field>
         </div> 
 

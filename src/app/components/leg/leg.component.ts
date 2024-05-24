@@ -41,10 +41,10 @@ export class LegComponent implements OnInit {
 
   targetAndStopLossArray =['none','%','pts','UL%','UL pts']
   squareOffArray =['Square Off Leg','Square Off All']
-  squareOff:number
+  selectedSquareOff =''
 
   trailingArray=['none','%','pts']
-  trailing='none';
+  selectedTrail='none';
 
   selectedTarget='none'
   selectedStoploss = 'none'
@@ -70,8 +70,11 @@ export class LegComponent implements OnInit {
 
     
 
-    console.log(this.finalLegValue.selectedInstrument)
+   
    if(Object.entries(this.finalLegValue).length === 0){
+    console.log()
+    this.finalLegValue = {...this.legValue}
+    console.log(this.finalLegValue)
      let {quantity,selectedInstrument,buySell,optionValue,isMIS,selectedStrike,premium} = this.legValue
      this.finalLegValue.quantity = quantity
      this.finalLegValue.selectedInstrument = selectedInstrument
@@ -82,6 +85,21 @@ export class LegComponent implements OnInit {
      this.finalLegValue.premium=premium
    }
 
+   if(this.finalLegValue.selectedTarget){
+    this.selectedTarget = this.finalLegValue.selectedTarget
+   }
+
+   if(this.finalLegValue.selectedStopLoss){
+    this.selectedStoploss = this.finalLegValue.selectedStopLoss
+   }
+
+   if(this.finalLegValue.selectedTrail){
+    this.selectedTrail = this.finalLegValue.trailing
+   }
+
+   if( this.finalLegValue.selectedSquareOff){
+    this.selectedSquareOff= this.finalLegValue.selectedSquareOff
+   }
 
     console.log(this.finalLegValue)
 
@@ -99,6 +117,7 @@ export class LegComponent implements OnInit {
     this.isOn = !this.isOn;
     let label = this.isOn ? value1 : value2;
     console.log(this.legValue)
+    this.finalLegValue[value] = label
 
     this.buySellValue.emit({
       labelValue: label,
@@ -161,9 +180,11 @@ export class LegComponent implements OnInit {
     let stoplossValue = event.value
     if(stoplossValue =='none'){
       this.stoploss=0
-    }else{
-      this.finalLegValue.selectedStopLoss =stoplossValue
+      this.finalLegValue.stoploss=0
     }
+      this.finalLegValue.selectedStopLoss =stoplossValue
+      this.selectedStoploss = stoplossValue
+    
 
   }
 
@@ -171,10 +192,12 @@ export class LegComponent implements OnInit {
     let targetValue = event.value
     if(targetValue =='none'){
       this.target=0
-    }else{
-      this.finalLegValue.selectedTarget =targetValue
-
+      this.finalLegValue.target =0
     }
+      this.finalLegValue.selectedTarget = targetValue
+      this.selectedTarget = targetValue
+
+    
   }
 
   onChangeTrailing(event){
@@ -183,17 +206,16 @@ export class LegComponent implements OnInit {
       this.valueX=0
       this.valueY=0
 
-    }else{
-      this.finalLegValue.selectedTrail =trailingValue  
-     
-
     }
+      this.finalLegValue.selectedTrail = trailingValue  
+      this.selectedTrail = trailingValue
+    
   }
 
   manipulateData(event,label){
     console.log(event)
     console.log(label)
-    this.legValue[label]= parseInt(event.srcElement.value)
+    this.finalLegValue[label]= parseInt(event.srcElement.value)
     console.log(this.legValue)
   }
 
@@ -202,7 +224,8 @@ export class LegComponent implements OnInit {
 
   }
   onChangeSquareOff(event){
-
+    this.selectedSquareOff = event.value
+    this.finalLegValue.selectedSquareOff = this.selectedSquareOff
   }
 
 }

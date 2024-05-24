@@ -44,6 +44,7 @@ export class CreateAlgoComponent implements OnInit  {
 
   @Input() selectedAlgo;
 
+  @Input() edit
 
 
   toggleValue: string = 'off';
@@ -55,89 +56,7 @@ export class CreateAlgoComponent implements OnInit  {
   ngOnInit() {
     console.log(this.selectedAlgo)
    
-    this.createAlgo = this.formBuilder.group({
-      algoName: ['', Validators.required],
-      selectedInstrument: ['Banknifty', Validators.required],
-      selectedSegment:['Options',Validators.required],
-      optionValue:['CE'],
-      buySell:['Buy'],
-      selectedStrike:['ATM',Validators.required],
-      quantity:[1,Validators.required],
-      isMIS:['MIS'],
-      legs:['Legs'],
-      specificStrikeSelection:['None'],  
-      intradayOrPosition:['intraday'],
-      selectedDuration:['STBT/BTST'],
-      spot :['Spot'],
-
-      //start time end time variables
-      startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      endHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      endMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      endSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      nextDayHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      nextDayMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      nextDaySec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      
-      daysBeforeExpiry:['0',[Validators.required, Validators.min(0), Validators.max(5),Validators.maxLength(1)]],
-
-      //mtm variables
-
-      selectedMTM:['none'],
-      mtmFixedStoploss:['none'],
-      mtmValue: new FormControl({value: '', disabled: true},[Validators.required,Validators.maxLength(2)] ),
-      selectedAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
-
-      mtmStoplossValue: new FormControl({value: '', disabled: true}, Validators.required),
-      selectedStoplossAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
-      trailingStoploss:['none'],
-      mtmStoplossType:['MTM in percentage'],
-      mtmStoplossX:[0],
-      mtmStoplossY:[0],
-      lockProfitY:[0],
-      profitReachesX:[0],
-      trailProfitA:[0],
-      trailProfitB:[0],
-
-      //primium matchting variables
-      isNoMatchingOfPremium:[true],
-      isPremiumRange:[false],
-      isPremiumCloseTo:[false],
-      isMatchPremium:[false],
-
-      maximumDifferenceValue:['',Validators.required],
-      premiumCloseToValue: ['',Validators.required],
-      permiumRangeOneValue:['',Validators.required],
-      permiumRangeTwoValue:['',Validators.required],
-
-      //advanced settings
-      entryOrderType:['Market(M)'],
-      pointsOrPercentage:['Points'],
-      entryBufferIn:[],
-      entryBufferValue:[0],
-      exitOrderType:['Market(M)'],
-      exitBufferIn:[],
-      exitBufferValue:[0],
-      exitPlacementDelaySL:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-      exitPlacementDelayLeg:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-
-
-      entryOrderDelay:['no delay'],
-      entryDelayValue:[3,[Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
-
-      exitDelayValue:[3,[ Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
-
-      exitOrderDelay:['no delay'],
-      calcEntry:['Average entry price'],
-      calcExit:['Average exit price'],
-      trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-      isExit:[false],
-      legsArray:[]
-
-      
-    });
+    this.initializeForm()
 
    
 
@@ -333,7 +252,104 @@ export class CreateAlgoComponent implements OnInit  {
   clone(){
     console.log('test')
   }
+  reset(){
+    
+    this.createAlgo.reset()
+    this.initializeForm()
+ 
+    console.log(this.dynamicComponentRefs)
+    this.dynamicComponentRefs.forEach((val,index)=>{
+      val.destroy();
+    
+    })
+
+    this.dynamicComponentRefs=[]    
+  }
+
+  initializeForm(){
+    this.createAlgo = this.formBuilder.group({
+      algoName: ['', Validators.required],
+      selectedInstrument: ['Banknifty', Validators.required],
+      selectedSegment:['Options',Validators.required],
+      optionValue:['CE'],
+      buySell:['Buy'],
+      selectedStrike:['ATM',Validators.required],
+      quantity:[1,Validators.required],
+      isMIS:['MIS'],
+      legs:['Legs'],
+      specificStrikeSelection:['None'],  
+      intradayOrPosition:['intraday'],
+      selectedDuration:['STBT/BTST'],
+      spot :['Spot'],
+
+      //start time end time variables
+      startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
+      startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      endHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
+      endMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      endSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      nextDayHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
+      nextDayMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      nextDaySec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      
+      daysBeforeExpiry:['0',[Validators.required, Validators.min(0), Validators.max(5),Validators.maxLength(1)]],
+
+      //mtm variables
+
+      selectedMTM:['none'],
+      mtmFixedStoploss:['none'],
+      mtmValue: new FormControl([Validators.required] ),
+      selectedAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
+
+      mtmStoplossValue: new FormControl( Validators.required),
+      selectedStoplossAction: new FormControl({value: 'Square Off All Positions', disabled: true}, Validators.required),
+      trailingStoploss:['none'],
+      mtmStoplossType:['MTM in percentage'],
+      mtmStoplossX:[0],
+      mtmStoplossY:[0],
+      lockProfitY:[0],
+      profitReachesX:[0],
+      trailProfitA:[0],
+      trailProfitB:[0],
+
+      //primium matchting variables
+      isNoMatchingOfPremium:[true],
+      isPremiumRange:[false],
+      isPremiumCloseTo:[false],
+      isMatchPremium:[false],
+
+      maximumDifferenceValue:['',Validators.required],
+      premiumCloseToValue: ['',Validators.required],
+      permiumRangeOneValue:['',Validators.required],
+      permiumRangeTwoValue:['',Validators.required],
+
+      //advanced settings
+      entryOrderType:['Market(M)'],
+      pointsOrPercentage:['Points'],
+      entryBufferIn:[],
+      entryBufferValue:[0],
+      exitOrderType:['Market(M)'],
+      exitBufferIn:[],
+      exitBufferValue:[0],
+      exitPlacementDelaySL:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      exitPlacementDelayLeg:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
 
 
+      entryOrderDelay:['no delay'],
+      entryDelayValue:[3,[Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
 
+      exitDelayValue:[3,[ Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+
+      exitOrderDelay:['no delay'],
+      calcEntry:['Average entry price'],
+      calcExit:['Average exit price'],
+      trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      isExit:[false],
+      legsArray:[],
+      isPosition:[false]
+
+      
+    });
+  }
 }

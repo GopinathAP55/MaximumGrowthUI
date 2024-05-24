@@ -1,4 +1,6 @@
-<h2 style="margin-left: 1%;">Create New Algo</h2>
+<h2 *ngIf="!edit" style="margin-left: 1%;">Create New Algo</h2>
+<h2 *ngIf="edit" style="margin-left: 1%;">Edit Algo</h2>
+<button  style="margin-right:5%;float: right;" type="button" mat-raised-button color="primary" (click)="reset()">Reset</button>
 
 <form [formGroup]="createAlgo" (ngSubmit)="onSubmit()" class="example-form">
 
@@ -75,7 +77,7 @@
   <hr  style="margin-top: 10px;">
 
 
-  <button  mat-raised-button  >Spot</button>
+  <button  mat-raised-button [disabled]="true" type="button" >Spot</button>
 
     <mat-button-toggle-group appearance="legacy" style="margin-top: 10px;margin-left: 10px;;" #group="matButtonToggleGroup"
       formControlName="intradayOrPosition">
@@ -84,7 +86,7 @@
     </mat-button-toggle-group>
   
   
-    <mat-form-field *ngIf="isPosition" appearance="outline" style="margin-left: 10px;">
+    <mat-form-field *ngIf="createAlgo.get('intradayOrPosition').value =='positional'" appearance="outline" style="margin-left: 10px;">
       <mat-label>Duration</mat-label>
       <mat-select formControlName="selectedDuration">
         <mat-option *ngFor="let option of durationArray" [value]="option">
@@ -97,10 +99,10 @@
   
       <label>Start Time</label>
       <label style="margin-left: 225px;">End Time</label>
-      <label *ngIf="isPosition" style="margin-left: 225px;">
+      <label *ngIf="createAlgo.get('intradayOrPosition').value =='positional'" style="margin-left: 225px;">
         Check condition next day after
         </label>
-        <label *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST' && isPosition " style="margin-left: 97px;">
+        <label *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST' && createAlgo.get('intradayOrPosition').value =='positional' " style="margin-left: 97px;">
          Days Before expiry
           </label>
 
@@ -139,7 +141,7 @@
         </mat-form-field>
       </div>
 
-      <div  *ngIf="isPosition" style="margin-left: 100px;">
+      <div  *ngIf="createAlgo.get('intradayOrPosition').value =='positional'" style="margin-left: 100px;">
         <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
           <input type="number" min="09" max="15" matInput formControlName="nextDayHour">
         </mat-form-field>
@@ -153,7 +155,7 @@
         </mat-form-field>
       </div>
   
-      <div  *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST'  && isPosition " style="margin-left: 100px;">
+      <div  *ngIf="createAlgo.get('selectedDuration').value !== 'STBT/BTST'  && createAlgo.get('intradayOrPosition').value =='positional'  " style="margin-left: 100px;">
         <mat-form-field style="width: 60px;" appearance="outline" class="example-full-width">
           <input type="number"  matInput formControlName="daysBeforeExpiry">
         </mat-form-field>
@@ -501,7 +503,8 @@
    </div>
 
     <div >
-      <button  style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Save Settings</button>
+      <button *ngIf="!edit" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Save Settings</button>
+      <button *ngIf="edit" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Edit Settings</button>
 
     </div>
 
