@@ -1,0 +1,45 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="true">
+    <mat-toolbar style="background-color: #673ab7;color: white;">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item  (click)="menuItemClicked('one','dashboard');drawer.toggle()">Create Algo</a>
+      <a mat-list-item   (click)="menuItemClicked('none','dashboard');drawer.toggle()">Table</a>
+      <a mat-list-item (click)="menuItemClicked('four','dashboard');drawer.toggle()">Broker Login</a>
+      <a mat-list-item   (click)='logOut();drawer.toggle()'>Logout
+        </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+      
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Maximum Growth</span>
+      <span class="spacer"></span>
+     
+        <a mat-list-item href="#"   (click)='logOut();drawer.toggle()'><button  mat-icon-button>
+          <mat-icon>logout</mat-icon>
+        </button>
+        </a>
+     
+    </mat-toolbar>
+    <mat-drawer-container class="example-container" autosize>
+      
+      <div class="example-sidenav-content">
+        <app-create-algo [selectedAlgo]="selectedAlgoData" [edit]="edit" (onSubmitForm)="menuItemClicked('none','dashboard')" *ngIf="itemClicked=='one'"></app-create-algo>
+        <app-table (algoDataClicked)="loadAlgo($event)" *ngIf="itemClicked=='none'" ></app-table>
+        <app-broker-login *ngIf="itemClicked=='four'"></app-broker-login>
+      </div>
+    
+    </mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

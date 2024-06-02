@@ -1,38 +1,33 @@
-<p>
-    <mat-toolbar >
-        
 
-      <div class="container-fluid">
-        <div class="row">
 
-          <div class="col-1">
-          
-          </div>
-          <div class="col-1">
-            <span>Maximum Growth</span>
-          </div>
 
-          <div class="col-8">
 
-          </div>
-
-          <div class="col-2">
-            <button style="margin-top: -17px; width: 50%;" mat-raised-button color="primary" (click)="menuItemClicked('Sign Up')">Sign Up</button>
-            <button style="margin-top: -17px; width: 50%;margin-left: 5px;" mat-raised-button color="primary" (click)="menuItemClicked('Login')">Login</button>
-
-           
-          </div>
-
-        </div>
-
-      </div>
-              
-                 
+  <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="( isHandset$ | async) === false">
+   
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      
+      <span>Maximum Growth</span>
+    
+     <span class="spacer"></span>
+     
+      <button style="max-width: 100px;" mat-button  (click)="menuItemClicked('Login')">Login
+      </button>
+      <button style="max-width: 100px;" mat-button   (click)="menuItemClicked('Sign Up')">Sign Up
+      </button>
+     
     </mat-toolbar>
-</p>
+   
+    <div *ngIf="open" >
 
-<div *ngIf="open" class="example-sidenav-content">
-    <app-login [clickedValue]="itemClicked" *ngIf="itemClicked"></app-login>
-
+      <app-login [clickedValue]="itemClicked" *ngIf="itemClicked"></app-login>
   
-  </div>
+    </div>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -47,6 +47,7 @@ import {MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth/authGuard';
 import { NotificationService } from './services/notification-service';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NotificationService } from './services/notification-service';
          BrokerLoginComponent,
          FlatTradeComponent,
          ZerodhaComponent,
-         HomeComponent
+         HomeComponent,
+         NavigationComponent,
         ],
   imports: [
     MatSnackBarModule ,

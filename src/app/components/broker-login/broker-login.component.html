@@ -1,12 +1,12 @@
-<div class="col-2" *ngIf="showBroker">
-    <button style=" width: 50%;" mat-raised-button color="primary" (click)="openTrade('Flat Trade')">Flat Trade</button> 
+<div style="margin-left: 1%;"  *ngIf="showBroker">
+    <button style=" margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Flat Trade')">Flat Trade</button> 
     <br> 
-    <button style=" width: 50%;margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Zerodha')">Zerodha</button>
+    <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Zerodha')">Zerodha</button>
    
   </div>
 
-  <div style="float: right;" class="col-2" *ngIf="!showBroker">
-    <button style=" width: 50%;" mat-raised-button color="primary" (click)="showBroker=true">Back</button>
+  <div style="float: right;" *ngIf="!showBroker">
+    <button  mat-raised-button color="primary" (click)="showBroker=true">Back</button>
    
   </div>
 

@@ -10,7 +10,8 @@ selectedTrader;
 showBroker=true
 
   openTrade(val){
-    console.log(val)
+    
+    console.log('val')
     this.selectedTrader=val
     this.showBroker=false
   }
