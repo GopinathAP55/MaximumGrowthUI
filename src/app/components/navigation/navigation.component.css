@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100%;
+ 
 }
 
 .sidenav {
@@ -18,4 +18,8 @@
 
 .spacer {
   flex: 1 1 auto;
+}
+
+::ng-deep .mat-drawer-content {
+  overflow: hidden !important;
 }

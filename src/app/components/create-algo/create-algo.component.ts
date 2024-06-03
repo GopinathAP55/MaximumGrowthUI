@@ -264,9 +264,11 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
     console.log('test')
   }
   reset(){
-    
-    this.createAlgo.reset()
-    this.initializeForm()
+    if(this.createAlgo){
+
+      this.createAlgo.reset()
+     
+    }
  
     console.log(this.dynamicComponentRefs)
     this.dynamicComponentRefs.forEach((val,index)=>{
