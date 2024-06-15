@@ -12,7 +12,7 @@ import { NotificationService } from 'src/app/services/notification-service';
   styleUrls: ['./create-algo.component.css']
 })
 export class CreateAlgoComponent implements OnInit ,OnChanges {
-
+  isLoading = false
   createAlgo: FormGroup;
   legForm:FormControl
 
@@ -217,25 +217,31 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       }
       if(this.selectedAlgo){
         data['objectId']=this.selectedAlgo._id
+        this.isLoading = true
         this.apiService.editAlgo((data)).subscribe({
           next:res=>{
             console.log(res)
             this.notificationService.showNotification('Algo edited successfully','success')
+            this.isLoading = false
           },
           error:error=>{
             console.log(error)
             this.notificationService.showNotification('Error in algo editing','error')
+            this.isLoading = false
           }
         })
       }else{
+        this.isLoading = true
         this.apiService.addAlgo((data)).subscribe({
           next: res => {
             this.notificationService.showNotification('Algo created successfully','success')
            console.log(res)
+           this.isLoading = false
           },
           error:err=>{
             this.notificationService.showNotification('Error in algo creating','error')
            console.log(err)
+           this.isLoading = false
           }
           
          // Do something with the received value

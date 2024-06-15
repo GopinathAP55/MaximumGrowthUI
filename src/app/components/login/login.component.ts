@@ -19,11 +19,14 @@ export class LoginComponent implements OnInit {
   phoneNumber:number
   isLoading = false
 
+
+
   @Input() clickedValue = 'Login';
   constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService,private formBuilder:FormBuilder,
     private notificationService: NotificationService
   ){}
   ngOnInit(): void {
+   
     this.loginForm = this.formBuilder.group({
     
       password:['',Validators.required],
@@ -37,13 +40,19 @@ export class LoginComponent implements OnInit {
   generateOTP() {
     this.otpGenerated = true
     // Logic to generate OTP and make the OTP input visible
+    this.isLoading = true
     this.apiService.generateOTP(this.loginForm.get('phoneNumber').value).subscribe({
       next:res=>{
         console.log(res)
         console.log('otp sent')
+        this.notificationService.showNotification('OTP Generated','success');
+        this.isLoading = false
       },
       error:err=>{
         console.log(err)
+        this.notificationService.showNotification('OTP Generation Failed','error');
+
+        this.isLoading = false
       }
     })
   }
@@ -62,7 +71,7 @@ export class LoginComponent implements OnInit {
         },
         error:error=>{
           this.isLoading = false
-          this.notificationService.showNotification(error.error.message,'error');
+          this.notificationService.showNotification(error.error.message || 'Login Failed','error');
           console.log(error)
         }
       })
@@ -70,14 +79,18 @@ export class LoginComponent implements OnInit {
     }else{
       this.signalService.isLogin.set(true)
       let data = this.loginForm.value
+      this.isLoading = true
       this.apiService.verifyOtp(data).subscribe({
         next:res=>{
           console.log(res)
           this.notificationService.showNotification(res.message,'success');
           this.router.navigateByUrl('/login')
+          this.isLoading = false
         },
         error:err=>{
           console.log(err)
+          this.notificationService.showNotification(err.error.message || 'Sign Up Error','error');
+          this.isLoading = false
         }
       })
     }

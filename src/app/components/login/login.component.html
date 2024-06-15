@@ -29,7 +29,8 @@
   </form>
 </div>
 
-
-
 <router-outlet></router-outlet>
-  
+<div class="overlay" *ngIf="isLoading">
+
+  <mat-progress-spinner  mode="indeterminate"></mat-progress-spinner>
+</div>

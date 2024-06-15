@@ -1,3 +1,7 @@
+<div class="overlay" *ngIf="isLoading">
+
+  <mat-progress-spinner  mode="indeterminate"></mat-progress-spinner>
+</div>
 <h2 *ngIf="!edit" style="margin-left: 1%;">Create New Algo</h2>
 <h2 *ngIf="edit" style="margin-left: 1%;">Edit Algo</h2>
 <button  style="margin-right:5%;float: right;" type="button" mat-raised-button color="primary" (click)="reset()">Reset</button>

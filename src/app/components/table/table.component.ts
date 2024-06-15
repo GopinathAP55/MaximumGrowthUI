@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service'
 import { SelectionModel } from '@angular/cdk/collections';
+import { NotificationService } from 'src/app/services/notification-service';
 
 
 @Component({
@@ -29,10 +30,10 @@ export class TableComponent implements OnInit {
   selectedDay = ['Monday']
   selection = new SelectionModel<any>(true, []);
   dataSource
-
+  isLoading = false
   @Output() algoDataClicked = new EventEmitter<any>();
 
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiServiceService,private notificationService : NotificationService) { }
 
   ngOnInit() {
     console.log('test')
@@ -42,17 +43,24 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = ['select', 'enable', 'mtm', 'name', 'day', 'actions'];
   loadData(event) {
     if (event.value || event ) {
-
+      this.isLoading = true
       this.apiService.getData(event.value || event).subscribe({
 
         next: (res: any) => {
+          this.isLoading = true
           this.data = res
           console.log(res)
           this.dataSource = this.data;
+          this.isLoading = false
+          this.notificationService.showNotification('Data Loaded','success');
+
         },
         error: (error: any) => {
-          console.log(error);
+          this.isLoading = true
 
+          console.log(error);
+          this.notificationService.showNotification(error || 'Loading failed','error');
+          this.isLoading = false
         }
       }
       )
@@ -86,13 +94,20 @@ export class TableComponent implements OnInit {
   deleteItem(item): void {
     // Implement your delete logic here
     console.log('Delete item:', item);
+    this.isLoading = true
     this.apiService.deleteAlgo(item.name).subscribe({
       next : res=>{
+        this.isLoading = true
         console.log(res)
         this.loadData(this.selectedDay)
+        this.isLoading = false
+        this.notificationService.showNotification('Delete Success','success');
       },
       error : err=>{
+        this.isLoading = true
         console.log(err)
+        this.notificationService.showNotification(err || 'Delete Error','error');
+        this.isLoading = false
       }
     })
     
@@ -106,7 +121,9 @@ export class TableComponent implements OnInit {
   }
 
   refresh(){
+   
     this.loadData(this.selectedDay)
+   
   }
 
 }
