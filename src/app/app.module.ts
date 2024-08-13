@@ -48,6 +48,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth/authGuard';
 import { NotificationService } from './services/notification-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { AcAgarwalComponent } from './components/broker-login/ac-agarwal/ac-agarwal.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
          ZerodhaComponent,
          HomeComponent,
          NavigationComponent,
+         AcAgarwalComponent,
         ],
   imports: [
     MatSnackBarModule ,

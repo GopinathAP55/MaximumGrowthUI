@@ -7,15 +7,21 @@ import { LoginComponent } from './components/login/login.component'
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth/authGuard';
 import { NavigationComponent } from './components/navigation/navigation.component'
+import { BrokerLoginModule } from './broker-login/broker-login.module';
 
 console.log('route')
 
 const routes: Routes = [ 
  
   { path:'login',component : LoginComponent },
-  { path: 'dashboard', component: NavigationComponent ,canActivate: [AuthGuard]}, //
-  { path:'table', component: TableComponent},
+  { path: 'dashboard', component: NavigationComponent ,canActivate: [AuthGuard] ,children:[
+    {path:'', outlet:'broker-login', 
+     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule),
+     
+    }
+  ]}, //
   { path:'',component:HomeComponent}
+
 
 ];
 @NgModule({

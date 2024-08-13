@@ -1,0 +1,78 @@
+<form style="margin-top: 1%;margin-left: 2%;" [formGroup]="traderForm" (ngSubmit)="onSubmit()" class="example-form">
+    <div style="padding-top: 1%;">
+        <h2>AC Agarwal</h2>
+        <div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Client ID</mat-label>
+                <input matInput formControlName="clientId">
+            </mat-form-field>
+
+        </div>
+
+        
+      
+        <div style="margin-top: 1%;">
+
+            <div>
+
+                Copy the API Key and API secret and paste in below and click ‘Save’.
+            </div>
+
+            <div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Order API Key</mat-label>
+                    <input placeholder="Password" [type]="hide ? 'password' : 'text'" matInput formControlName="APIKey">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+
+            </div>
+
+            <div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Order API Secret</mat-label>
+                    <input placeholder="Password" [type]="hide1 ? 'password' : 'text'" matInput formControlName="APISecret">
+                    <mat-icon matSuffix (click)="hide1 = !hide1">{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+
+            </div>
+            <div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Market API Key</mat-label>
+                    <input  placeholder="Password" [type]="hide2 ? 'password' : 'text'"  matInput formControlName="marketAPIKey">
+              
+                    <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+
+            </div>
+            <div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Market API Secret</mat-label>
+                    <input placeholder="Password" [type]="hide3 ? 'password' : 'text'" matInput formControlName="marketAPISecret">
+                    <mat-icon matSuffix (click)="hide3 = !hide3">{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+
+        <div style="display: flex;">
+
+            <div>
+                <button [disabled]="traderForm.invalid" type="submit" mat-raised-button color="primary">Save</button>
+            </div>
+            <div *ngIf="traderForm.get('_id').value" style="margin-left: 10px;">
+                <button type="button" mat-raised-button style="background-color: red;"
+                    (click)="deleteBroker()">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="overlay" *ngIf="isLoading">
+    <mat-progress-spinner  mode="indeterminate"></mat-progress-spinner>
+  </div>
