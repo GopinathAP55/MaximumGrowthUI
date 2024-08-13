@@ -10,24 +10,50 @@
    
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <!-- <mat-toolbar color="primary">
       
       <span>Maximum Growth</span>
     
      <span class="spacer"></span>
      
-      <button style="max-width: 100px;" mat-button  (click)="menuItemClicked('Login')">Login
-      </button>
-      <button style="max-width: 100px;" mat-button   (click)="menuItemClicked('Sign Up')">Sign Up
-      </button>
+      
      
-    </mat-toolbar>
-   
-    <div *ngIf="open" >
+    </mat-toolbar> -->
+    <header>
+      
+  </header>
+  <section class="hero">
+      <div class="hero-text">
+          <h1>Maximum Growth</h1>
+          <p>Discover the power of algorithmic trading with our cutting-edge solutions. Enhance your trading strategies and maximize your investment potential.</p>
+          <div *ngIf="!open">
 
-      <app-login [clickedValue]="itemClicked" *ngIf="itemClicked"></app-login>
+            <button style="max-width: 100px;" mat-button  (click)="menuItemClicked('Login')">Login
+            </button>
+            <button style="max-width: 100px;" mat-button   (click)="menuItemClicked('Sign Up')">Sign Up
+            </button>
+          </div>
+      </div>
+      <div class="social-links">
+          <a href="https://facebook.com" target="_blank">Facebook</a>
+          <a href="https://twitter.com" target="_blank">Twitter</a>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      </div>
+      <div style="z-index: 111;" *ngIf="open" >
   
-    </div>
+        <app-login [clickedValue]="itemClicked" (closeLogin)="isLoginOpen($event)" *ngIf="itemClicked"></app-login>
+    
+      </div>
+  </section>
+  <div class="hero-text1">
+    <h1>About Maximum Growth</h1>
+    <p>Our mission at Maximum Growth is to help our clients achieve financial success by providing them with personalized investment advice and guidance.
+      We believe that every client is unique, and we work closely with each one to develop a customized investment strategy that meets their specific needs and goals.</p>
+    
+</div>
+  <section class="hero1">
+
+  </section>
     
   </mat-sidenav-content>
 </mat-sidenav-container>

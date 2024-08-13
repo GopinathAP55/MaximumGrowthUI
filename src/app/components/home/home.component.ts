@@ -34,4 +34,8 @@ export class HomeComponent implements OnInit{
     console.log('Clicked:', item);
     // Add your logic here, such as navigating to a route, performing an action, etc.
   }
+
+  isLoginOpen(event){
+    this.open = event.value
+  }
 }

@@ -3,3 +3,85 @@
   .spacer {
     flex: 1 1 auto;
   }
+
+  body {
+    margin: 0;
+    font-family: system-ui;
+    color: #fff;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.header-content {
+    display: flex;
+    gap: 15px;
+}
+
+.header-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    position: relative;
+    background: url('../../../assets/image/building.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-text {
+    position: absolute;
+    top: 6%;
+    width: 100%;
+    text-align: left;
+    margin-left: 2%;
+    color: black;
+}
+
+.hero-text h1 {
+    font-size: 4em;
+    margin: 0;
+    color: black;
+    font-weight: 500;
+
+}
+
+.hero-text p {
+    font-size: 1.5em;
+    margin: 25px 5px;
+    font-weight: 400;
+
+}
+
+.social-links {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+

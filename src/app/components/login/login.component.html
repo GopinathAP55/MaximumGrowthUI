@@ -1,6 +1,6 @@
 <div class="login-container">
   <form class="login-form" [formGroup]="loginForm"  >
-    <h2 style="margin-left: 30%;">Maximum Growth</h2>
+   
     <mat-form-field>
       <input type="number"  pattern="[0-9]{10}" formControlName="phoneNumber" matInput inputmode="numeric" maxlength="10" placeholder="Phone Number" name="phoneNumber" required >
     </mat-form-field>
@@ -23,9 +23,12 @@
       </div>
     </div>
 
-    <div class="login-button" >
+    <div  class="login-button" >
       <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary" (click)="submit()" >{{clickedValue}}</button>
+      <button style="margin-left: 1%;" type="button"  mat-raised-button color="primary" (click)="close()" >close</button>
+
     </div>
+    
   </form>
 </div>
 

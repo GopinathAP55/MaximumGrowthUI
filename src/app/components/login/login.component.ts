@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignalService } from 'src/app/services/signal.service';
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
 
 
   @Input() clickedValue = 'Login';
+  @Output() closeLogin = new EventEmitter<any>()
   constructor(private apiService : ApiServiceService, private router : Router,private signalService : SignalService,private formBuilder:FormBuilder,
     private notificationService: NotificationService
   ){}
@@ -95,4 +96,11 @@ export class LoginComponent implements OnInit {
       })
     }
   }
+
+  close(){
+    this.closeLogin.emit(false)
+  }
 }
+
+
+
