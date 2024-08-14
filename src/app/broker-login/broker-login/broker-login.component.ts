@@ -32,7 +32,24 @@ export class BrokerLoginComponent implements OnInit {
   }
 
   login(data){
-    console.log(data)
+
+    let payload = {
+      'userid'   : data.clientId,
+      'password' : '',
+      'twoFA'    : '',
+      'vendor_code' : data.vendor_code,
+      'api_secret' : data.APIKey,
+      'imei'       : data.imei
+      }
+      console.log(data)
+    this.apiService.finvasiaLogin(payload).subscribe({
+      next : res=>{
+        console.log(res)
+      },
+      error:err=>{
+        console.log(err)
+      }
+    })
   }
 
 

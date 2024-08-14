@@ -49,6 +49,7 @@ import { AuthGuard } from './auth/authGuard';
 import { NotificationService } from './services/notification-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AcAgarwalComponent } from './components/broker-login/ac-agarwal/ac-agarwal.component';
+import { FinvasiaComponent } from './components/broker-login/finvasia/finvasia.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { AcAgarwalComponent } from './components/broker-login/ac-agarwal/ac-agar
          HomeComponent,
          NavigationComponent,
          AcAgarwalComponent,
+         FinvasiaComponent,
         ],
   imports: [
     MatSnackBarModule ,

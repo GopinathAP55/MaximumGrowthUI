@@ -4,6 +4,9 @@
     <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Zerodha')">Zerodha</button>
     <br>
     <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('AC Agarwal')">AC Agarwal</button>
+    <br>
+    <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Finvasia')">Finvasia</button>
+
   
    
   </div>
@@ -16,3 +19,4 @@
   <app-flat-trade  *ngIf="selectedTrader=='Flat Trade' && !showBroker"></app-flat-trade>
   <app-zerodha *ngIf="selectedTrader=='Zerodha' && !showBroker"></app-zerodha>
   <app-ac-agarwal *ngIf="selectedTrader=='AC Agarwal' && !showBroker"></app-ac-agarwal>
+  <app-finvasia *ngIf="selectedTrader=='Finvasia' && !showBroker"></app-finvasia>
