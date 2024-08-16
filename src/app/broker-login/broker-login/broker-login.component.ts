@@ -14,16 +14,20 @@ export class BrokerLoginComponent implements OnInit {
   }
 
   brokerArray :[]
+  isLoading = false;
   ngOnInit(): void {
+    this.isLoading = true
     this.apiService.getBroker('').subscribe({
       next:res =>{
         console.log(res)
         this.brokerArray = res
         this.notificationService.showNotification(res.message || 'Loaded Successfully','success');
-
+        this.isLoading = false
       },
       error:err=>{
+        this.isLoading = true
         this.notificationService.showNotification(err.message || 'Failed to load','error');
+        this.isLoading = false
       }
     }
      
@@ -34,11 +38,11 @@ export class BrokerLoginComponent implements OnInit {
   login(data){
 
     const apiKey = data.APIKey; // Replace with your API Key if needed
-    const redirectUri = 'YOUR_REDIRECT_URI'; // Replace with your Redirect URI
+    const redirectUri = 'http://maximumgrowth.in'; // Replace with your Redirect URI
     const responseType = 'code'; // Authorization code flow
 
     // URL might differ based on Finvasia’s login page URL and query parameters
-    const finvasiaLoginUrl = `https://api.finvasia.com/login?api_key=${apiKey}&response_type=${responseType}`;
+    const finvasiaLoginUrl = `https://trade.shoonya.com?api_key=${apiKey}&response_type=${responseType}&redirect_uri=${encodeURIComponent(redirectUri)}`;
     
     window.location.href = finvasiaLoginUrl;
 
