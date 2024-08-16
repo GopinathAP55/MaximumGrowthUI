@@ -51,8 +51,8 @@
       <div class="example-sidenav-content">
         <app-create-algo [selectedAlgo]="selectedAlgoData" [edit]="edit" (onSubmitForm)="menuItemClicked('none','dashboard')" *ngIf="itemClicked=='one'"></app-create-algo>
         <app-table (algoDataClicked)="loadAlgo($event)" *ngIf="itemClicked=='none'" ></app-table>
-        <app-broker-login *ngIf="itemClicked=='two'"></app-broker-login>
-       <router-outlet *ngIf="itemClicked=='three'" name="broker-login"></router-outlet>
+        <router-outlet *ngIf="itemClicked=='two'" name="broker-setup"></router-outlet>
+        <router-outlet *ngIf="itemClicked=='three'" name="broker-login"></router-outlet>
 
       </div>
     

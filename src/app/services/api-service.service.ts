@@ -9,8 +9,8 @@ export class ApiServiceService {
  
 
    // Replace with your API endpoint URL
-  private apiUrl = 'http://localhost:3000/api/mg'  //'http://3.25.21.156:3000/api/mg'
-  private apiUrl2 = 'http://localhost:3000/api' //'http://3.25.21.156:3000/api'
+  private apiUrl = 'http://3.25.21.156:3000/api/mg'
+  private apiUrl2 = 'http://3.25.21.156:3000/api'
   constructor(private http: HttpClient) {}
 
 

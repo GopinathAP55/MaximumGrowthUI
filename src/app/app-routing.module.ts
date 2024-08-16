@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component'
-import { TableComponent} from './components/table/table.component'
+import {  RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './components/login/login.component'
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth/authGuard';
 import { NavigationComponent } from './components/navigation/navigation.component'
-import { BrokerLoginModule } from './broker-login/broker-login.module';
 
 console.log('route')
 
@@ -18,7 +15,12 @@ const routes: Routes = [
     {path:'', outlet:'broker-login', 
      loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule),
      
-    }
+    },
+    {path:'', outlet:'broker-setup', 
+    loadChildren: () => import('./broker-setup/broker-setup.module').then(m => m.BrokerSetupModule),
+    
+   },
+
   ]}, //
   { path:'',component:HomeComponent}
 

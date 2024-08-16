@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrokerLoginComponent } from './broker-login/broker-login.component';
 import { BrokerRoutingModule } from './broker-routing.module';
-import { MatButtonModule } from '@angular/material/button';
+import { AngularMaterialModule } from '../angular-material/angular-material.module'
 
 
 
@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     BrokerRoutingModule,
-    MatButtonModule
+    AngularMaterialModule
   ]
 })
 export class BrokerLoginModule { }
