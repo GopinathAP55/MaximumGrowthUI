@@ -9,8 +9,8 @@ export class ApiServiceService {
  
 
    // Replace with your API endpoint URL
-  private apiUrl = 'http://3.25.21.156:3000/api/mg'
-  private apiUrl2 = 'http://3.25.21.156:3000/api'
+  private apiUrl = 'http://34.196.25.237:3000/api/mg'
+  private apiUrl2 = 'http://34.196.25.237:3000/api'
   constructor(private http: HttpClient) {}
 
 
@@ -65,9 +65,9 @@ export class ApiServiceService {
   }
 
 
-  finvasiaLogin(data){
+  brokerLogin(data){
     console.log(data)
-    return this.http.post<any>(`${this.apiUrl}/finvasiaLogin`,data)
+    return this.http.post<any>(`${this.apiUrl}/brokerLogin`,data)
   }
 
  

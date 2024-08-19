@@ -36,15 +36,35 @@ export class BrokerLoginComponent implements OnInit {
   }
 
   login(data){
+    this.isLoading = true
 
-    const apiKey = data.APIKey; // Replace with your API Key if needed
-    const redirectUri = 'http://maximumgrowth.in'; // Replace with your Redirect URI
-    const responseType = 'code'; // Authorization code flow
+    switch(data.name){
+      case 'AC Agarwal':
+        this.apiService.brokerLogin({
+          'name':'AC Agarwal',
+          'marketAPIKey':"e42bb5ed272bb9cf7c6326",
+          'marketAPISecret':"Tiuy575@Rz"
+        }
+        ).subscribe({
+          next:res=>{
+            this.notificationService.showNotification(res.message || `${data.name} Login success`,'success');
+            this.isLoading = false
+          },
+          error:err=>{
+            this.notificationService.showNotification(err.message || `${data.name} Login error`,'error');
+            this.isLoading = false
+          }
+        })
+    }
 
-    // URL might differ based on Finvasia’s login page URL and query parameters
-    const finvasiaLoginUrl = `https://trade.shoonya.com?api_key=${apiKey}&response_type=${responseType}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    // const apiKey = data.APIKey; // Replace with your API Key if needed
+    // const redirectUri = 'http://maximumgrowth.in'; // Replace with your Redirect URI
+    // const responseType = 'code'; // Authorization code flow
+
+    // // URL might differ based on Finvasia’s login page URL and query parameters
+    // const finvasiaLoginUrl = `https://trade.shoonya.com?api_key=${apiKey}&response_type=${responseType}&redirect_uri=${encodeURIComponent(redirectUri)}`;
     
-    window.location.href = finvasiaLoginUrl;
+    // window.location.href = finvasiaLoginUrl;
 
     // let payload = {
     //   'userid'   : data.clientId,
