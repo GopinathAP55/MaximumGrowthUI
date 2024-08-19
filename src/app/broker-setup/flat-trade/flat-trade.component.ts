@@ -48,12 +48,12 @@ export class FlatTradeComponent implements OnInit  {
     this.apiService.addBroker((data)).subscribe({
       next: res => {
        console.log(res)
-       this.notificationService.showNotification('Create Successfully','success');
+       this.notificationService.showNotification(res.message ||'Create Successfully','success');
        this.isLoading =false
       },
       error:err=>{
        console.log(err)
-       this.notificationService.showNotification(err || 'Creation failed','error');
+       this.notificationService.showNotification(err.message || 'Creation failed','error');
        this.isLoading =false
 
       }
@@ -70,7 +70,7 @@ export class FlatTradeComponent implements OnInit  {
       next:res=>{
         console.log(res)
         this.traderForm.reset()
-        this.notificationService.showNotification('Delete Successfully','success');
+        this.notificationService.showNotification('Deleted Successfully','success');
         this.isLoading = false
       },
       error:err=>{

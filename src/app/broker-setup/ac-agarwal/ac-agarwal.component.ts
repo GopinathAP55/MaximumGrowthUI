@@ -53,7 +53,7 @@ export class AcAgarwalComponent {
     this.apiService.addBroker((data)).subscribe({
       next: res => {
        console.log(res)
-       this.notificationService.showNotification('Create Successfully','success');
+       this.notificationService.showNotification(res.message || 'Saved Successfully','success');
        this.isLoading =false
       },
       error:err=>{
