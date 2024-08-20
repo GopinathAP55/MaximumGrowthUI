@@ -1,4 +1,4 @@
-import { Component, ComponentRef, inject, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, effect, inject, OnInit, signal, ViewChild, ViewContainerRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   openBrokerPage =false
   showFiller = false;
   itemClicked='none'
@@ -27,9 +27,19 @@ export class NavigationComponent {
       map(result => result.matches),
       shareReplay()
     );
-
+    readonly numberOfBrokerLoggedIn = signal(0);
     constructor(public signalService : SignalService,private route : Router){
 
+      
+     
+    }
+
+
+    ngOnInit(){
+      this.signalService.getLoginChanges().subscribe((data)=>{
+        console.log('subscribed')
+        this.menuItemClicked('none','dashboard')
+      })
     }
 
 
@@ -73,5 +83,7 @@ export class NavigationComponent {
       localStorage.clear();
       this.route.navigateByUrl('/')
     }
+
+    
   
 }

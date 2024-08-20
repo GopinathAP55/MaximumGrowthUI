@@ -1,37 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { NotificationService } from 'src/app/services/notification-service';
+import { SignalService } from 'src/app/services/signal.service';
 
 @Component({
   selector: 'app-broker-login',
   templateUrl: './broker-login.component.html',
   styleUrls: ['./broker-login.component.css']
 })
-export class BrokerLoginComponent implements OnInit {
 
-  constructor(private apiService : ApiServiceService,private notificationService : NotificationService){
+
+export class BrokerLoginComponent implements OnInit {
+  @Output() onLoginSuccess =new EventEmitter<any>()
+
+  constructor(private apiService : ApiServiceService,
+    private notificationService : NotificationService,
+    public signalService : SignalService,
+    private route : Router
+    ){
 
   }
 
-  brokerArray :[]
+  brokerArray =[]
   isLoading = false;
   ngOnInit(): void {
-    this.isLoading = true
-    this.apiService.getBroker('').subscribe({
-      next:res =>{
-        console.log(res)
-        this.brokerArray = res
-        this.notificationService.showNotification(res.message || 'Loaded Successfully','success');
-        this.isLoading = false
-      },
-      error:err=>{
-        this.isLoading = true
-        this.notificationService.showNotification(err.message || 'Failed to load','error');
-        this.isLoading = false
-      }
-    }
-     
-    )
+    
+    this.brokerArray = this.signalService.brokerList()
+  
+   
     
   }
 
@@ -40,15 +37,26 @@ export class BrokerLoginComponent implements OnInit {
 
     switch(data.name){
       case 'AC Agarwal':
-        this.apiService.brokerLogin({
-          'name':'AC Agarwal',
-          'marketAPIKey':"e42bb5ed272bb9cf7c6326",
-          'marketAPISecret':"Tiuy575@Rz"
-        }
-        ).subscribe({
+      if(sessionStorage.getItem(data.name)){
+        this.notificationService.showNotification( `${data.name} already loggedIn`,'warning');
+        this.isLoading = false
+        break;
+      }
+      let payload = { 
+        "secretKey": data.APISecret,
+        "appKey": data.APIKey,
+        "source": "WebAPI"
+      }
+
+     
+        this.apiService.brokerLoginAcagarwal(payload).subscribe({
           next:res=>{
             this.notificationService.showNotification(res.message || `${data.name} Login success`,'success');
+            sessionStorage.setItem('AC Agarwal',res.result.token)
+            this.signalService.numberOfBrokerLoggedIn.set(this.signalService.numberOfBrokerLoggedIn()+1)
             this.isLoading = false
+            this.signalService.routeToTableAfterLogin.next('')
+
           },
           error:err=>{
             this.notificationService.showNotification(err.message || `${data.name} Login error`,'error');
@@ -85,6 +93,12 @@ export class BrokerLoginComponent implements OnInit {
     // })
   }
 
-
+  isAlreadyLoggedIn(broker){
+    if(sessionStorage.getItem(broker['name'])){
+      return broker['name']
+    }else{
+      return ''
+    }
+  }
 
 }

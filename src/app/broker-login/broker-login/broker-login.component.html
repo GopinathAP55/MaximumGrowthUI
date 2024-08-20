@@ -2,10 +2,10 @@
 <div style="margin-left: 1%;">
     <div *ngFor="let brokerName of brokerArray">
         <span >
-            <strong>{{ brokerName['name']}}</strong>
+            <strong>{{ brokerName['name'] }}</strong>
         </span>
         <div style="margin-top:10px">
-            <button  mat-raised-button color="primary" (click)=login(brokerName)>Login</button>
+            <button  [ngStyle]= "isAlreadyLoggedIn(brokerName) != '' ? { 'background-color': 'green' }:{}   "  mat-raised-button color="primary" (click)=login(brokerName)>Login</button>
         </div>
         <br>
     </div>

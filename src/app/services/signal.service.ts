@@ -1,10 +1,12 @@
 import { Injectable, signal } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalService {
+
+  public routeToTableAfterLogin = new Subject<''>()
 
   public isLogin = signal(false)
 
@@ -12,6 +14,17 @@ export class SignalService {
 
   public itemClicked = signal('none')
 
+  public numberOfBrokerLoggedIn = signal(0)
 
-  constructor() { }
+  public brokerList = signal([])
+
+
+  constructor() {
+
+   
+   }
+
+  getLoginChanges() {
+    return this.routeToTableAfterLogin.asObservable();
+  }
 }

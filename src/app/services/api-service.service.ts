@@ -70,6 +70,11 @@ export class ApiServiceService {
     return this.http.post<any>(`${this.apiUrl}/brokerLogin`,data)
   }
 
+  brokerLoginAcagarwal(data){
+    console.log(data)
+    return this.http.post<any>(`https://symphony.acagarwal.com:3000/interactive/user/session`,data)
+  }
+
  
 
  

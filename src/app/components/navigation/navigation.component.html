@@ -9,7 +9,7 @@
       <a mat-list-item  (click)="menuItemClicked('one','dashboard');drawer.toggle()">Create Algo</a>
       <a mat-list-item   (click)="menuItemClicked('none','dashboard');drawer.toggle()">Table</a>
       <a mat-list-item (click)="menuItemClicked('two','dashboard');drawer.toggle()">Broker Setup</a>
-      <a mat-list-item (click)="menuItemClicked('three','dashboard');drawer.toggle()">Broker Login</a>
+      <a mat-list-item (click)="menuItemClicked('three','dashboard');drawer.toggle()">Broker Login <span *ngIf='signalService.numberOfBrokerLoggedIn()!=0'>({{ signalService.numberOfBrokerLoggedIn()}})</span></a>
 
       <a mat-list-item   (click)='logOut();drawer.toggle()'>Logout</a>
     </mat-nav-list>
@@ -19,7 +19,7 @@
     <a mat-list-item  (click)="menuItemClicked('one','dashboard')">Create Algo</a>
     <a mat-list-item   (click)="menuItemClicked('none','dashboard')">Table</a>
     <a mat-list-item (click)="menuItemClicked('two','dashboard')">Broker Setup</a>
-    <a mat-list-item  (click)="menuItemClicked('three','dashboard');">Broker Login</a>
+    <a mat-list-item  (click)="menuItemClicked('three','dashboard');">Broker Login <span *ngIf='signalService.numberOfBrokerLoggedIn()!=0'>({{ signalService.numberOfBrokerLoggedIn()}})</span></a>
 
     <a mat-list-item   (click)='logOut()'>Logout
       </a>
@@ -52,7 +52,7 @@
         <app-create-algo [selectedAlgo]="selectedAlgoData" [edit]="edit" (onSubmitForm)="menuItemClicked('none','dashboard')" *ngIf="itemClicked=='one'"></app-create-algo>
         <app-table (algoDataClicked)="loadAlgo($event)" *ngIf="itemClicked=='none'" ></app-table>
         <router-outlet *ngIf="itemClicked=='two'" name="broker-setup"></router-outlet>
-        <router-outlet *ngIf="itemClicked=='three'" name="broker-login"></router-outlet>
+        <router-outlet  (onLoginSuccess)="menuItemClicked('none','dashboard')" *ngIf="itemClicked=='three'" name="broker-login"></router-outlet>
 
       </div>
     

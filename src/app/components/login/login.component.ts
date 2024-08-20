@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
           console.log(res)
           this.notificationService.showNotification('Login Successful.','success');
           localStorage.setItem('jwtToken', res.token);
-         
+          this.loadBroker()
           this.router.navigateByUrl('/dashboard')
         },
         error:error=>{
@@ -100,6 +100,39 @@ export class LoginComponent implements OnInit {
   close(){
     this.closeLogin.emit(false)
   }
+
+  loadBroker(){
+    this.apiService.getBroker('').subscribe({
+      next:res =>{
+        console.log(res)
+        this.findLoggedInBroker(res)
+        this.signalService.brokerList.set(res)
+        this.notificationService.showNotification(res.message || 'Loaded Successfully','success');
+        this.isLoading = false
+      },
+      error:err=>{
+        this.isLoading = true
+        this.notificationService.showNotification(err.message || 'Failed to load','error');
+        this.isLoading = false
+      }
+    })
+  }
+
+
+  findLoggedInBroker(data){
+    console.log(data)
+    if(data){
+      let index = 0
+      data.forEach((broker)=>{
+        if(sessionStorage.getItem(broker.name)){
+          index++
+        }
+      })
+
+      this.signalService.numberOfBrokerLoggedIn.set(index)
+    }
+  }
+  
 }
 
 
