@@ -1,7 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service'
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificationService } from 'src/app/services/notification-service';
+import { SignalService } from 'src/app/services/signal.service';
+import { ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 
 
 @Component({
@@ -11,7 +15,7 @@ import { NotificationService } from 'src/app/services/notification-service';
 })
 
 
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit,AfterViewInit  {
 
   //   data =[{
   //     'enable':true,
@@ -26,21 +30,29 @@ export class TableComponent implements OnInit {
   //   },
   // ];
   data;
-  daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-  selectedDay = ['Monday']
+  daysArray = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',]
+  selectedDay = 'Monday'
   selection = new SelectionModel<any>(true, []);
-  dataSource
+  dataSource = new MatTableDataSource
   isLoading = false
+  
   @Output() algoDataClicked = new EventEmitter<any>();
-
-  constructor(private apiService: ApiServiceService,private notificationService : NotificationService) { }
+  @ViewChild(MatPaginator) paginator : MatTableDataSourcePaginator;
+  constructor(private apiService: ApiServiceService,
+    private notificationService : NotificationService,
+    public signalService:SignalService
+    ) { }
 
   ngOnInit() {
-    console.log('test')
+    console.log('table')
+    const today = new Date();
+    this.selectedDay = this.daysArray[today.getDay()] || 'Monday'
+    
+
     this.loadData(this.selectedDay)
     
   }
-  displayedColumns: string[] = ['select', 'enable', 'mtm', 'name', 'day', 'actions'];
+  displayedColumns: string[] = ['select','broker', 'enable', 'mtm', 'name', 'day', 'actions'];
   loadData(event) {
     if (event.value || event ) {
       this.isLoading = true
@@ -50,7 +62,10 @@ export class TableComponent implements OnInit {
           this.isLoading = true
           this.data = res
           console.log(res)
-          this.dataSource = this.data;
+          this.dataSource = new MatTableDataSource(this.data) 
+          this.paginator.length = this.dataSource.data.length
+          this.dataSource.paginator = this.paginator;
+
           this.isLoading = false
           this.notificationService.showNotification('Data Loaded','success');
 
@@ -73,7 +88,7 @@ export class TableComponent implements OnInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.length;
+    const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -81,7 +96,7 @@ export class TableComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.forEach(row => this.selection.select(row));
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   editItem(item): void {
@@ -126,4 +141,20 @@ export class TableComponent implements OnInit {
    
   }
 
+  brokerChange(event,row){
+    console.log(event.value)
+  
+
+    row['selectedBroker']= event.value
+    console.log(row)
+  }
+
+  selectedRow(row){
+    console.log(row)
+  }
+
+
+  ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+  }
 }
