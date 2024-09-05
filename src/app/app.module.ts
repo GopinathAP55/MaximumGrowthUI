@@ -27,6 +27,7 @@ import { NotificationService } from './services/notification-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 import { AngularMaterialModule} from './angular-material/angular-material.module'
+import { MarketDataSocketService } from './services/market-data/market-data-socket.service';
 @NgModule({
   declarations: [
          AppComponent,
@@ -47,7 +48,7 @@ import { AngularMaterialModule} from './angular-material/angular-material.module
     AngularMaterialModule
     
   ],
-   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ,NotificationService],
+   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ,NotificationService,MarketDataSocketService],
    bootstrap: [AppComponent]
 })
 export class AppModule { }

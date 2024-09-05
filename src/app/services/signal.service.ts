@@ -19,6 +19,23 @@ export class SignalService {
   public brokerList = signal([])
 
 
+  public niftyData = signal(0)
+
+  public niftyOpen = signal(0)
+
+  public bankNiftyData = signal(0)
+
+  public bankNiftyOpen = signal(0)
+
+  public niftyItData = signal(0)
+
+  public niftyItOpen = signal(0)
+
+  public midcapNiftyData = signal(0)
+
+  public midcapNiftyOpen = signal(0)
+
+
   constructor() {
 
    

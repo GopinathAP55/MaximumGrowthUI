@@ -37,18 +37,84 @@
         >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Maximum Growth</span>
+      <span>Maximum Growth </span>
+
+      <div  *ngIf='!(isHandset$ | async) ' class="container">
+        <div class="row">
+          <div class="col-2" style="font-size: initial;">
+            
+                    <div>NIFTY</div>
+                    <div [ngStyle]="this.signalService.niftyData() > this.signalService.niftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.niftyData() }}</div>
+
+                    </div>
+                    <div class="col-2" style="font-size: initial;">
+                      
+                      <div>BANK NIFTY</div>
+                      <div [ngStyle]="this.signalService.bankNiftyData() > this.signalService.bankNiftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.bankNiftyData() }}</div>
+
+            </div>
+            <div class="col-2" style="font-size: initial;">
+                      
+              <div>NIFTY IT</div>
+              <div [ngStyle]="this.signalService.niftyItData() > this.signalService.niftyItOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.niftyItData() }}</div>
+
+          </div>
+          <div class="col-2" style="font-size: initial;">
+                      
+            <div>MIDCAP NIFTY</div>
+            <div [ngStyle]="this.signalService.midcapNiftyData() > this.signalService.midcapNiftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.midcapNiftyData() }}</div>
+
+          </div>
+        </div>
+       
+      </div>
+
       <span class="spacer"></span>
-     
+
+      <div style="float: right;">
         <a mat-list-item href="#"   (click)='logOut();drawer.toggle()'><button  mat-icon-button>
           <mat-icon>logout</mat-icon>
         </button>
         </a>
+
+      </div>
+     
      
     </mat-toolbar>
     <mat-drawer-container class="example-container" autosize>
       
-      <div class="example-sidenav-content">
+      <div  class="example-sidenav-content">
+
+        <div *ngIf='isHandset$ | async' class="container" style="overflow-x: scroll">
+          <div class="row">
+            <div class="col-4" style="font-size: initial;" >
+              
+                      <div>NIFTY</div>
+                      <div [ngStyle]="this.signalService.niftyData() > this.signalService.niftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.niftyData() }}</div>
+  
+            </div>
+            
+            <div class="col-4" style="font-size: initial;" >
+              
+              <div>BANK NIFTY</div>
+              <div [ngStyle]="this.signalService.bankNiftyData() > this.signalService.bankNiftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.bankNiftyData() }}</div>
+
+          </div>
+          <div class="col-4" style="font-size: initial;" >
+              
+            <div>NIFTY IT</div>
+            <div [ngStyle]="this.signalService.niftyItData() > this.signalService.niftyItOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.niftyItData() }}</div>
+
+  </div>
+  <div class="col-4" style="font-size: initial;" >
+              
+    <div>MIDCAP NIFTY</div>
+    <div [ngStyle]="this.signalService.midcapNiftyData() > this.signalService.midcapNiftyOpen() ? {'color': '#04e404' } : {'color': '#ff2626'} ">  {{ this.signalService.midcapNiftyData() }}</div>
+
+</div>
+          </div>
+         
+        </div>
         <app-create-algo [selectedAlgo]="selectedAlgoData" [edit]="edit" (onSubmitForm)="menuItemClicked('none','dashboard')" *ngIf="itemClicked=='one'"></app-create-algo>
         <app-table (algoDataClicked)="loadAlgo($event)" *ngIf="itemClicked=='none'" ></app-table>
         <router-outlet *ngIf="itemClicked=='two'" name="broker-setup"></router-outlet>

@@ -1,17 +1,18 @@
-import { Component, ComponentRef, effect, inject, OnInit, signal, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, effect, inject, OnDestroy, OnInit, signal, ViewChild, ViewContainerRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LegComponent } from '../leg/leg.component';
 import { SignalService } from 'src/app/services/signal.service';
 import { Router } from '@angular/router';
+import { MarketDataSocketService } from 'src/app/services/market-data/market-data-socket.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit,OnDestroy {
   openBrokerPage =false
   showFiller = false;
   itemClicked='none'
@@ -28,12 +29,12 @@ export class NavigationComponent implements OnInit {
       shareReplay()
     );
     readonly numberOfBrokerLoggedIn = signal(0);
-    constructor(public signalService : SignalService,private route : Router){
+    constructor(public signalService : SignalService,private route : Router,private webSocketService : MarketDataSocketService){
 
       
      
     }
-
+ 
 
     ngOnInit(){
       this.signalService.getLoginChanges().subscribe((data)=>{
@@ -82,8 +83,12 @@ export class NavigationComponent implements OnInit {
       localStorage.removeItem('jwtToken')
       localStorage.clear();
       this.route.navigateByUrl('/')
+      this.webSocketService.disconnect('ws://localhost:8080')
     }
 
-    
+    ngOnDestroy(): void {
+      this.webSocketService.disconnect('ws://localhost:8080')
+    }
+  
   
 }
