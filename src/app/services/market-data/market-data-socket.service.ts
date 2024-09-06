@@ -28,6 +28,8 @@ export class MarketDataSocketService {
         this.socket.onerror = (error) => {
             console.error('WebSocket error:', error);
         };
+
+        this.socket.onclose = () => console.log('WebSocket connection closed');
     }
 
     getDataStream(): Observable<any> {
@@ -37,16 +39,9 @@ export class MarketDataSocketService {
 
     disconnect(url: string): void {
         console.log('disconnect')
-        this.socket = new WebSocket(url);
-
-        this.socket.onclose = (event) => {
-            console.log(event)
-           
-        };
-
-        this.socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
+        if (this.socket) {
+            this.socket.close();
+          }
     }
 
 }

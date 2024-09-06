@@ -17,18 +17,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 
 export class TableComponent implements OnInit,AfterViewInit  {
 
-  //   data =[{
-  //     'enable':true,
-  //     'mtm':100,
-  //     'algoName':'test'
-  //   },
-
-  //   {
-  //     'enable':false,
-  //     'mtm':100,
-  //     'algoName':'test1'
-  //   },
-  // ];
+ 
   data;
   daysArray = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',]
   selectedDay = 'Monday'
@@ -146,7 +135,27 @@ export class TableComponent implements OnInit,AfterViewInit  {
   
 
     row['selectedBroker']= event.value
-    console.log(row)
+    console.log(row['_id'])
+
+    let data = {
+      'broker':event.value,
+      'algoId': row['_id'],
+      'name':row.name
+    }
+
+    this.isLoading = true
+    this.apiService.editAlgo(data).subscribe({
+
+      next : res=>{
+        this.notificationService.showNotification(res.message ||'Algo edited successfully','success') 
+        this.isLoading = false
+      },
+      error: err=>{
+        this.notificationService.showNotification(err.message || 'Error in algo editing','error')
+        this.isLoading = false
+      }
+    }
+    )
   }
 
   selectedRow(row){

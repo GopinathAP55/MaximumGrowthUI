@@ -43,15 +43,15 @@
       </ng-container>
       <ng-container matColumnDef="broker">
         <th mat-header-cell *matHeaderCellDef>Select Broker</th>
-        <td style="width:23%" mat-cell *matCellDef="let row">
+        <td style="width:23%" mat-cell *matCellDef="let row;let element">
 
 
         
             <mat-form-field appearance="outline" style="padding-top:15px">
              
-              <mat-select (selectionChange)="brokerChange($event,row)" >
+              <mat-select (selectionChange)="brokerChange($event,row)" [ngModel]='element.broker' >
                 <mat-option *ngFor="let option of signalService.brokerList()" [value]="option.name">
-                  {{option.name}}
+                 {{option.name}} 
                 </mat-option>
               </mat-select>
             </mat-form-field>

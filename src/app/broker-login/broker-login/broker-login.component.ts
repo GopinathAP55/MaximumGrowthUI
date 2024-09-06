@@ -45,12 +45,15 @@ export class BrokerLoginComponent implements OnInit {
       let payload = { 
         "secretKey": data.APISecret,
         "appKey": data.APIKey,
-        "source": "WebAPI"
+        "source": "WebAPI",
+        "name": data.name
+        
       }
 
      
-        this.apiService.brokerLoginAcagarwal(payload).subscribe({
+        this.apiService.brokerLogin(payload).subscribe({
           next:res=>{
+            console.log(res)
             this.notificationService.showNotification(res.message || `${data.name} Login success`,'success');
             sessionStorage.setItem('AC Agarwal',res.result.token)
             this.signalService.numberOfBrokerLoggedIn.set(this.signalService.numberOfBrokerLoggedIn()+1)
