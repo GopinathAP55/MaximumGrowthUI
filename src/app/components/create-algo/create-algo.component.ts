@@ -135,13 +135,13 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
    console.log( this.createAlgo.value)
     this.showLeg = false
     const componentRef =  this.legComponent.createComponent(LegComponent);
-    componentRef.instance.legValue =  this.createAlgo.value
+  
+
+    this.setLegValues(componentRef, this.createAlgo.value)
+    
     if(val){
-      componentRef.instance.finalLegValue = val
+      this.setLegValues(componentRef, val)
 
-    }else{
-
-      componentRef.instance.finalLegValue =  {}
     }
    
     this.dynamicComponentRefs.push(componentRef)
@@ -157,14 +157,14 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
      })
 
      componentRef.instance.buySellValue.subscribe((val)=>{
-      componentRef.instance.legValue[val.buttonName] = val.labelValue 
+      componentRef.instance[val.buttonName] = val.labelValue 
      // this.getValuesFromInstance()
      })
      componentRef.instance.cloneLeg.subscribe(()=>{
       const index = this.dynamicComponentRefs.indexOf(componentRef);
       if (index !== -1) {
         const componentRefClone =  this.legComponent.createComponent(LegComponent);
-        componentRefClone.instance.legValue =  componentRef.instance.legValue
+        this.setLegValues( componentRefClone.instance,  componentRef.instance)
         this.dynamicComponentRefs.push(componentRefClone)
       }
       this.clone()
@@ -175,10 +175,20 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
   getValuesFromInstance(){
     this.createAlgo.value.legsArray=[]
     this.dynamicComponentRefs.forEach((dynamicComponentRef, index) => {
+      let legsObject = {}
+
       const dynamicComponentInstance = dynamicComponentRef.instance;
-      const value = dynamicComponentInstance.finalLegValue;
-      this.createAlgo.value.legsArray.push(value)
-      console.log(`Value from Dynamic Component ${index + 1}:`, value);
+      for (const property in dynamicComponentInstance) {
+        if(dynamicComponentInstance[property] instanceof String || typeof dynamicComponentInstance[property] === 'string' ){
+
+          legsObject[property] = dynamicComponentInstance[property]
+        }
+      }
+      if(legsObject){
+
+        this.createAlgo.value.legsArray.push(legsObject)
+      }
+      console.log(`Value from Dynamic Component ${index + 1}:`, legsObject);
     });
   }
 
@@ -370,5 +380,16 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
 
       
     });
+  }
+
+
+  setLegValues(componentRef,val){
+    let {quantity,selectedInstrument,buySell,optionValue,selectedStrike,isMIS='MIS'} =  val
+    componentRef.instance.quantity = quantity
+    componentRef.instance.selectedInstrument = selectedInstrument
+    componentRef.instance.buySell = buySell
+    componentRef.instance.optionValue=optionValue
+    componentRef.instance.selectedStrike=selectedStrike
+    componentRef.instance.isMIS=isMIS
   }
 }

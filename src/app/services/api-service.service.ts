@@ -9,8 +9,8 @@ export class ApiServiceService {
  
 
    // Replace with your API endpoint URL
-  private apiUrl = 'http://34.196.25.237:3000/api/mg'
-  private apiUrl2 = 'http://34.196.25.237:3000/api'
+  private apiUrl = 'http://localhost:3000/api/mg'
+  private apiUrl2 = 'http://localhost:3000/api'
   constructor(private http: HttpClient) {}
 
 
@@ -73,6 +73,12 @@ export class ApiServiceService {
   brokerLoginAcagarwal(data){
     console.log(data)
     return this.http.post<any>(`https://symphony.acagarwal.com:3000/interactive/user/session`,data)
+  }
+
+
+  placeOrderOnAcAgarwal(data){
+    console.log(data)
+    return this.http.post<any>(`https://symphony.acagarwal.com:3000/interactive/orders`,data)
   }
 
  

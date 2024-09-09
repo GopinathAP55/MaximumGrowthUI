@@ -19,6 +19,7 @@ export class LegComponent implements OnInit {
   @Output() deleteLeg: EventEmitter<any> = new EventEmitter<any>();
   @Output() buySellValue: EventEmitter<any> = new EventEmitter<any>();
   legsArray = ['Legs', 'Premium Close', 'Premium > than', 'Premium < than', 'ATM%', 'Straddle Width', 'Straddle Premium']
+  legs
   strikeArray = ['ATM', 'OTM']
   instrumentArray = ['Banknifty', 'Finnifty', 'Sensex', 'Nifty', 'Midcpnifty']
   isPremiumDialogOpen =false
@@ -61,54 +62,18 @@ export class LegComponent implements OnInit {
   stoploss:number;
   valueY :number;
   valueX :number
-
+  selectedInstrument: any;
+  buySell: any;
+  optionValue: any;
+  premium
+  selectedStrike
+  isMIS
+  selectedLeg
   constructor( public dialog : MatDialog ,private formBuilder: FormBuilder){
 
   }
 
   ngOnInit() {
-
-    
-
-   
-   if(Object.entries(this.finalLegValue).length === 0){
-    console.log()
-    this.finalLegValue = {...this.legValue}
-    console.log(this.finalLegValue)
-     let {quantity,selectedInstrument,buySell,optionValue,isMIS,selectedStrike,premium} = this.legValue
-     this.finalLegValue.quantity = quantity
-     this.finalLegValue.selectedInstrument = selectedInstrument
-     this.finalLegValue.buySell = buySell
-     this.finalLegValue.optionValue=optionValue
-     this.finalLegValue.isMIS=isMIS
-     this.finalLegValue.selectedStrike=selectedStrike
-     this.finalLegValue.premium=premium
-   }
-
-   if(this.finalLegValue.selectedTarget){
-    this.selectedTarget = this.finalLegValue.selectedTarget
-   }
-
-   if(this.finalLegValue.selectedStopLoss){
-    this.selectedStoploss = this.finalLegValue.selectedStopLoss
-   }
-
-   if(this.finalLegValue.selectedTrail){
-    this.selectedTrail = this.finalLegValue.trailing
-   }
-
-   if( this.finalLegValue.selectedSquareOff){
-    this.selectedSquareOff= this.finalLegValue.selectedSquareOff
-   }
-
-    console.log(this.finalLegValue)
-
-   
-    this.quantity = this.legValue.quantity
-
-    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.finalLegValue.selectedInstrument)
-    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
-
 
   }
 
@@ -116,8 +81,8 @@ export class LegComponent implements OnInit {
   toggle(value, value1, value2): void {
     this.isOn = !this.isOn;
     let label = this.isOn ? value1 : value2;
-    console.log(this.legValue)
-    this.finalLegValue[value] = label
+   
+    this[value] = label
 
     this.buySellValue.emit({
       labelValue: label,
@@ -133,39 +98,39 @@ export class LegComponent implements OnInit {
 
   calculateQuantityBasedOnLots(event){
     console.log('focusout')
-    this.finalLegValue.quantity = event.srcElement.value
-    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.finalLegValue.quantity
+    this.quantity = event.srcElement.value
+    this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
   }
 
   onChangeInstrument(event){
-    this.finalLegValue.selectedInstrument = event.value
-    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.finalLegValue.selectedInstrument)
+    this.selectedInstrument = event.value
+    this.selectedInstrumentArray=   this.instrumentValueArray.filter((val)=>val.instrument==this.selectedInstrument)
     this.calculatedQuantity = this.selectedInstrumentArray[0].lotQuantity * this.quantity
 
   }
 
 
   onChangeLeg(event){
-    this.finalLegValue.selectedLeg = event.value
+    this.selectedLeg = event.value
     const dialogRef = this.dialog.open(LegsSettingDialogComponent, {
       width: '400px',
       data: { 'label' : event.value}
     });
 
-    if(this.legValue.selectedLeg == 'Legs'){
+    if(this.selectedLeg == 'Legs'){
       this.isPremiumDialogOpen =false
 
     }
 
     
     dialogRef.componentInstance.dialogValueEmitter.subscribe((emittedValue: string) => {
-      this.finalLegValue.premium = parseInt(emittedValue)
-      if(this.finalLegValue.premium){
+      this.premium = parseInt(emittedValue)
+      if(this.premium){
         this.isPremiumDialogOpen =true
       }
 
-      this.finalLegValue.selectedStrike = parseInt(emittedValue)
+      this.selectedStrike = parseInt(emittedValue)
       console.log('Received value from dialog:', emittedValue);
       // Do something with the received value
     });
@@ -180,9 +145,9 @@ export class LegComponent implements OnInit {
     let stoplossValue = event.value
     if(stoplossValue =='none'){
       this.stoploss=0
-      this.finalLegValue.stoploss=0
+     
     }
-      this.finalLegValue.selectedStopLoss =stoplossValue
+     
       this.selectedStoploss = stoplossValue
     
 
@@ -192,9 +157,9 @@ export class LegComponent implements OnInit {
     let targetValue = event.value
     if(targetValue =='none'){
       this.target=0
-      this.finalLegValue.target =0
+     
     }
-      this.finalLegValue.selectedTarget = targetValue
+    
       this.selectedTarget = targetValue
 
     
@@ -207,7 +172,7 @@ export class LegComponent implements OnInit {
       this.valueY=0
 
     }
-      this.finalLegValue.selectedTrail = trailingValue  
+     
       this.selectedTrail = trailingValue
     
   }
@@ -215,8 +180,8 @@ export class LegComponent implements OnInit {
   manipulateData(event,label){
     console.log(event)
     console.log(label)
-    this.finalLegValue[label]= parseInt(event.srcElement.value)
-    console.log(this.legValue)
+    this[label]= parseInt(event.srcElement.value)
+  
   }
 
   clone(){
@@ -225,7 +190,7 @@ export class LegComponent implements OnInit {
   }
   onChangeSquareOff(event){
     this.selectedSquareOff = event.value
-    this.finalLegValue.selectedSquareOff = this.selectedSquareOff
+   
   }
 
 }
