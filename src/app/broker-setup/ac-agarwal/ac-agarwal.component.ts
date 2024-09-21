@@ -68,10 +68,10 @@ export class AcAgarwalComponent {
 
   }
 
-  deleteBroker(){
+  deleteBroker(id){
     console.log('tdelete')
     this.isLoading = true
-    this.apiService.deleteBroker('AC Agarwal').subscribe({
+    this.apiService.deleteBroker(id).subscribe({
       next:res=>{
         console.log(res)
         this.traderForm.reset()

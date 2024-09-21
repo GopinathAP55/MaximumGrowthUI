@@ -63,7 +63,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
           this.isLoading = true
 
           console.log(error);
-          this.notificationService.showNotification(error || 'Loading failed','error');
+          this.notificationService.showNotification(error.error.message || 'Loading failed','error');
           this.isLoading = false
         }
       }
@@ -71,7 +71,26 @@ export class TableComponent implements OnInit,AfterViewInit  {
     }
   }
   toggleStatus(device): void {
-    device.status = !device.status;
+
+    const data  = {
+     
+      'algoId': device._id,
+      'enable': !device.enable
+    }
+    this.isLoading = true
+    this.apiService.editAlgo(data).subscribe({
+
+      next : res=>{
+        this.notificationService.showNotification(res.message ||'Algo edited successfully','success') 
+        this.isLoading = false
+      },
+      error: err=>{
+        this.notificationService.showNotification(err.message || 'Error in algo editing','error')
+        this.isLoading = false
+      }
+    }
+    )
+  //  device.status = !device.status;
     // You can add logic here to handle the change in status (e.g., API call to update the status)
   }
 
@@ -99,7 +118,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
     // Implement your delete logic here
     console.log('Delete item:', item);
     this.isLoading = true
-    this.apiService.deleteAlgo(item.name).subscribe({
+    this.apiService.deleteAlgo(item._id).subscribe({
       next : res=>{
         this.isLoading = true
         console.log(res)

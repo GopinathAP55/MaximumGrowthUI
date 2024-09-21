@@ -226,7 +226,7 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
         day:this.createAlgo.value.day
       }
       if(this.selectedAlgo){
-        data['objectId']=this.selectedAlgo._id
+        data['algoId']=this.selectedAlgo._id
         this.isLoading = true
         this.apiService.editAlgo((data)).subscribe({
           next:res=>{

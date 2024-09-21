@@ -69,10 +69,10 @@ export class FinvasiaComponent {
 
   }
 
-  deleteBroker(){
+  deleteBroker(id){
     console.log('tdelete')
     this.isLoading = true
-    this.apiService.deleteBroker('Finvasia').subscribe({
+    this.apiService.deleteBroker(id).subscribe({
       next:res=>{
         console.log(res)
         this.traderForm.reset()

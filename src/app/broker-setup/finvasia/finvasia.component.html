@@ -59,7 +59,7 @@
             </div>
             <div *ngIf="traderForm.get('_id').value" style="margin-left: 10px;">
                 <button type="button" mat-raised-button style="background-color: red;"
-                    (click)="deleteBroker()">Delete</button>
+                    (click)="deleteBroker(traderForm.get('_id').value)">Delete</button>
             </div>
         </div>
 
