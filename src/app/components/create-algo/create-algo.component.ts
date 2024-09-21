@@ -312,15 +312,15 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       spot :['Spot'],
 
       //start time end time variables
-      startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      endHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      endMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      endSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      nextDayHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2)]],
-      nextDayMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
-      nextDaySec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2)]],
+      startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
+      startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      endHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
+      endMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      endSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      nextDayHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
+      nextDayMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      nextDaySec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
       
       daysBeforeExpiry:['0',[Validators.required, Validators.min(0), Validators.max(5),Validators.maxLength(1)]],
 
@@ -361,19 +361,19 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       exitOrderType:['Market(M)'],
       exitBufferIn:[],
       exitBufferValue:[0],
-      exitPlacementDelaySL:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
-      exitPlacementDelayLeg:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      exitPlacementDelaySL:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2),Validators.minLength(2)]],
+      exitPlacementDelayLeg:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2),Validators.minLength(2)]],
 
 
       entryOrderDelay:['no delay'],
-      entryDelayValue:[3,[Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+      entryDelayValue:[3,[Validators.min(3), Validators.max(60),Validators.maxLength(2),Validators.minLength(2)]],
 
-      exitDelayValue:[3,[ Validators.min(3), Validators.max(60),Validators.maxLength(2)]],
+      exitDelayValue:[3,[ Validators.min(3), Validators.max(60),Validators.maxLength(2),Validators.minLength(2)]],
 
       exitOrderDelay:['no delay'],
       calcEntry:['Average entry price'],
       calcExit:['Average exit price'],
-      trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2)]],
+      trailingFrequencyInterval:[0,[ Validators.min(0), Validators.max(60),Validators.maxLength(2),Validators.minLength(2)]],
       isExit:[false],
       legsArray:[],
       isPosition:[false]
