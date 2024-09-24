@@ -10,7 +10,7 @@ console.log('route')
 const routes: Routes = [ 
  
   { path:'login',component :HomeComponent  },
-  { path: 'dashboard', component: NavigationComponent ,canActivate: [AuthGuard] ,children:[
+  { path: 'dashboard', component: NavigationComponent  ,children:[
     {path:'', outlet:'broker-login', 
      loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule),
      

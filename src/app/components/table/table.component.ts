@@ -63,7 +63,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
           this.isLoading = true
 
           console.log(error);
-          this.notificationService.showNotification(error.error.message || 'Loading failed','error');
+          this.notificationService.showNotification(error.message || 'Loading failed','error');
           this.isLoading = false
         }
       }
@@ -82,15 +82,16 @@ export class TableComponent implements OnInit,AfterViewInit  {
 
       next : res=>{
         this.notificationService.showNotification(res.message ||'Algo edited successfully','success') 
+        this.loadData(this.selectedDay)
         this.isLoading = false
       },
-      error: err=>{
-        this.notificationService.showNotification(err.message || 'Error in algo editing','error')
+      error: error=>{
+        this.notificationService.showNotification(error.error || 'Error in algo editing','error')
         this.isLoading = false
       }
     }
     )
-  //  device.status = !device.status;
+  //  
     // You can add logic here to handle the change in status (e.g., API call to update the status)
   }
 
@@ -129,7 +130,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
       error : err=>{
         this.isLoading = true
         console.log(err)
-        this.notificationService.showNotification(err || 'Delete Error','error');
+        this.notificationService.showNotification(err.error || 'Delete Error','error');
         this.isLoading = false
       }
     })

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm = this.formBuilder.group({
 
       password: ['', Validators.required],
-      otp: [''],
+     
       phoneNumber: [Validators.required, Validators.maxLength(10)]
     })
   }
