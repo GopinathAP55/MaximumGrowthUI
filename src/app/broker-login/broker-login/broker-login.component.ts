@@ -56,7 +56,7 @@ export class BrokerLoginComponent implements OnInit {
           next:res=>{
             console.log(res)
             this.notificationService.showNotification(res.message || `${data.name} Login success`,'success');
-            sessionStorage.setItem('AC Agarwal',res.result.token)
+            sessionStorage.setItem('AC Agarwal',res.response.result.token)
             this.signalService.numberOfBrokerLoggedIn.set(this.signalService.numberOfBrokerLoggedIn()+1)
             this.isLoading = false
             this.signalService.routeToTableAfterLogin.next('')
