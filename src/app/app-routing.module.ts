@@ -12,11 +12,11 @@ const routes: Routes = [
   { path:'login',component :HomeComponent  },
   { path: 'dashboard', component: NavigationComponent  ,children:[
     {path:'', outlet:'broker-login', 
-     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule), canActivateChild: [AuthGuard]
+     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule), 
      
     },
     {path:'', outlet:'broker-setup', 
-    loadChildren: () => import('./broker-setup/broker-setup.module').then(m => m.BrokerSetupModule), canActivateChild: [AuthGuard]
+    loadChildren: () => import('./broker-setup/broker-setup.module').then(m => m.BrokerSetupModule),
     
    },
 
