@@ -12,15 +12,15 @@ const routes: Routes = [
   { path:'login',component :HomeComponent  },
   { path: 'dashboard', component: NavigationComponent  ,children:[
     {path:'', outlet:'broker-login', 
-     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule),
+     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule), canActivateChild: [AuthGuard]
      
     },
     {path:'', outlet:'broker-setup', 
-    loadChildren: () => import('./broker-setup/broker-setup.module').then(m => m.BrokerSetupModule),
+    loadChildren: () => import('./broker-setup/broker-setup.module').then(m => m.BrokerSetupModule), canActivateChild: [AuthGuard]
     
    },
 
-  ]}, //
+  ],  canDeactivate: [AuthGuard] }, //
   { path:'',component:HomeComponent}
 
 
