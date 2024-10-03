@@ -12,7 +12,7 @@ const routes: Routes = [
   { path:'login',component :HomeComponent  },
   { path: 'dashboard', component: NavigationComponent  ,children:[
     {path:'', outlet:'broker-login', 
-     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule),
+     loadChildren: () => import('./broker-login/broker-login.module').then(m => m.BrokerLoginModule), 
      
     },
     {path:'', outlet:'broker-setup', 
@@ -20,7 +20,7 @@ const routes: Routes = [
     
    },
 
-  ]}, //
+  ],  canDeactivate: [AuthGuard] }, //
   { path:'',component:HomeComponent}
 
 
