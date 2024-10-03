@@ -30,7 +30,7 @@ export class ApiServiceService {
   deleteAlgo(data): Observable<any> {
     console.log('delete')
     console.log(data)
-    return this.http.delete<any>(`${this.apiUrl}/deleteAlgo?name=${data}`);
+    return this.http.delete<any>(`${this.apiUrl}/deleteAlgo?id=${data}`);
   }
 
 
@@ -45,7 +45,7 @@ export class ApiServiceService {
 
   deleteBroker(data): Observable<any> {
     console.log('deltebroker')
-    return this.http.delete<any>(`${this.apiUrl}/deleteBroker?name=${data}`);
+    return this.http.delete<any>(`${this.apiUrl}/deleteBroker?id=${data}`);
   }
 
   generateOTP(data) : Observable<any>{
