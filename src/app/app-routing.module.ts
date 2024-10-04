@@ -20,7 +20,7 @@ const routes: Routes = [
     
    },
 
-  ],  canDeactivate: [AuthGuard] }, //
+  ],  canActivate: [AuthGuard] }, //
   { path:'',component:HomeComponent}
 
 
