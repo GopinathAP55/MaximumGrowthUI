@@ -28,6 +28,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 
 import { AngularMaterialModule} from './angular-material/angular-material.module'
 import { MarketDataSocketService } from './services/market-data/market-data-socket.service';
+import { ToastrModule} from 'ngx-toastr'
 @NgModule({
   declarations: [
          AppComponent,
@@ -39,13 +40,17 @@ import { MarketDataSocketService } from './services/market-data/market-data-sock
          LegsSettingDialogComponent,
          BrokerLoginComponent,
          HomeComponent,
-         NavigationComponent,
+         NavigationComponent   
          ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      timeOut: 3000,
+    })
     
   ],
    providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },AuthGuard ,NotificationService,MarketDataSocketService],

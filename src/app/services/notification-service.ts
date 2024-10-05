@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private toaster : ToastrService) {}
 
-  showNotification(message: string, panelClass:string, action: string = 'Close', duration: number = 3000) {
-    this.snackBar.open(message, action, {
-      duration,
-      verticalPosition: 'top',
-      panelClass: [panelClass]
-    });
-  }
+  showNotification(message: string, panelClass:string, action: string = 'Close', duration: number = 30000) {
+
+
+    switch(panelClass){
+      case 'success':
+        this.toaster.success(message, '');
+        break;
+      case 'error':
+        this.toaster.error(message, '');
+        break;
+      case 'warning':
+        this.toaster.warning(message, '');
+        break;
+
+    }
+  }  
 }

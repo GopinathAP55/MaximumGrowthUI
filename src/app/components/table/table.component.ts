@@ -56,7 +56,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
           this.dataSource.paginator = this.paginator;
 
           this.isLoading = false
-          this.notificationService.showNotification('Data Loaded','success');
+          this.notificationService.showNotification(res.message || 'Data Loaded', res.message ? 'error' : 'success');
 
         },
         error: (error: any) => {
