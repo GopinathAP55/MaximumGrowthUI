@@ -27,7 +27,7 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
   trailingStoplossArray=['none','Trailing Stoploss','Lock Profit','Trail Profit','Lock & Trail Profit']
   dynamicComponentRefs: ComponentRef<LegComponent>[] = [];
   checkboxArray = ['isNoMatchingOfPremium','isPremiumRange','isPremiumCloseTo','isMatchPremium']
-  entryOrderTypeArray=['Market(M)','Limit(L)/Stoploss limit(SL-L)']
+  entryOrderTypeArray=['Market','Limit']
   pointsOrPercentageArray=['Points','Percentage']
   delayArray=['no delay','Delay entry of buy position','Delay entry of buy position']
   entryArray=['Average entry price','LTP']
