@@ -6,7 +6,8 @@ import { FinvasiaComponent} from './finvasia/finvasia.component'
 import { FlatTradeComponent } from './flat-trade/flat-trade.component'
 import { ZerodhaComponent } from './zerodha/zerodha.component'
 import { BrokerRoutingModule } from './broker-routing.module'
-import { AngularMaterialModule } from '../angular-material/angular-material.module'
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { IiflComponent } from './iifl/iifl.component'
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
     AcAgarwalComponent,
     ZerodhaComponent,
     FlatTradeComponent,
-    FinvasiaComponent
+    FinvasiaComponent,
+    IiflComponent
   ],
   imports: [
     CommonModule,

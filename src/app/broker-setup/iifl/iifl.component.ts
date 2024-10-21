@@ -4,11 +4,11 @@ import { ApiServiceService } from 'src/app/services/api-service.service';
 import { NotificationService } from 'src/app/services/notification-service';
 
 @Component({
-  selector: 'app-ac-agarwal',
-  templateUrl: './ac-agarwal.component.html',
-  styleUrls: ['./ac-agarwal.component.css']
+  selector: 'app-iifl',
+  templateUrl: './iifl.component.html',
+  styleUrls: ['./iifl.component.css']
 })
-export class AcAgarwalComponent {
+export class IiflComponent {
   traderForm:FormGroup;
   isLoading = false
   hide = true;
@@ -24,12 +24,12 @@ export class AcAgarwalComponent {
       APIKey:['',Validators.required],
       APISecret:['',Validators.required],
       _id:[''],
-      name:['AC Agarwal'],
+      name:['IIFL'],
       marketAPIKey:['',Validators.required],
       marketAPISecret:['',Validators.required]
     })
     this.isLoading = true
-    this.apiService.getBroker('AC Agarwal').subscribe({
+    this.apiService.getBroker('IIFL').subscribe({
       next:res=>{
         this.isLoading = false
         this.traderForm.patchValue(res[0])
@@ -48,12 +48,13 @@ export class AcAgarwalComponent {
   }
 
   onSubmit(){
-    let data= this.traderForm.value
-    this.isLoading =true
 
+    
+    let data= this.traderForm.value
     if(data['_id']==''){
       delete data['_id']
     }
+    this.isLoading =true
     this.apiService.addBroker((data)).subscribe({
       next: res => {
        console.log(res)
@@ -62,7 +63,7 @@ export class AcAgarwalComponent {
       },
       error:err=>{
        console.log(err)
-       this.notificationService.showNotification(err || 'Creation failed','error');
+       this.notificationService.showNotification(err.message || 'Creation failed','error');
        this.isLoading =false
 
       }

@@ -1,11 +1,13 @@
 <div style="margin-left: 1%;"  *ngIf="showBroker">
-    <button style=" margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Flat Trade')">Flat Trade</button> 
+    <!-- <button style=" margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Flat Trade')">Flat Trade</button> 
     <br> 
     <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Zerodha')">Zerodha</button>
-    <br>
+    <br> -->
     <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('AC Agarwal')">AC Agarwal</button>
     <br>
-    <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Finvasia')">Finvasia</button>
+    <!-- <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('Finvasia')">Finvasia</button>
+    <br> -->
+    <button style="margin-top: 2%;" mat-raised-button color="primary" (click)="openTrade('IIFL')">IIFL</button>
 
   
    
@@ -20,3 +22,4 @@
   <app-zerodha *ngIf="selectedTrader=='Zerodha' && !showBroker"></app-zerodha>
   <app-ac-agarwal *ngIf="selectedTrader=='AC Agarwal' && !showBroker"></app-ac-agarwal>
   <app-finvasia *ngIf="selectedTrader=='Finvasia' && !showBroker"></app-finvasia>
+  <app-iifl *ngIf="selectedTrader=='IIFL' && !showBroker"></app-iifl>
