@@ -36,7 +36,7 @@ export class ApiServiceService {
 
   addBroker(data): Observable<any> {
     console.log('addbroker')
-    return this.http.post<any>(`${this.apiUrl}/addBroker`,data);
+    return this.http.post<any>(`${this.apiUrl}/brokerOperations`,data);
   }
 
   getBroker(data): Observable<any> {
