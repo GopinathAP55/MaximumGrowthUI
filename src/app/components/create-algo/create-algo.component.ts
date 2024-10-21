@@ -179,7 +179,7 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
 
       const dynamicComponentInstance = dynamicComponentRef.instance;
       for (const property in dynamicComponentInstance) {
-        if(dynamicComponentInstance[property] instanceof String || typeof dynamicComponentInstance[property] === 'string' ){
+        if(dynamicComponentInstance[property] instanceof String || typeof dynamicComponentInstance[property] === 'string' || typeof dynamicComponentInstance[property] === 'number' ){
 
           legsObject[property] = dynamicComponentInstance[property]
         }
@@ -384,12 +384,10 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
 
 
   setLegValues(componentRef,val){
-    let {quantity,selectedInstrument,buySell,optionValue,selectedStrike,isMIS='MIS'} =  val
-    componentRef.instance.quantity = quantity
-    componentRef.instance.selectedInstrument = selectedInstrument
-    componentRef.instance.buySell = buySell
-    componentRef.instance.optionValue=optionValue
-    componentRef.instance.selectedStrike=selectedStrike
-    componentRef.instance.isMIS=isMIS
+      for(const key in val){
+        componentRef.instance[key] = val[key]
+      }
+    }   
   }
-}
+
+

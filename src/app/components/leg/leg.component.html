@@ -91,7 +91,7 @@
 
         <div>
           <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >
-          <input type="number" (keyup)="manipulateData($event,'target')"  [disabled]="selectedTarget=='none' || selectedTarget=='none'"  matInput min="0"  [(ngModel)]="target || target">
+          <input type="number" (keyup)="manipulateData($event,'trailingTarget')"  [disabled]="selectedTarget=='none' || selectedTarget=='none'"  matInput min="0"  [(ngModel)]="trailingTarget || trailingTarget">
         </mat-form-field>
 
         <mat-form-field style="margin-left: 10px;width: 120px;" appearance="outline" >

@@ -58,7 +58,7 @@ export class LegComponent implements OnInit {
 
   isOn: boolean = false;
 
-  target :number;
+  trailingTarget :number;
   stoploss:number;
   valueY :number;
   valueX :number
@@ -156,7 +156,7 @@ export class LegComponent implements OnInit {
   onChangeTarget(event){
     let targetValue = event.value
     if(targetValue =='none'){
-      this.target=0
+      this.trailingTarget=0
      
     }
     
