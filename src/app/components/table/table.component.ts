@@ -6,6 +6,7 @@ import { SignalService } from 'src/app/services/signal.service';
 import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
+import { MarketDataSocketService } from 'src/app/services/market-data/market-data-socket.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class TableComponent implements OnInit,AfterViewInit  {
   @ViewChild(MatPaginator) paginator : MatTableDataSourcePaginator;
   constructor(private apiService: ApiServiceService,
     private notificationService : NotificationService,
-    public signalService:SignalService
+    public signalService:SignalService,
+    private webSocketService: MarketDataSocketService
     ) { }
 
   ngOnInit() {
@@ -37,11 +39,13 @@ export class TableComponent implements OnInit,AfterViewInit  {
     const today = new Date();
     this.selectedDay = this.daysArray[today.getDay()] || 'Monday'
     
-
+    this.webSocketService.getRefreshSubject().subscribe((data)=>{
+      this.refresh()
+    })
     this.loadData(this.selectedDay)
     
   }
-  displayedColumns: string[] = ['select','broker', 'enable', 'mtm', 'name', 'day', 'actions'];
+  displayedColumns: string[] = ['select','broker', 'enable', 'status','mtm', 'name', 'day', 'actions'];
   loadData(event) {
     if (event.value || event ) {
       this.isLoading = true

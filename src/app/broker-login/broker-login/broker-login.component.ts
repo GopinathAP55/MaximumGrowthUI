@@ -35,19 +35,20 @@ export class BrokerLoginComponent implements OnInit {
   login(data){
     this.isLoading = true
 
-    switch(data.name){
-      case 'AC Agarwal':
+   
+      
       if(sessionStorage.getItem(data.name)){
         this.notificationService.showNotification( `${data.name} already loggedIn`,'warning');
         this.isLoading = false
-        break;
       }
       let payload = { 
         "secretKey": data.APISecret,
         "appKey": data.APIKey,
         "source": "WebAPI",
         "name": data.name,
-        "clientId":data.clientId
+        "clientId":data.clientId,
+        "marketSecret":data.marketAPISecret,
+        "marketKey":data.marketAPIKey
         
       }
 
@@ -56,7 +57,7 @@ export class BrokerLoginComponent implements OnInit {
           next:res=>{
             console.log(res)
             this.notificationService.showNotification(res.message || `${data.name} Login success`,'success');
-            sessionStorage.setItem('AC Agarwal',res.response.result.token)
+            sessionStorage.setItem('AC Agarwal',res.response.token)
             this.signalService.numberOfBrokerLoggedIn.set(this.signalService.numberOfBrokerLoggedIn()+1)
             this.isLoading = false
             this.signalService.routeToTableAfterLogin.next('')
@@ -67,7 +68,7 @@ export class BrokerLoginComponent implements OnInit {
             this.isLoading = false
           }
         })
-    }
+    
 
     // const apiKey = data.APIKey; // Replace with your API Key if needed
     // const redirectUri = 'http://maximumgrowth.in'; // Replace with your Redirect URI
