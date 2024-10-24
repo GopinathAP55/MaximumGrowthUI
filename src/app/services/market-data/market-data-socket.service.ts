@@ -30,10 +30,15 @@ export class MarketDataSocketService {
             }
 
             if (message.event === 'refresh') {
+                console.log('ref frim socket')
                 this.refreshSubject.next('refresh')
             }
+
+            if(message.event =='marketDepth'){
+
+                this.dataSubject.next(message.data);
+            }
            
-            this.dataSubject.next(message);
         };
 
         this.socket.onerror = (error) => {
