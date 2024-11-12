@@ -20,7 +20,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
 
  
   data;
-  daysArray = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',]
+  daysArray = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday']
   selectedDay = 'Monday'
   selection = new SelectionModel<any>(true, []);
   dataSource = new MatTableDataSource

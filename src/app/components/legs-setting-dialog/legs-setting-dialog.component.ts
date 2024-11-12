@@ -12,7 +12,7 @@ export class LegsSettingDialogComponent implements OnInit{
   inputValue;
   submitValue
 
-  daysArray = ['Monday','Tuesday','Wednesday','Thursday','Friday']
+  daysArray = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
   @Output() dialogValueEmitter = new EventEmitter<any>()
 
   constructor(
