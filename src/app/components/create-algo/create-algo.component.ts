@@ -315,9 +315,9 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
       startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
       startSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
-      endHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
-      endMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
-      endSec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      endHour:['15',[Validators.required, this.endTimeValidator.bind(this),Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
+      endMin:['15',[Validators.required,this.endTimeValidator.bind(this), Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
+      endSec:['00',[Validators.required,this.endTimeValidator.bind(this), Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
       nextDayHour:['15',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
       nextDayMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
       nextDaySec:['00',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
@@ -387,7 +387,30 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       for(const key in val){
         componentRef.instance[key] = val[key]
       }
-    }   
+    }
+    backToTable(){
+      this.onSubmitForm.emit()
+    }
+
+    endTimeValidator(control: FormControl) {
+      const startHour = +this.createAlgo?.get('startHour')?.value || 0;
+      const startMinute = +this.createAlgo?.get('startMin')?.value || 0;
+      const startSecond = +this.createAlgo?.get('startSec')?.value || 0;
+  
+      const endHour = +this.createAlgo?.get('endHour')?.value || 0;
+      const endMinute = +this.createAlgo?.get('endMin')?.value || 0;
+      const endSecond = +control.value || 0;
+  
+      // Calculate total seconds for comparison
+      const startTotalSeconds = startHour * 3600 + startMinute * 60 + startSecond;
+      const endTotalSeconds = endHour * 3600 + endMinute * 60 + endSecond;
+  
+      if (endTotalSeconds < startTotalSeconds) {
+        return { invalidEndTime: true };
+      }
+      return null;
+    }
+  
   }
 
 

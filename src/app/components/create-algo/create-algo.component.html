@@ -2,9 +2,15 @@
 
   <mat-progress-spinner  mode="indeterminate"></mat-progress-spinner>
 </div>
+
+<div style="float: left;" >
+  <mat-icon  (click)="backToTable()">keyboard_backspace</mat-icon>
+   
+  </div>
 <h2 *ngIf="!edit" style="margin-left: 1%;">Create New Algo</h2>
 <h2 *ngIf="edit" style="margin-left: 1%;">Edit Algo</h2>
 <button  style="margin-right:5%;float: right;" type="button" mat-raised-button color="primary" (click)="reset()">Reset</button>
+<button  style="float: right;margin-right: 1%;" type="button" mat-raised-button color="primary" (click)="backToTable()">Back</button>
 
 <form [formGroup]="createAlgo" (ngSubmit)="onSubmit()" class="example-form">
 
@@ -509,6 +515,7 @@
     <div >
       <button *ngIf="!edit" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Save Settings</button>
       <button *ngIf="edit" style="margin-top: 10px;" type="submit" mat-raised-button color="primary" >Edit Settings</button>
+      <button  style="margin-top: 10px;margin-left: 1%;" type="button" mat-raised-button color="primary" (click)="backToTable()">Cancel</button>
 
     </div>
 

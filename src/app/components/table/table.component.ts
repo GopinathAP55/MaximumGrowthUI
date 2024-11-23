@@ -25,6 +25,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
   selection = new SelectionModel<any>(true, []);
   dataSource = new MatTableDataSource
   isLoading = false
+  mtmObject = {}
   
   @Output() algoDataClicked = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator : MatTableDataSourcePaginator;
@@ -41,6 +42,10 @@ export class TableComponent implements OnInit,AfterViewInit  {
     
     this.webSocketService.getRefreshSubject().subscribe((data)=>{
       this.refresh()
+    })
+    this.webSocketService.getPositionSubject().subscribe((data)=>{
+      this.mtmObject = data
+      console.log(data)
     })
     this.loadData(this.selectedDay)
     
@@ -182,6 +187,16 @@ export class TableComponent implements OnInit,AfterViewInit  {
     )
   }
 
+  positionInfo(item){
+    this.apiService.getPosition(item._id).subscribe({
+      next:res=>{
+        console.log(res)
+      },
+      error:err=>{
+        console.log(err)
+      }
+    })
+  }
   selectedRow(row){
     console.log(row)
   }

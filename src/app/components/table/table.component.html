@@ -71,7 +71,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="mtm">
         <th mat-header-cell *matHeaderCellDef> MTM </th>
-        <td mat-cell *matCellDef="let element"> {{element.mtm}} </td>
+        <td mat-cell *matCellDef="let element"> <span [ngStyle]="{ color:  mtmObject['UnrealizedMTM'] < 0 ? 'red' : 'green' }" *ngIf="element._id == mtmObject['algoId']">{{ mtmObject['UnrealizedMTM'].toFixed(2) }}</span> </td>
       </ng-container>
 
     
@@ -105,6 +105,9 @@
           </button>
           <button mat-icon-button (click)="deleteItem(item)">
             <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="positionInfo(item)">
+            <mat-icon>info</mat-icon>
           </button>
           <!-- Add more buttons or customize actions as needed -->
         </td>

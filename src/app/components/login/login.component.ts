@@ -73,7 +73,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: res => {
           console.log(res)
           this.notificationService.showNotification('Login Successful.', 'success');
-          localStorage.setItem('jwtToken', res.token);
+          localStorage.setItem('jwtToken', res.data.token);
+          for(const key in res.data.loggedInBroker){
+           sessionStorage.setItem(key,res.data.loggedInBroker[key])
+        }
           this.loadBroker()
           this.load()
           this.router.navigateByUrl('/dashboard')
