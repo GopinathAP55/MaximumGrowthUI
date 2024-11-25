@@ -1,0 +1,16 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Dynamic Columns -->
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+      <mat-header-cell [style.width.%]="25" *matHeaderCellDef> {{ column.label }} </mat-header-cell>
+      <mat-cell  style="width:23%" *matCellDef="let element"> {{ element[column.key] }} </mat-cell>
+    </ng-container>
+  
+    <!-- Header and Row -->
+    <mat-header-row *matHeaderRowDef="columnKeys"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnKeys"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of Algo"                 
+                 >
+  </mat-paginator>

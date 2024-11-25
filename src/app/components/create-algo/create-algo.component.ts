@@ -50,6 +50,8 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
   toggleValue: string = 'off';
   checkboxColor ='primary'
   leg=''
+  positionData = []
+  positionColumn =[]
   constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService,private notificationService:NotificationService){
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,7 +70,19 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       this.reset()
       this.selectedAlgo=''
     }
+    this.apiService.getPosition(this.selectedAlgo._id).subscribe({
+      next : res=>{
+        console.log(res)
+        for(const key in res[0]){
+          this.positionColumn.push({'key':key, 'label':key})
+        }
+        this.positionData = res
 
+      },
+      error:err=>{
+        this.notificationService.showNotification(err.message,'error')
+      }
+    })
    
 
     if(this.selectedAlgo){

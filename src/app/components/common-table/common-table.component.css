@@ -1,0 +1,16 @@
+.mat-elevation-z8 {
+    margin: 16px;
+  }
+
+
+  .mat-table {
+    width: 100%;
+    table-layout: auto !important; /* Allows column resizing based on content */
+  }
+  
+  .mat-header-cell, .mat-cell {
+    text-align: left;
+    padding: 8px; /* Optional, adjust for better spacing */
+    word-wrap: break-word; /* Ensure long content wraps instead of overflowing */
+  }
+  

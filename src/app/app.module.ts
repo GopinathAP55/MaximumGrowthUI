@@ -28,7 +28,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 
 import { AngularMaterialModule} from './angular-material/angular-material.module'
 import { MarketDataSocketService } from './services/market-data/market-data-socket.service';
-import { ToastrModule} from 'ngx-toastr'
+import { ToastrModule} from 'ngx-toastr';
+import { CommonTableComponent } from './components/common-table/common-table.component'
 @NgModule({
   declarations: [
          AppComponent,
@@ -40,7 +41,8 @@ import { ToastrModule} from 'ngx-toastr'
          LegsSettingDialogComponent,
          BrokerLoginComponent,
          HomeComponent,
-         NavigationComponent   
+         NavigationComponent,
+         CommonTableComponent   
          ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
 
   <mat-progress-spinner  mode="indeterminate"></mat-progress-spinner>
 </div>
-
+<app-common-table *ngIf="positionColumn.length>0 && positionData.length>0"  [columns]="positionColumn" [dataSource]="positionData"></app-common-table>
 <div style="float: left;" >
   <mat-icon  (click)="backToTable()">keyboard_backspace</mat-icon>
    
