@@ -52,6 +52,7 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
   leg=''
   positionData = []
   positionColumn =[]
+  disable 
   constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService,private notificationService:NotificationService){
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -86,9 +87,16 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
    
 
     if(this.selectedAlgo){
+      this.createAlgo.patchValue(this.selectedAlgo.algo)
+      if(this.selectedAlgo.status =='NOT STARTED'){
+        this.createAlgo.disable()
+        this.disable = true
+      }else{
+        this.createAlgo.enable()
+        this.disable = false
+      }
       console.log(this.legComponent)
       //this.createAlgo = this.selectedAlgo.algo
-      this.createAlgo.patchValue(this.selectedAlgo.algo)
       console.log(this.createAlgo.value.legsArray)
      
   }
@@ -150,7 +158,9 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
     this.showLeg = false
     const componentRef =  this.legComponent.createComponent(LegComponent);
   
-
+    if(this.disable){
+      componentRef.instance.isDisabled = this.disable
+    }
     this.setLegValues(componentRef, this.createAlgo.value)
     
     if(val){

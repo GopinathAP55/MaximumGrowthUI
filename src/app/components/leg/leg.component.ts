@@ -74,6 +74,7 @@ export class LegComponent implements OnInit {
   reExecuteOnStoploss=0
   reEntry=0
   target
+  isDisabled = false
   constructor( public dialog : MatDialog ,private formBuilder: FormBuilder){
 
   }
