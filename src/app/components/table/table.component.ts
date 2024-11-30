@@ -75,7 +75,7 @@ export class TableComponent implements OnInit,AfterViewInit  {
           this.isLoading = true
 
           console.log(error);
-          this.notificationService.showNotification(error.message || 'Loading failed','error');
+          this.notificationService.showNotification(error.error.message || 'Loading failed','error');
           this.isLoading = false
         }
       }

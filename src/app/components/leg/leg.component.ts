@@ -69,6 +69,11 @@ export class LegComponent implements OnInit {
   selectedStrike
   isMIS
   selectedLeg
+  checkboxColor='primary'
+  reExecuteOnTarget=0
+  reExecuteOnStoploss=0
+  reEntry=0
+  target
   constructor( public dialog : MatDialog ,private formBuilder: FormBuilder){
 
   }

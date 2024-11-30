@@ -51,7 +51,7 @@ import { CommonTableComponent } from './components/common-table/common-table.com
     AngularMaterialModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
-      timeOut: 3000,
+      timeOut: 5000,
     })
     
   ],
