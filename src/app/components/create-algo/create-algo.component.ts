@@ -45,13 +45,15 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
   @Input() selectedAlgo;
 
   @Input() edit
+  otmValues = Array.from({ length: (1000 - -1000) / 50 + 1 }, (_, i) => -1000 + i * 50);
 
 
   toggleValue: string = 'off';
   checkboxColor ='primary'
   leg=''
   positionData = []
-  positionColumn =[]
+  positionColumn =[{'key':'TradingSymbol', 'label':'TradingSymbol'},{'key':'NetAmount', 'label':'NetAmount'},
+    {'key':'Quantity', 'label':'Quantity'},{'key':'BuyAmount', 'label':'BuyAmount'},{'key':'SellAmount', 'label':'SellAmount'}]
   disable 
   constructor(private formBuilder: FormBuilder, public dialog : MatDialog , private apiService : ApiServiceService,private notificationService:NotificationService){
   }
@@ -74,9 +76,9 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
     this.apiService.getPosition(this.selectedAlgo._id).subscribe({
       next : res=>{
         console.log(res)
-        for(const key in res[0]){
-          this.positionColumn.push({'key':key, 'label':key})
-        }
+        // for(const key in res[0]){
+        //   this.positionColumn.push({'key':key, 'label':key})
+        // }
         this.positionData = res
 
       },
@@ -335,7 +337,8 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
       intradayOrPosition:['intraday'],
       selectedDuration:['STBT/BTST'],
       spot :['Spot'],
-
+      otmValue:[],
+      
       //start time end time variables
       startHour:['09',[Validators.required, Validators.min(9), Validators.max(15),Validators.maxLength(2),Validators.minLength(2)]],
       startMin:['15',[Validators.required, Validators.min(0), Validators.max(59),Validators.maxLength(2),Validators.minLength(2)]],
