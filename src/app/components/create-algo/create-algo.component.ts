@@ -88,14 +88,14 @@ export class CreateAlgoComponent implements OnInit ,OnChanges {
 
     if(this.selectedAlgo){
       this.createAlgo.patchValue(this.selectedAlgo.algo)
-      if(this.selectedAlgo.status =='NOT STARTED'){
-        this.createAlgo.enable()
-        this.disable = false
+      // if(this.selectedAlgo.status =='NOT STARTED'){
+      //   this.createAlgo.enable()
+      //   this.disable = false
        
-      }else{
-        this.createAlgo.disable()
-        this.disable = true
-      }
+      // }else{
+      //   this.createAlgo.disable()
+      //   this.disable = true
+      // }
       console.log(this.legComponent)
       //this.createAlgo = this.selectedAlgo.algo
       console.log(this.createAlgo.value.legsArray)

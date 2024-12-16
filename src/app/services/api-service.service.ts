@@ -9,8 +9,8 @@ export class ApiServiceService {
  
 
    // Replace with your API endpoint URL
-  private apiUrl = 'http://13.200.241.43:3000/api/mg'
-  private apiUrl2 = 'http://13.200.241.43:3000/api'
+   private apiUrl = 'http://localhost:3000/api/mg'
+   private apiUrl2 = 'http://localhost:3000/api'
   constructor(private http: HttpClient) {}
 
 
@@ -79,9 +79,10 @@ export class ApiServiceService {
   placeOrderOnAcAgarwal(data){
     console.log(data)
     return this.http.post<any>(`https://symphony.acagarwal.com:3000/interactive/orders`,data)
+  } 
+
+  
+  getPosition(algoId): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/position?algoId=${algoId}`);
   }
-
- 
-
- 
 }
